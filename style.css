@@ -12,6 +12,9 @@
     --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     --bubble-self: #FF8E71;
     --bubble-system: #F3F4F6;
+    --font-heading: 'Lora', serif;
+    --font-body: 'Be Vietnam Pro', sans-serif;
+    --font-btn: 'Outfit', sans-serif;
 }
 
 * {
@@ -35,8 +38,15 @@ body {
 h1,
 h2,
 h3 {
-    font-family: 'Lora', serif;
+    font-family: var(--font-heading);
     font-weight: 700;
+}
+
+button,
+input,
+textarea,
+select {
+    font-family: var(--font-btn);
 }
 
 .container {
@@ -101,6 +111,7 @@ h3 {
     border: none;
     padding: 1rem 2.2rem;
     border-radius: 50px;
+    font-family: var(--font-btn);
     font-weight: 800;
     cursor: pointer;
     transition: var(--transition);
@@ -121,6 +132,7 @@ h3 {
     color: #FFFFFF !important;
     padding: 1rem 2.2rem;
     border-radius: 50px;
+    font-family: var(--font-btn);
     font-weight: 700;
     cursor: pointer;
     transition: var(--transition);
@@ -358,6 +370,81 @@ h3 {
     height: 800px;
     display: flex;
     flex-direction: column;
+    transition: var(--transition);
+}
+
+.glass-quiz-card.fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    max-width: none;
+    border-radius: 0;
+    z-index: 2000;
+    padding: 2rem 5rem;
+}
+
+body.no-scroll {
+    overflow: hidden;
+}
+
+/* Header Top with Buttons */
+.quiz-header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.quiz-controls {
+    display: flex;
+    gap: 0.8rem;
+}
+
+.quiz-control-btn {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    padding: 0.6rem 1.4rem;
+    border-radius: 50px;
+    font-family: var(--font-btn);
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+}
+
+.quiz-control-btn:hover {
+    background: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 142, 113, 0.15);
+    border-color: var(--primary-light);
+    color: var(--primary);
+}
+
+.quiz-control-btn.exit {
+    color: #ff5252;
+    background: rgba(255, 255, 255, 0.85);
+    border-color: rgba(255, 82, 82, 0.1);
+}
+
+.quiz-control-btn.exit:hover {
+    background: #ff5252;
+    color: white;
+    border-color: #ff5252;
+    box-shadow: 0 8px 20px rgba(255, 82, 82, 0.2);
+}
+
+.quiz-control-btn i {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2.5px;
 }
 
 /* Rest of CSS... */
@@ -442,14 +529,45 @@ h3 {
     font-weight: 500;
 }
 
+.chat-edit-link {
+    margin-top: 0.5rem;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: underline;
+    cursor: pointer;
+    font-style: italic;
+    transition: var(--transition);
+    display: inline-block;
+}
+
+.chat-edit-link:hover {
+    color: white;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+.msg-note {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    opacity: 0.7;
+    margin-bottom: 0.35rem;
+    font-style: italic;
+    font-weight: 600;
+}
+
+.user-msg .msg-note {
+    color: rgba(255, 255, 255, 0.85);
+    text-align: right;
+}
+
 .quiz-input-area {
-    margin-top: 2rem;
+    margin-top: 1.5rem;
     background: #fff;
     border: 1.5px solid #eee;
     border-radius: 30px;
     padding: 0.75rem;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.03);
     transition: var(--transition);
+    position: relative;
 }
 
 .input-row {
@@ -484,15 +602,27 @@ h3 {
 }
 
 .hint-btn {
-    background: #fff;
+    position: absolute;
+    top: -2.8rem;
+    left: 0.5rem;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
     color: var(--primary);
     border: 1px solid var(--primary-light);
     width: auto;
-    padding: 0 1rem;
-    border-radius: 30px;
-    font-size: 0.9rem;
+    padding: 0.5rem 1.25rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
     font-weight: 700;
     gap: 0.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    z-index: 5;
+}
+
+.hint-btn:hover {
+    transform: translateY(-2px);
+    background: white;
+    box-shadow: 0 6px 15px rgba(255, 142, 113, 0.2);
 }
 
 .send-btn {
@@ -521,9 +651,34 @@ h3 {
     border: 1px solid #eee;
     cursor: pointer;
     transition: var(--transition);
+    font-family: var(--font-btn);
     font-size: 0.95rem;
     display: flex;
     gap: 1rem;
+    align-items: center;
+}
+
+.suggestion-item:hover {
+    background: #fff5f2;
+    border-color: var(--primary-light);
+}
+
+.suggestion-item.selected {
+    background: #fff0eb;
+    border-color: var(--primary);
+    box-shadow: 0 4px 10px rgba(255, 142, 113, 0.1);
+}
+
+.hint-icon {
+    width: 20px;
+    height: 20px;
+    color: var(--text-muted);
+    transition: var(--transition);
+    flex-shrink: 0;
+}
+
+.suggestion-item.selected .hint-icon {
+    color: var(--primary);
 }
 
 .quiz-start-screen {
@@ -614,5 +769,73 @@ footer {
 
     100% {
         transform: scale(1);
+    }
+}
+
+/* Modal Styles */
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    z-index: 3000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+    background: white;
+    width: 90%;
+    max-width: 600px;
+    padding: 3rem;
+    border-radius: 30px;
+    position: relative;
+    text-align: center;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+}
+
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: var(--text-muted);
+}
+
+.modal-chart-container {
+    margin: 2rem 0;
+    height: 350px;
+    display: flex;
+    justify-content: center;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .glass-quiz-card.fullscreen {
+        padding: 1.5rem;
+    }
+
+    .hero-text-centered h1 {
+        font-size: 3.5rem;
+    }
+
+    .path-visual {
+        flex-direction: column;
+        gap: 2rem;
+        align-items: center;
     }
 }

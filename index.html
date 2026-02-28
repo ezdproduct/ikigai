@@ -7,7 +7,7 @@
     <title>Ikigai Garden - Tìm thấy Đam Mê & Nở rộ Sự Nghiệp</title>
     <!-- Fonts: Lora for Headings, Be Vietnam Pro for Body -->
     <link
-        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Lora:wght@500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Lora:wght@500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <!-- Lucide Icons for better UI -->
@@ -90,8 +90,20 @@
             <div class="container">
                 <div class="glass-quiz-card">
                     <div class="quiz-header">
-                        <span class="tag">Bản đồ nội tâm</span>
-                        <h2>Cuộc hội thoại với Bản thân</h2>
+                        <div class="quiz-header-top">
+                            <div>
+                                <span class="tag">Bản đồ nội tâm</span>
+                                <h2>Cuộc hội thoại với Bản thân</h2>
+                            </div>
+                            <div class="quiz-controls">
+                                <button id="analysis-btn" class="quiz-control-btn" title="Xem phân tích hiện tại">
+                                    <i data-lucide="bar-chart-2"></i> <span>Phân tích tạm thời</span>
+                                </button>
+                                <button id="exit-quiz-btn" class="quiz-control-btn exit" title="Thoát ra trang chủ">
+                                    <i data-lucide="log-out"></i> Thoát
+                                </button>
+                            </div>
+                        </div>
                         <div class="quiz-progress-container">
                             <div class="progress-info">Tiến triển: <span id="progress-text">0%</span></div>
                             <div class="quiz-progress-bar">
@@ -187,6 +199,20 @@
                 </div>
             </div>
         </section>
+        <!-- Analysis Modal -->
+        <div id="analysis-modal" class="modal hidden">
+            <div class="modal-content glass-card">
+                <button id="close-modal" class="close-btn">&times;</button>
+                <h3>Phân tích Tiềm năng Hiện tại</h3>
+                <p>Dựa trên những gì bạn đã chia sẻ, đây là bản đồ nội tâm tạm thời của bạn:</p>
+                <div class="modal-chart-container">
+                    <canvas id="currentRadarChart"></canvas>
+                </div>
+                <button class="btn-primary"
+                    onclick="document.getElementById('analysis-modal').classList.add('hidden')">Tiếp tục hội
+                    thoại</button>
+            </div>
+        </div>
     </main>
 
     <footer>

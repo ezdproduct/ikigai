@@ -34,15 +34,31 @@ document.addEventListener('DOMContentLoaded', () => {
             type: 'radar',
             data: data,
             options: {
+                layout: {
+                    padding: {
+                        top: 20,
+                        bottom: 20,
+                        left: 40,
+                        right: 40
+                    }
+                },
                 scales: {
                     r: {
                         angleLines: { display: true },
                         suggestedMin: 0,
                         suggestedMax: 100,
-                        ticks: { display: false }
+                        ticks: { display: false },
+                        pointLabels: {
+                            font: {
+                                size: 11,
+                                family: "'Be Vietnam Pro', sans-serif"
+                            },
+                            padding: 10
+                        }
                     }
                 },
-                plugins: { legend: { display: false } }
+                plugins: { legend: { display: false } },
+                maintainAspectRatio: false
             }
         });
     }
@@ -53,25 +69,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const questions = [
         // PART 1: Bookstore
         {
-            text: "Chào bạn, hãy bước vào một hiệu sách có đầy đủ mọi kiến thức trên thế giới. Khu vực nào đầu tiên lôi cuốn bạn như một thỏi nam châm?",
+            text: "Hãy tưởng tượng bạn bước vào một hiệu sách có đầy đủ mọi kiến thức trên thế giới. Khu vực nào đầu tiên lôi cuốn bạn như một thỏi nam châm?",
             hints: [
-                { label: 'A', text: "Khu vực Kỹ thuật, Lập trình & Cơ chế vận hành", weight: [15, 0, 0, 0, 0, 0, 0] },
-                { label: 'B', text: "Khu vực Tâm lý học, Xã hội & Kết nối con người", weight: [0, 15, 0, 0, 0, 0, 0] },
-                { label: 'C', text: "Khu vực Nghệ thuật, Thiết kế & Sáng tạo độc bản", weight: [0, 0, 15, 0, 0, 0, 0] },
-                { label: 'D', text: "Khu vực Lịch sử, Chiến lược & Di sản vĩ nhân", weight: [0, 0, 0, 15, 0, 0, 0] },
-                { label: 'E', text: "Khu vực Kinh tế, Quản trị & Tối ưu hóa nguồn lực", weight: [0, 0, 0, 0, 15, 0, 0] },
-                { label: 'F', text: "Khu vực Khoa học tự nhiên, Vũ trụ & Khám phá", weight: [0, 0, 0, 0, 0, 15, 0] },
-                { label: 'G', text: "Khu vực Sức khỏe, Tinh thần & Phát triển bản thân", weight: [0, 0, 0, 0, 0, 0, 15] }
+                { label: 'A', text: "Khu vực Kỹ thuật, Lập trình & Cơ chế vận hành", weight: [15, 0, 0, 0, 0, 0, 0], feedback: "Có vẻ bạn là người trân trọng sự chính xác và những quy luật vận hành của thế giới. Sự thấu hiểu về cấu trúc sẽ là nền tảng vững chắc cho bạn." },
+                { label: 'B', text: "Khu vực Tâm lý học, Xã hội & Kết nối con người", weight: [0, 15, 0, 0, 0, 0, 0], feedback: "Lòng trắc ẩn và sự thấu cảm là một món quà. Khi bạn hiểu được nội tâm người khác, bạn cũng đang dần tìm thấy chính mình." },
+                { label: 'C', text: "Khu vực Nghệ thuật, Thiết kế & Sáng tạo độc bản", weight: [0, 0, 15, 0, 0, 0, 0], feedback: "Tâm hồn bạn dường như luôn tìm kiếm những rung cảm mới mẻ. Sự sáng tạo chính là cách bạn hít thở và cảm nhận cuộc sống." },
+                { label: 'D', text: "Khu vực Lịch sử, Chiến lược & Di sản vĩ nhân", weight: [0, 0, 0, 15, 0, 0, 0], feedback: "Việc nhìn lại quá khứ giúp chúng ta có cái nhìn điềm tĩnh hơn về tương lai. Tôi cảm nhận được sự sâu sắc trong tư duy của bạn." },
+                { label: 'E', text: "Khu vực Kinh tế, Quản trị & Tối ưu hóa nguồn lực", weight: [0, 0, 0, 0, 15, 0, 0], feedback: "Sự quyết đoán và khả năng điều phối là những tố chất rất thực tế. Bạn có khả năng đưa mọi thứ vào đúng quỹ đạo của nó." },
+                { label: 'F', text: "Khu vực Khoa học tự nhiên, Vũ trụ & Khám phá", weight: [0, 0, 0, 0, 0, 15, 0], feedback: "Sự tò mò đưa chúng ta đến những chân trời rộng lớn hơn. Trí tuệ của bạn dường như không bao giờ ngừng khao khát những lời giải đáp." },
+                { label: 'G', text: "Khu vực Sức khỏe, Tinh thần & Phát triển bản thân", weight: [0, 0, 0, 0, 0, 0, 15], feedback: "Quay về bên trong để chăm sóc chính mình là khởi đầu của mọi sự trưởng thành. Một lựa chọn rất bình yên và tự tại." }
             ]
         },
         {
-            text: "Một cuốn sách bất kỳ bị rơi xuống chân bạn. Điều gì ở bìa sách khiến bạn quyết định 'phải đọc' nó ngay?",
+            text: "Giả sử có một cuốn sách bất kỳ bị rơi xuống chân bạn. Điều gì ở bìa sách khiến bạn quyết định 'phải đọc' nó ngay?",
             hints: [
-                { label: 'A', text: "Một sơ đồ phức tạp hứa hẹn giải quyết vấn đề logic.", weight: [10, 0, 0, 0, 0, 0, 0] },
-                { label: 'B', text: "Một câu chuyện về cách thấu hiểu hành vi con người.", weight: [0, 10, 0, 0, 0, 0, 0] },
-                { label: 'C', text: "Một ý tưởng thẩm mỹ táo bạo, phá vỡ quy tắc thiết kế.", weight: [0, 0, 10, 0, 0, 0, 0] },
-                { label: 'D', text: "Một bài học từ nhân vật có quyền lực thay đổi thế giới.", weight: [0, 0, 0, 10, 0, 0, 0] },
-                { label: 'E', text: "Cách thức quản trị hiệu quả giúp doanh nghiệp tăng trưởng.", weight: [0, 0, 0, 0, 10, 0, 0] }
+                { label: 'A', text: "Một sơ đồ phức tạp hứa hẹn giải quyết vấn đề logic.", weight: [10, 0, 0, 0, 0, 0, 0], feedback: "Sự rõ ràng trong tư duy giúp bạn cảm thấy an tâm hơn trước những hỗn độn, đúng không?" },
+                { label: 'B', text: "Một câu chuyện về cách thấu hiểu hành vi con người.", weight: [0, 10, 0, 0, 0, 0, 0], feedback: "Con người luôn là những ẩn số thú vị, và sự quan sát tĩnh lặng giúp bạn nhìn sâu hơn vào bản chất của họ." },
+                { label: 'C', text: "Một ý tưởng thẩm mỹ táo bạo, phá vỡ quy tắc thiết kế.", weight: [0, 0, 10, 0, 0, 0, 0], feedback: "Sự khác biệt thường bắt đầu từ những linh cảm mạnh mẽ. Đừng ngại tin vào trực giác của mình." },
+                { label: 'D', text: "Một bài học từ nhân vật có quyền lực thay đổi thế giới.", weight: [0, 0, 0, 10, 0, 0, 0], feedback: "Mỗi cá nhân đều có sức mạnh nội tại đủ lớn để tạo ra những thay đổi âm thầm nhưng bền bỉ." },
+                { label: 'E', text: "Cách thức quản trị hiệu quả giúp doanh nghiệp tăng trưởng.", weight: [0, 0, 0, 0, 10, 0, 0], feedback: "Việc tối ưu hóa mọi nguồn lực cho thấy bạn là người rất biết trân trọng giá trị của thời gian và công sức." }
             ]
         },
         // PART 1: Social Media
@@ -87,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         // PART 2: Depth
         {
-            text: "Hãy nghĩ về một công việc bạn cực kỳ ghét làm. Cảm giác 'ngu người' hay 'mất thời gian' nhất ở đó là gì?",
+            text: "Bây giờ, hãy thử nghĩ về một công việc bạn cực kỳ ghét làm. Cảm giác 'ngu người' hay 'mất thời gian' nhất ở đó là gì?",
             hints: [
                 { label: 'Hỏi', text: "Tôi ghét những việc lặp đi lặp lại vô nghĩa.", weight: [0, 0, 0, 0, 0, 0, 5] },
                 { label: 'Hỏi', text: "Tôi ghét phải giao tiếp gượng ép với quá nhiều người.", weight: [5, 0, 0, 0, 0, 0, 0] },
@@ -105,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         // PART 4: Priority
         {
-            text: "Trong 5 điều sau: Tiền bạc, Danh tiếng, Tự do, Sức khỏe, Tình yêu. Bạn sẵn sàng hy sinh điều nào để giữ lấy 4 điều còn lại?",
+            text: "Nếu được chọn trong 5 điều sau: Tiền bạc, Danh tiếng, Tự do, Sức khỏe, Tình yêu. Bạn sẵn sàng hy sinh điều nào để giữ lấy 4 điều còn lại?",
             hints: [
                 { label: 'A', text: "Tôi sẵn sàng hy sinh Danh tiếng để đổi lấy Tự do.", weight: [0, 5, 0, 10, 0, 0, 0] },
                 { label: 'B', text: "Tôi sẵn sàng hy sinh Tiền bạc để đổi lấy Tình yêu.", weight: [0, 10, 0, 0, 0, 0, 5] },
@@ -131,19 +147,107 @@ document.addEventListener('DOMContentLoaded', () => {
     const hintBtn = document.getElementById('show-hints-btn');
     const startScreen = document.getElementById('quiz-start-screen');
 
+    const quizCard = document.querySelector('.glass-quiz-card');
+    const exitBtn = document.getElementById('exit-quiz-btn');
+    const analysisBtn = document.getElementById('analysis-btn');
+    const analysisModal = document.getElementById('analysis-modal');
+    const closeModal = document.getElementById('close-modal');
+
+    // Current Analysis Chart
+    const currentCtx = document.getElementById('currentRadarChart').getContext('2d');
+    let currentAnalysisChart;
+
+    function initCurrentChart() {
+        currentAnalysisChart = new Chart(currentCtx, {
+            type: 'radar',
+            data: {
+                labels: categories,
+                datasets: [{
+                    label: 'Tiềm năng hiện tại',
+                    data: scores,
+                    backgroundColor: 'rgba(118, 225, 218, 0.2)',
+                    borderColor: 'rgb(118, 225, 218)',
+                    pointBackgroundColor: 'rgb(118, 225, 218)'
+                }]
+            },
+            options: {
+                layout: {
+                    padding: {
+                        top: 10,
+                        bottom: 10,
+                        left: 30,
+                        right: 30
+                    }
+                },
+                scales: {
+                    r: {
+                        suggestedMin: 0,
+                        suggestedMax: 100,
+                        ticks: { display: false },
+                        pointLabels: {
+                            font: {
+                                size: 10
+                            },
+                            padding: 8
+                        }
+                    }
+                },
+                plugins: { legend: { display: false } },
+                maintainAspectRatio: false
+            }
+        });
+    }
+
     window.initChat = function () {
+        quizCard.classList.add('fullscreen');
+        document.body.classList.add('no-scroll');
         startScreen.classList.add('hidden');
         inputArea.classList.remove('hidden');
         chatWindow.innerHTML = '';
-        appendMessage('system', 'Bạn: Tôi muốn tìm thấy đam mê của mình');
-        setTimeout(() => appendMessage('system', 'YC: Thật mờ mịt, nhưng tôi tin chúng ta sẽ tìm ra mảnh ghép của bạn.'), 800);
-        setTimeout(() => nextQuestion(), 1600);
+        appendMessage('user', 'Tôi muốn tìm thấy đam mê của mình');
+        setTimeout(() => appendMessage('system', 'Hmm tôi cảm giác bạn đang khá mơ hồ về con đường phía trước.'), 800);
+        setTimeout(() => appendMessage('system', 'Nhưng không sao, chúng ta sẽ cùng nhau tìm ra con đường dành cho bản thân mình mà thoi! Bạn có thể thoải mái chia sẻ qua những gợi mở của tôi nhé!'), 2300);
+        setTimeout(() => nextQuestion(), 4000);
     };
 
-    function appendMessage(sender, text) {
+    function exitChat() {
+        if (confirm('Bạn có chắc muốn thoát? Kết quả hiện tại sẽ bị hủy.')) {
+            quizCard.classList.remove('fullscreen');
+            document.body.classList.remove('no-scroll');
+            // Reset state
+            currentIdx = 0;
+            scores = [0, 0, 0, 0, 0, 0, 0];
+            updateChart();
+            startScreen.classList.remove('hidden');
+            inputArea.classList.add('hidden');
+            window.location.hash = '#';
+        }
+    }
+
+    let appliedWeights = []; // Keep track of weights applied at each question index
+    let lastAppliedWeight = null;
+    let reansweringIdx = null; // Track if we are re-answering an old question
+    let selectedHints = []; // NEW: Track multiple selected hints voor each question
+
+    function appendMessage(sender, text, qIdx = -1, note = "") {
         const msgDiv = document.createElement('div');
         msgDiv.className = `chat-msg ${sender === 'user' ? 'user-msg' : 'system-msg'}`;
-        msgDiv.innerHTML = `<p>${text}</p>`;
+        if (qIdx !== -1) msgDiv.setAttribute('data-q-idx', qIdx);
+        if (sender === 'user') msgDiv.setAttribute('data-is-user-ans', 'true');
+
+        let html = "";
+        if (note) {
+            html += `<div class="msg-note">${note}</div>`;
+        }
+
+        html += `<p>${text}</p>`;
+
+        // Add "Thay đổi câu trả lời" link for user answers
+        if (sender === 'user' && qIdx !== -1) {
+            html += `<div class="chat-edit-link" onclick="window.changeAnswer(${qIdx})">Thay đổi câu trả lời</div>`;
+        }
+
+        msgDiv.innerHTML = html;
         chatWindow.appendChild(msgDiv);
         chatWindow.scrollTop = chatWindow.scrollHeight;
     }
@@ -155,42 +259,193 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const q = questions[currentIdx];
+        const qIdxAtCalling = currentIdx; // Capture current index
         setTimeout(() => {
-            appendMessage('system', q.text);
+            appendMessage('system', q.text, qIdxAtCalling);
             updateProgress();
+            selectedHints = []; // Clear current selections
 
             suggestionGrid.innerHTML = '';
-            q.hints.forEach(hint => {
+            q.hints.forEach((hint, idx) => {
                 const item = document.createElement('div');
                 item.className = 'suggestion-item';
-                item.innerHTML = `<span>${hint.label}</span> ${hint.text}`;
-                item.onclick = () => selectHint(hint);
+                item.innerHTML = `<i data-lucide="circle" class="hint-icon"></i> ${hint.text}`;
+                item.onclick = (e) => selectHint(hint, item);
                 suggestionGrid.appendChild(item);
             });
-            if (currentIdx === 0) suggestionBox.classList.remove('hidden');
+            if (typeof lucide !== 'undefined') lucide.createIcons();
         }, 600);
     }
 
-    function selectHint(hint) {
-        userInput.value = hint.text;
-        if (hint.weight) {
-            hint.weight.forEach((w, i) => scores[i] += w);
-            updateChart();
+    let lastAnswerFeedback = "";
+
+    function selectHint(hint, element) {
+        const index = selectedHints.findIndex(h => h.text === hint.text);
+        const icon = element.querySelector('.hint-icon');
+
+        if (index > -1) {
+            selectedHints.splice(index, 1);
+            element.classList.remove('selected');
+            if (icon) {
+                icon.setAttribute('data-lucide', 'circle');
+            }
+        } else {
+            selectedHints.push(hint);
+            element.classList.add('selected');
+            if (icon) {
+                icon.setAttribute('data-lucide', 'check-circle-2');
+            }
         }
-        submitAnswer();
+
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+
+        // Update input field based on selections
+        if (selectedHints.length > 0) {
+            userInput.value = selectedHints.map(h => h.text).join(' - '); // Changed to ' - ' for better parsing in appendMessage
+        } else {
+            userInput.value = '';
+        }
+    }
+
+    const defaultResponses = [
+        "Tôi đang lắng nghe, hãy cứ tiếp tục chia sẻ nhé.",
+        "Tôi cảm nhận được sự chân thành trong câu trả lời của bạn.",
+        "Cảm ơn bạn, những điều này giúp chân dung của bạn rõ nét hơn.",
+        "Một góc nhìn rất đáng để suy ngẫm."
+    ];
+
+    function getFreeTextFeedback(text) {
+        const lowerText = text.toLowerCase();
+
+        // Handle basic short/negative answers
+        if (lowerText.length < 10) {
+            if (lowerText.includes('không') || lowerText.includes('hong') || lowerText.includes('chưa') || lowerText.includes('không có')) {
+                return "Sự mơ hồ hay trống trải đôi khi lại là một không gian tốt để chúng ta bắt đầu xây dựng lại mọi thứ từ đầu.";
+            }
+            if (lowerText.includes('biết') || lowerText.includes('biết nữa')) {
+                return "Việc thừa nhận mình chưa biết là bước đầu tiên để chúng ta thực sự bắt đầu hành trình tìm kiếm câu trả lời.";
+            }
+        }
+
+        const keywords = [
+            { words: ['thích', 'yêu', 'đam mê', 'muốn', 'ước'], response: "Sự khao khát chính là ngọn lửa dẫn lối cho mọi hành trình sáng tạo. Tôi cảm nhận được một tâm hồn rất đầy nhiệt huyết." },
+            { words: ['ghét', 'không thích', 'bực', 'mệt', 'chán'], response: "Việc nhận ra những gì không phù hợp cũng là một cách để chúng ta tiến gần hơn đến điều mình thực sự cần. Đừng ngại gạt bỏ những thứ không thuộc về mình." },
+            { words: ['lo', 'sợ', 'ngại', 'băn khoăn', 'sao'], response: "Sự bất định đôi khi lại mở ra những cánh cửa bất ngờ. Hãy cứ kiên nhẫn và bao dung hơn với chính mình bạn nhé." },
+            { words: ['tiền', 'giàu', 'kinh tế', 'tài chính', 'lương'], response: "Sự thịnh vượng là một phần của hạnh phúc, nhưng nó cần một tâm hồn tự do để thực sự rực rỡ và bền vững." },
+            { words: ['người', 'nhân loại', 'xã hội', 'giúp', 'gia đình', 'bạn'], response: "Hướng về cộng đồng và những kết nối con người là một cách để chúng ta thấy cuộc sống này có ý nghĩa hơn. Bạn có một trái tim thật ấm áp." },
+            { words: ['khoa học', 'logic', 'số', 'kỹ thuật', 'máy', 'code'], response: "Thế giới vận hành theo những quy luật tuyệt đẹp mà chúng ta cần sự tĩnh lặng và kiên nhẫn để thấu hiểu." },
+            { words: ['vẽ', 'hát', 'nghệ thuật', 'đẹp', 'nhạc', 'thẩm mỹ', 'sáng tạo'], response: "Nghệ thuật xoa dịu tâm hồn và giúp chúng ta kết nối với những phần bản thể sâu thẳm nhất. Gu của bạn thật đặc biệt." },
+            { words: ['tự do', 'đi', 'khám phá', 'phượt', 'du lịch'], response: "Mỗi bước chân đi xa là một lần ta được quay về gần hơn với bản chất thật của mình. Sự tự do là một món quà vô giá." },
+            { words: ['học', 'đọc', 'sách', 'kiến thức', 'nghiên cứu'], response: "Tri thức là ánh sáng duy nhất giúp chúng ta không bị lạc lối trong sự hỗn loạn của thế giới này." },
+            { words: ['bình yên', 'nhẹ nhàng', 'tĩnh', 'thiền'], response: "Trong sự tĩnh lặng, mọi câu trả lời sẽ tự khắc hiện rõ. Tâm hồn bạn đang tìm về đúng nơi nó cần thuộc về." }
+        ];
+
+        for (const item of keywords) {
+            if (item.words.some(word => lowerText.includes(word))) {
+                return item.response;
+            }
+        }
+        return null;
     }
 
     function submitAnswer() {
         const text = userInput.value.trim();
         if (!text) return;
 
-        appendMessage('user', text);
+        const isReanswer = reansweringIdx !== null;
+        const targetIdx = isReanswer ? reansweringIdx : currentIdx;
+
+        // If re-answering, subtract old scores first
+        if (isReanswer) {
+            const oldWeight = appliedWeights[targetIdx];
+            if (oldWeight) {
+                oldWeight.forEach((w, i) => scores[i] -= w);
+            }
+
+            // Add note to the original answer
+            const prevUserMsgs = document.querySelectorAll(`.chat-msg.user-msg[data-q-idx="${targetIdx}"]`);
+            if (prevUserMsgs.length > 0) {
+                const latestPrev = prevUserMsgs[prevUserMsgs.length - 1];
+                // Check if already has a note
+                if (!latestPrev.querySelector('.msg-note')) {
+                    const noteDiv = document.createElement('div');
+                    noteDiv.className = 'msg-note';
+                    noteDiv.textContent = 'Đã trả lời lại bên dưới';
+                    latestPrev.prepend(noteDiv);
+                }
+            }
+        }
+
+        // Calculate total weight if multiple hints are selected
+        let totalWeight = [0, 0, 0, 0, 0, 0, 0];
+        let feedback = "";
+
+        if (selectedHints.length > 0) {
+            selectedHints.forEach(h => {
+                if (h.weight) h.weight.forEach((w, i) => totalWeight[i] += w);
+                if (h.feedback) feedback += h.feedback + " ";
+            });
+            lastAppliedWeight = totalWeight;
+            lastAnswerFeedback = feedback.trim();
+        }
+
+        // Apply weights and update chart
+        if (lastAppliedWeight) {
+            lastAppliedWeight.forEach((w, i) => scores[i] += w);
+            updateChart();
+        }
+
+        // Send answer message
+        const noteText = isReanswer ? `Trả lời lại cho câu hỏi: "${questions[targetIdx].text}"` : '';
+        appendMessage('user', text, targetIdx, noteText);
         userInput.value = '';
         suggestionBox.classList.add('hidden');
+        selectedHints = []; // Clear selections for next question
 
-        currentIdx++;
-        nextQuestion();
+        // Store weight for undoing/re-answering later
+        appliedWeights[targetIdx] = lastAppliedWeight;
+        lastAppliedWeight = null;
+
+        if (!isReanswer) {
+            currentIdx++;
+        }
+
+        // Feedback
+        const systemResponse = lastAnswerFeedback || getFreeTextFeedback(text) || defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
+        lastAnswerFeedback = "";
+
+        setTimeout(() => {
+            appendMessage('system', systemResponse, targetIdx);
+            if (!isReanswer) {
+                setTimeout(() => nextQuestion(), 1200);
+            } else {
+                reansweringIdx = null; // Done re-answering
+            }
+        }, 800);
     }
+
+    window.changeAnswer = function (targetQIdx) {
+        reansweringIdx = targetQIdx;
+        selectedHints = []; // Clear any current selections
+
+        // Show suggestion for that target question
+        const q = questions[targetQIdx];
+        suggestionGrid.innerHTML = '';
+        q.hints.forEach((hint, idx) => {
+            const item = document.createElement('div');
+            item.className = 'suggestion-item';
+            item.innerHTML = `<i data-lucide="circle" class="hint-icon"></i> ${hint.text}`;
+            item.onclick = () => selectHint(hint, item);
+            suggestionGrid.appendChild(item);
+        });
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+
+        suggestionBox.classList.remove('hidden');
+        userInput.focus();
+
+        // Scroll suggestion box to view
+        suggestionBox.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    };
 
     function updateProgress() {
         const percent = Math.round((currentIdx / questions.length) * 100);
@@ -207,7 +462,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function finishQuiz() {
         appendMessage('system', "Tôi đã nhìn thấu tâm hồn bạn. Hãy xem bản đồ kho báu nhé!");
         inputArea.classList.add('hidden');
-        setTimeout(() => { generateFinalProfile(); window.location.hash = '#results'; }, 1500);
+        setTimeout(() => {
+            generateFinalProfile();
+            quizCard.classList.remove('fullscreen');
+            document.body.classList.remove('no-scroll');
+            window.location.hash = '#results';
+        }, 1500);
     }
 
     function generateFinalProfile() {
@@ -234,6 +494,15 @@ document.addEventListener('DOMContentLoaded', () => {
     sendBtn.onclick = submitAnswer;
     userInput.onkeypress = (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); submitAnswer(); } };
     hintBtn.onclick = () => suggestionBox.classList.toggle('hidden');
+
+    exitBtn.onclick = exitChat;
+    analysisBtn.onclick = () => {
+        if (!currentAnalysisChart) initCurrentChart();
+        currentAnalysisChart.data.datasets[0].data = scores;
+        currentAnalysisChart.update();
+        analysisModal.classList.remove('hidden');
+    };
+    closeModal.onclick = () => analysisModal.classList.add('hidden');
 
     window.addEventListener('scroll', () => {
         const nav = document.querySelector('.navbar');
