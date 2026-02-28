@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ikigai Garden - Tìm thấy Đam Mê & Nở rộ Sự Nghiệp</title>
+    <!-- Fonts: Lora for Headings, Be Vietnam Pro for Body -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Lora:wght@500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- Lucide Icons for better UI -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="#" class="logo">MindGarden</a>
+            <div class="nav-links">
+                <a href="#journey">Hành trình</a>
+                <a href="#test">Giải mã</a>
+                <a href="#game">Trò chơi</a>
+                <a href="#results">Kết quả</a>
+            </div>
+            <a href="#test" class="btn-primary">Bắt đầu ngay</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-bg-landscape">
+            <img src="hero_final.png" alt="Career Journey Background" class="landscape-img">
+            <img src="sun_rays.png" class="rotating-sun" alt="Rotating Sun Rays">
+        </div>
+        <div class="clouds-container">
+            <img src="cloud_alt_1.png" class="cloud cl1" alt="Cloud">
+            <img src="cloud_alt_2.png" class="cloud cl2" alt="Cloud">
+            <img src="cloud_alt_3.png" class="cloud cl3" alt="Cloud">
+        </div>
+
+        <div class="container hero-content">
+            <div class="hero-text-centered">
+                <div class="badge">Khám phá bản thân</div>
+                <h1>Tìm thấy <span>Đam Mê</span><br>Nở rộ <span>Sự Nghiệp</span></h1>
+                <p>Ikigai Garden là không gian tĩnh lặng giúp bạn kết nối với nội tâm, thấu hiểu tài năng và tìm ra con
+                    đường sự nghiệp hạnh phúc nhất của mình.</p>
+                <div class="hero-btns-centered">
+                    <a href="#journey" class="btn-primary">Khám phá hành trình</a>
+                    <a href="#how" class="btn-secondary">Xem cách chúng tôi giúp bạn</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="journey" class="journey-section">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Hành trình Tìm lại Chính mình</h2>
+                    <p>3 bước đơn giản để thấu hiểu bản thân và chọn lựa tương lai</p>
+                </div>
+                <div class="path-visual">
+                    <div class="path-line"></div>
+                    <div class="step-card">
+                        <span class="step-num">01</span>
+                        <div class="step-icon">🧘</div>
+                        <h3>Kết nối</h3>
+                        <p>Thực hiện bài giải mã tâm lý để thấu hiểu bản chất và đam mê tiềm ẩn.</p>
+                    </div>
+                    <div class="step-card">
+                        <span class="step-num">02</span>
+                        <div class="step-icon">🎮</div>
+                        <h3>Trải nghiệm</h3>
+                        <p>Vượt qua các thử thách trong trò chơi để bộc lộ kỹ năng giải quyết vấn đề.</p>
+                    </div>
+                    <div class="step-card">
+                        <span class="step-num">03</span>
+                        <div class="step-icon">📊</div>
+                        <h3>Định hướng</h3>
+                        <p>Nhận báo cáo chi tiết về bản thân và lộ trình sự nghiệp phù hợp nhất.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Conversational Quiz Section -->
+        <section id="test" class="quiz-section">
+            <div class="container">
+                <div class="glass-quiz-card">
+                    <div class="quiz-header">
+                        <span class="tag">Bản đồ nội tâm</span>
+                        <h2>Cuộc hội thoại với Bản thân</h2>
+                        <div class="quiz-progress-container">
+                            <div class="progress-info">Tiến triển: <span id="progress-text">0%</span></div>
+                            <div class="quiz-progress-bar">
+                                <div id="quiz-progress-fill" class="quiz-progress-fill"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="quiz-window" class="quiz-chat-window">
+                        <!-- Chat messages will be injected here -->
+                        <div class="chat-msg system-msg">
+                            <p>Đang khởi tạo không gian tĩnh lặng...</p>
+                        </div>
+                    </div>
+
+                    <div id="quiz-input-area" class="quiz-input-area hidden">
+                        <div class="suggestion-box hidden" id="suggestion-box">
+                            <div class="suggestion-header">Bạn có thể chọn hoặc tự nhập câu trả lời:</div>
+                            <div class="suggestion-grid" id="suggestion-grid">
+                                <!-- Options A-G will be injected here -->
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <textarea id="user-answer" placeholder="Nhập suy nghĩ của bạn tại đây..."></textarea>
+                            <div class="input-actions">
+                                <button id="show-hints-btn" class="hint-btn" title="Gợi ý">
+                                    <i data-lucide="help-circle"></i> Gợi ý
+                                </button>
+                                <button id="send-btn" class="send-btn">
+                                    <i data-lucide="send"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="quiz-start-screen" class="quiz-start-screen">
+                        <div class="dream-sequence">
+                            <p>"Có quá nhiều con đường nhưng bạn không biết con đường nào là dành cho mình?"</p>
+                            <p class="highlight">Hãy cùng quay về bên trong để tìm hiểu xem</p>
+                            <h2 class="title-glow">BẠN THỰC SỰ LÀ AI?</h2>
+                        </div>
+                        <button class="btn-primary pulse" onclick="initChat()">Bắt đầu hành trình</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="game" class="game-section">
+            <div class="container">
+                <div class="game-flex">
+                    <div class="game-text">
+                        <span class="tag">Minigame</span>
+                        <h2>Vượt qua Mê cung Tiềm năng</h2>
+                        <p>Một trò chơi nhỏ giúp bạn thử thách trí tuệ và cách bạn đối mặt với những ngã rẽ trong sự
+                            nghiệp.</p>
+                        <ul class="features">
+                            <li>✨ Khám phá phong cách lãnh đạo</li>
+                            <li>🧩 Thử thách tư duy logic</li>
+                            <li>🌈 Bộc lộ khả năng sáng tạo</li>
+                        </ul>
+                        <button class="btn-primary" onclick="window.location.hash='#test'">Hãy hoàn thành Giải mã
+                            trước</button>
+                    </div>
+                    <div class="game-preview">
+                        <img src="discovery_path.png" alt="Game Preview" class="game-mockup">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="results" class="results-section">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Bản đồ Kho báu của Bạn</h2>
+                    <p>Phân tích chi tiết về bản chất và hướng đi sự nghiệp</p>
+                </div>
+                <div class="results-grid">
+                    <div class="chart-container">
+                        <canvas id="radarChart"></canvas>
+                    </div>
+                    <div class="personality-type">
+                        <span id="res-personality-tag" class="personality-tag">Đang phân tích...</span>
+                        <h3 id="res-personality-title">Hãy hoàn thành bài giải mã</h3>
+                        <div class="description-text">
+                            <p id="res-personality-desc">Báo cáo chi tiết về xu hướng tự nhiên, điểm mạnh và các gợi ý
+                                nghề nghiệp sẽ hiện ra sau khi bạn hoàn thành cuộc hội thoại với chính mình.</p>
+                        </div>
+                        <h4>Nghề nghiệp tiềm năng:</h4>
+                        <div class="career-tags" id="res-career-tags">
+                            <!-- Tags will be injected -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-logo">MindGarden</div>
+            <p class="footer-copy">© 2026 Ikigai Garden. Hãy để tâm hồn bạn được nở rộ.</p>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>
