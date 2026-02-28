@@ -65,77 +65,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     initChart();
 
-    // 2. Quiz Data (Extended from Question.pdf)
-    const questions = [
-        // PART 1: Bookstore
-        {
-            text: "Hãy tưởng tượng bạn bước vào một hiệu sách có đầy đủ mọi kiến thức trên thế giới. Khu vực nào đầu tiên lôi cuốn bạn như một thỏi nam châm?",
-            hints: [
-                { label: 'A', text: "Khu vực Kỹ thuật, Lập trình & Cơ chế vận hành", weight: [15, 0, 0, 0, 0, 0, 0], feedback: "Có vẻ bạn là người trân trọng sự chính xác và những quy luật vận hành của thế giới. Sự thấu hiểu về cấu trúc sẽ là nền tảng vững chắc cho bạn." },
-                { label: 'B', text: "Khu vực Tâm lý học, Xã hội & Kết nối con người", weight: [0, 15, 0, 0, 0, 0, 0], feedback: "Lòng trắc ẩn và sự thấu cảm là một món quà. Khi bạn hiểu được nội tâm người khác, bạn cũng đang dần tìm thấy chính mình." },
-                { label: 'C', text: "Khu vực Nghệ thuật, Thiết kế & Sáng tạo độc bản", weight: [0, 0, 15, 0, 0, 0, 0], feedback: "Tâm hồn bạn dường như luôn tìm kiếm những rung cảm mới mẻ. Sự sáng tạo chính là cách bạn hít thở và cảm nhận cuộc sống." },
-                { label: 'D', text: "Khu vực Lịch sử, Chiến lược & Di sản vĩ nhân", weight: [0, 0, 0, 15, 0, 0, 0], feedback: "Việc nhìn lại quá khứ giúp chúng ta có cái nhìn điềm tĩnh hơn về tương lai. Tôi cảm nhận được sự sâu sắc trong tư duy của bạn." },
-                { label: 'E', text: "Khu vực Kinh tế, Quản trị & Tối ưu hóa nguồn lực", weight: [0, 0, 0, 0, 15, 0, 0], feedback: "Sự quyết đoán và khả năng điều phối là những tố chất rất thực tế. Bạn có khả năng đưa mọi thứ vào đúng quỹ đạo của nó." },
-                { label: 'F', text: "Khu vực Khoa học tự nhiên, Vũ trụ & Khám phá", weight: [0, 0, 0, 0, 0, 15, 0], feedback: "Sự tò mò đưa chúng ta đến những chân trời rộng lớn hơn. Trí tuệ của bạn dường như không bao giờ ngừng khao khát những lời giải đáp." },
-                { label: 'G', text: "Khu vực Sức khỏe, Tinh thần & Phát triển bản thân", weight: [0, 0, 0, 0, 0, 0, 15], feedback: "Quay về bên trong để chăm sóc chính mình là khởi đầu của mọi sự trưởng thành. Một lựa chọn rất bình yên và tự tại." }
-            ]
-        },
-        {
-            text: "Giả sử có một cuốn sách bất kỳ bị rơi xuống chân bạn. Điều gì ở bìa sách khiến bạn quyết định 'phải đọc' nó ngay?",
-            hints: [
-                { label: 'A', text: "Một sơ đồ phức tạp hứa hẹn giải quyết vấn đề logic.", weight: [10, 0, 0, 0, 0, 0, 0], feedback: "Sự rõ ràng trong tư duy giúp bạn cảm thấy an tâm hơn trước những hỗn độn, đúng không?" },
-                { label: 'B', text: "Một câu chuyện về cách thấu hiểu hành vi con người.", weight: [0, 10, 0, 0, 0, 0, 0], feedback: "Con người luôn là những ẩn số thú vị, và sự quan sát tĩnh lặng giúp bạn nhìn sâu hơn vào bản chất của họ." },
-                { label: 'C', text: "Một ý tưởng thẩm mỹ táo bạo, phá vỡ quy tắc thiết kế.", weight: [0, 0, 10, 0, 0, 0, 0], feedback: "Sự khác biệt thường bắt đầu từ những linh cảm mạnh mẽ. Đừng ngại tin vào trực giác của mình." },
-                { label: 'D', text: "Một bài học từ nhân vật có quyền lực thay đổi thế giới.", weight: [0, 0, 0, 10, 0, 0, 0], feedback: "Mỗi cá nhân đều có sức mạnh nội tại đủ lớn để tạo ra những thay đổi âm thầm nhưng bền bỉ." },
-                { label: 'E', text: "Cách thức quản trị hiệu quả giúp doanh nghiệp tăng trưởng.", weight: [0, 0, 0, 0, 10, 0, 0], feedback: "Việc tối ưu hóa mọi nguồn lực cho thấy bạn là người rất biết trân trọng giá trị của thời gian và công sức." }
-            ]
-        },
-        // PART 1: Social Media
-        {
-            text: "Giữa vô vàn nội dung giải trí trên mạng, điều gì khiến bạn sẵn sàng dừng lại để xem kỹ hoặc lưu lại?",
-            hints: [
-                { label: 'A', text: "Video giải thích quy trình kỹ thuật 'Behind the scenes'.", weight: [10, 0, 0, 0, 0, 0, 0] },
-                { label: 'B', text: "Những bài viết phân tích sâu sắc về cảm xúc con người.", weight: [0, 10, 0, 0, 0, 0, 0] },
-                { label: 'C', text: "Những xu hướng sáng tạo nghệ thuật mới nhất (Trends).", weight: [0, 0, 10, 0, 0, 0, 0] },
-                { label: 'D', text: "Nội dung về chiến lược kinh doanh của các chuyên gia.", weight: [0, 0, 0, 10, 0, 0, 0] },
-                { label: 'G', text: "Meme hài hước nhưng có thông điệp tâm lý sâu sắc.", weight: [0, 0, 0, 0, 0, 0, 10] }
-            ]
-        },
-        // PART 2: Depth
-        {
-            text: "Bây giờ, hãy thử nghĩ về một công việc bạn cực kỳ ghét làm. Cảm giác 'ngu người' hay 'mất thời gian' nhất ở đó là gì?",
-            hints: [
-                { label: 'Hỏi', text: "Tôi ghét những việc lặp đi lặp lại vô nghĩa.", weight: [0, 0, 0, 0, 0, 0, 5] },
-                { label: 'Hỏi', text: "Tôi ghét phải giao tiếp gượng ép với quá nhiều người.", weight: [5, 0, 0, 0, 0, 0, 0] },
-                { label: 'Hỏi', text: "Tôi ghét các quy trình cứng nhắc bóp nghẹt sáng tạo.", weight: [0, 0, 5, 0, 0, 0, 0] }
-            ]
-        },
-        // PART 3: Imagination
-        {
-            text: "Nếu sáng mai bạn thức dậy và nhận ra bạn đang sống ĐÚNG với đam mê của mình, bạn sẽ thấy mình đang mặc gì, ánh mắt bạn trông như thế nào?",
-            hints: [
-                { label: 'Gợi ý', text: "Một bộ đồ đơn giản, ánh mắt cực kỳ tập trung.", weight: [5, 0, 0, 0, 0, 0, 0] },
-                { label: 'Gợi ý', text: "Trang phục rực rỡ, ánh mắt đầy sự háo hức.", weight: [0, 0, 5, 0, 0, 0, 0] },
-                { label: 'Gợi ý', text: "Một nụ cười bình yên và ánh mắt ấm áp.", weight: [0, 5, 0, 0, 0, 0, 0] }
-            ]
-        },
-        // PART 4: Priority
-        {
-            text: "Nếu được chọn trong 5 điều sau: Tiền bạc, Danh tiếng, Tự do, Sức khỏe, Tình yêu. Bạn sẵn sàng hy sinh điều nào để giữ lấy 4 điều còn lại?",
-            hints: [
-                { label: 'A', text: "Tôi sẵn sàng hy sinh Danh tiếng để đổi lấy Tự do.", weight: [0, 5, 0, 10, 0, 0, 0] },
-                { label: 'B', text: "Tôi sẵn sàng hy sinh Tiền bạc để đổi lấy Tình yêu.", weight: [0, 10, 0, 0, 0, 0, 5] },
-                { label: 'C', text: "Tôi sẵn sàng hy sinh Tự do để đổi lấy Sức khỏe.", weight: [0, 0, 0, 0, 0, 0, 10] }
-            ]
-        },
-        {
-            text: "Khi một người bạn gặp khó khăn, bạn muốn giúp họ Giải quyết vấn đề hay Lắng nghe chia sẻ hơn?",
-            hints: [
-                { label: 'A', text: "Giải quyết vấn đề: Tìm nguyên nhân và đề xuất giải pháp.", weight: [10, 0, 0, 10, 0, 0, 0] },
-                { label: 'B', text: "Lắng nghe chia sẻ: Đồng cảm và động viên tinh thần.", weight: [0, 15, 0, 0, 0, 0, 5] }
-            ]
-        }
-    ];
+    // 2. Quiz Data (Loaded from questions.js)
+    const questions = questionsData;
 
     let currentIdx = 0;
     const chatWindow = document.getElementById('quiz-window');
@@ -210,6 +141,26 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => nextQuestion(), 4000);
     };
 
+    function updateSuggestions(qIdx) {
+        if (qIdx < 0 || qIdx >= questions.length) {
+            suggestionGrid.innerHTML = '';
+            suggestionBox.classList.add('hidden');
+            return;
+        }
+
+        const q = questions[qIdx];
+        suggestionGrid.innerHTML = '';
+        q.hints.forEach((hint) => {
+            const item = document.createElement('div');
+            item.className = 'suggestion-item';
+            item.innerHTML = `<i data-lucide="circle" class="hint-icon"></i> ${hint.text}`;
+            item.onclick = () => selectHint(hint, item);
+            suggestionGrid.appendChild(item);
+        });
+
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+    }
+
     function exitChat() {
         if (confirm('Bạn có chắc muốn thoát? Kết quả hiện tại sẽ bị hủy.')) {
             quizCard.classList.remove('fullscreen');
@@ -264,16 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
             appendMessage('system', q.text, qIdxAtCalling);
             updateProgress();
             selectedHints = []; // Clear current selections
-
-            suggestionGrid.innerHTML = '';
-            q.hints.forEach((hint, idx) => {
-                const item = document.createElement('div');
-                item.className = 'suggestion-item';
-                item.innerHTML = `<i data-lucide="circle" class="hint-icon"></i> ${hint.text}`;
-                item.onclick = (e) => selectHint(hint, item);
-                suggestionGrid.appendChild(item);
-            });
-            if (typeof lucide !== 'undefined') lucide.createIcons();
+            updateSuggestions(currentIdx);
         }, 600);
     }
 
@@ -420,6 +362,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(() => nextQuestion(), 1200);
             } else {
                 reansweringIdx = null; // Done re-answering
+                // Restore suggestions for currentIdx
+                updateSuggestions(currentIdx);
             }
         }, 800);
     }
@@ -429,16 +373,7 @@ document.addEventListener('DOMContentLoaded', () => {
         selectedHints = []; // Clear any current selections
 
         // Show suggestion for that target question
-        const q = questions[targetQIdx];
-        suggestionGrid.innerHTML = '';
-        q.hints.forEach((hint, idx) => {
-            const item = document.createElement('div');
-            item.className = 'suggestion-item';
-            item.innerHTML = `<i data-lucide="circle" class="hint-icon"></i> ${hint.text}`;
-            item.onclick = () => selectHint(hint, item);
-            suggestionGrid.appendChild(item);
-        });
-        if (typeof lucide !== 'undefined') lucide.createIcons();
+        updateSuggestions(targetQIdx);
 
         suggestionBox.classList.remove('hidden');
         userInput.focus();
@@ -454,9 +389,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updateChart() {
-        const max = 100;
-        chart.data.datasets[0].data = scores.map(s => Math.min(max, s));
+        const maxVal = Math.max(...scores, 100);
+        chart.options.scales.r.suggestedMax = maxVal;
+        chart.data.datasets[0].data = scores;
         chart.update();
+
+        if (currentAnalysisChart) {
+            currentAnalysisChart.options.scales.r.suggestedMax = maxVal;
+            currentAnalysisChart.data.datasets[0].data = scores;
+            currentAnalysisChart.update();
+        }
     }
 
     function finishQuiz() {
@@ -498,6 +440,8 @@ document.addEventListener('DOMContentLoaded', () => {
     exitBtn.onclick = exitChat;
     analysisBtn.onclick = () => {
         if (!currentAnalysisChart) initCurrentChart();
+        const maxVal = Math.max(...scores, 100);
+        currentAnalysisChart.options.scales.r.suggestedMax = maxVal;
         currentAnalysisChart.data.datasets[0].data = scores;
         currentAnalysisChart.update();
         analysisModal.classList.remove('hidden');
@@ -516,6 +460,32 @@ document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('.nav-links a').forEach(a => a.style.color = '#FFFFFF');
         }
     });
+
+    // 5. Floating Petals Animation
+    function createPetals() {
+        const container = document.querySelector('.quiz-bg-effects');
+        if (!container) return;
+
+        for (let i = 0; i < 20; i++) {
+            const petal = document.createElement('div');
+            petal.className = 'petal';
+
+            // Randomize properties
+            const size = Math.random() * 15 + 10;
+            const left = Math.random() * 100;
+            const delay = Math.random() * 20;
+            const duration = Math.random() * 15 + 20;
+
+            petal.style.width = `${size}px`;
+            petal.style.height = `${size}px`;
+            petal.style.left = `${left}%`;
+            petal.style.animationDelay = `-${delay}s`; // Use negative delay so they start immediately
+            petal.style.animationDuration = `${duration}s`;
+
+            container.appendChild(petal);
+        }
+    }
+    createPetals();
 
     if (typeof lucide !== 'undefined') lucide.createIcons();
 });

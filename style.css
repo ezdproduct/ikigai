@@ -14,7 +14,14 @@
     --bubble-system: #F3F4F6;
     --font-heading: 'Lora', serif;
     --font-body: 'Be Vietnam Pro', sans-serif;
-    --font-btn: 'Outfit', sans-serif;
+    --font-btn: 'Be Vietnam Pro', sans-serif;
+}
+
+button,
+.btn-primary,
+.btn-secondary,
+.quiz-control-btn {
+    letter-spacing: 0.3px;
 }
 
 * {
@@ -112,7 +119,7 @@ select {
     padding: 1rem 2.2rem;
     border-radius: 50px;
     font-family: var(--font-btn);
-    font-weight: 800;
+    font-weight: 700;
     cursor: pointer;
     transition: var(--transition);
     box-shadow: 0 10px 20px rgba(255, 142, 113, 0.4);
@@ -278,6 +285,16 @@ select {
     filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
 }
 
+.hero-text-centered p {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 900px;
+    margin: 0 auto 3.5rem;
+    font-weight: 500;
+    line-height: 1.7;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
 .hero-btns-centered {
     display: flex;
     gap: 3rem;
@@ -360,7 +377,7 @@ select {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(20px);
     border-radius: 40px;
-    padding: 3.5rem;
+    padding: 2rem 3.5rem;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06);
     max-width: 1000px;
     margin: 0 auto;
@@ -409,7 +426,7 @@ body.no-scroll {
     padding: 0.6rem 1.4rem;
     border-radius: 50px;
     font-family: var(--font-btn);
-    font-weight: 700;
+    font-weight: 600;
     font-size: 0.9rem;
     color: var(--text-dark);
     cursor: pointer;
@@ -450,8 +467,8 @@ body.no-scroll {
 /* Rest of CSS... */
 .quiz-header {
     border-bottom: 1px solid #f0f0f0;
-    padding-bottom: 1.5rem;
-    margin-bottom: 2rem;
+    padding-bottom: 0.75rem;
+    margin-bottom: 1rem;
 }
 
 .quiz-progress-container {
@@ -690,7 +707,7 @@ body.no-scroll {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 4rem;
+    padding: 2rem;
     text-align: center;
 }
 
@@ -702,6 +719,96 @@ body.no-scroll {
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+
+/* Game Section */
+.game-section {
+    padding: 120px 0;
+    background: #fff;
+    overflow: hidden;
+}
+
+.game-flex {
+    display: flex;
+    align-items: center;
+    gap: 5rem;
+    background: #FFFAF7;
+    padding: 5rem;
+    border-radius: 60px;
+    box-shadow: 0 30px 70px rgba(255, 142, 113, 0.08);
+}
+
+.game-text {
+    flex: 1;
+}
+
+.game-text .tag {
+    background: var(--primary-light);
+    color: var(--primary);
+    padding: 0.5rem 1.2rem;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 2rem;
+    display: inline-block;
+}
+
+.game-text h2 {
+    font-size: 3.5rem;
+    margin-bottom: 2rem;
+    color: var(--text-dark);
+}
+
+.game-text p {
+    font-size: 1.15rem;
+    color: var(--text-muted);
+    margin-bottom: 2.5rem;
+}
+
+.features {
+    list-style: none;
+    margin-bottom: 3.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.features li {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: white;
+    padding: 1rem 1.5rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.02);
+    transition: var(--transition);
+}
+
+.features li:hover {
+    transform: translateX(10px);
+    box-shadow: 0 15px 30px rgba(255, 142, 113, 0.1);
+}
+
+.game-preview {
+    flex: 1;
+    position: relative;
+}
+
+.game-mockup {
+    width: 100%;
+    border-radius: 40px;
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.15);
+    transition: var(--transition);
+}
+
+.game-mockup:hover {
+    transform: scale(1.02);
+}
+
 
 .results-section {
     padding: 120px 0;
@@ -837,5 +944,19 @@ footer {
         flex-direction: column;
         gap: 2rem;
         align-items: center;
+    }
+
+    .game-flex {
+        flex-direction: column;
+        padding: 3rem 2rem;
+        text-align: center;
+    }
+
+    .game-text h2 {
+        font-size: 2.5rem;
+    }
+
+    .features li {
+        justify-content: center;
     }
 }
