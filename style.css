@@ -914,11 +914,11 @@ body.no-scroll {
     top: 2rem;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 0.65rem;
+    font-size: 0.85rem;
     font-weight: 800;
     letter-spacing: 3px;
     color: var(--primary);
-    opacity: 0.5;
+    opacity: 1;
 }
 
 .personality-type {
