@@ -34,31 +34,42 @@ document.addEventListener('DOMContentLoaded', () => {
             type: 'radar',
             data: data,
             options: {
+                responsive: true,
+                maintainAspectRatio: false,
                 layout: {
                     padding: {
-                        top: 20,
-                        bottom: 20,
-                        left: 40,
-                        right: 40
+                        top: 40,
+                        bottom: 40,
+                        left: 140,
+                        right: 140
                     }
                 },
                 scales: {
                     r: {
-                        angleLines: { display: true },
+                        angleLines: {
+                            display: true,
+                            color: 'rgba(0,0,0,0.05)'
+                        },
+                        grid: {
+                            color: 'rgba(0,0,0,0.05)'
+                        },
                         suggestedMin: 0,
                         suggestedMax: 100,
                         ticks: { display: false },
                         pointLabels: {
                             font: {
-                                size: 11,
+                                size: 13,
+                                weight: '600',
                                 family: "'Be Vietnam Pro', sans-serif"
                             },
-                            padding: 10
+                            color: '#2D3436',
+                            padding: 15
                         }
                     }
                 },
-                plugins: { legend: { display: false } },
-                maintainAspectRatio: false
+                plugins: {
+                    legend: { display: false }
+                }
             }
         });
     }
@@ -104,10 +115,10 @@ document.addEventListener('DOMContentLoaded', () => {
             options: {
                 layout: {
                     padding: {
-                        top: 10,
-                        bottom: 10,
-                        left: 30,
-                        right: 30
+                        top: 30,
+                        bottom: 30,
+                        left: 100,
+                        right: 100
                     }
                 },
                 scales: {
@@ -117,9 +128,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         ticks: { display: false },
                         pointLabels: {
                             font: {
-                                size: 10
+                                size: 11,
+                                weight: '600',
+                                family: "'Be Vietnam Pro', sans-serif"
                             },
-                            padding: 8
+                            padding: 10
                         }
                     }
                 },
@@ -180,27 +193,77 @@ document.addEventListener('DOMContentLoaded', () => {
     let reansweringIdx = null; // Track if we are re-answering an old question
     let selectedHints = []; // NEW: Track multiple selected hints voor each question
 
-    function appendMessage(sender, text, qIdx = -1, note = "") {
+    // Message Queue for System Messages to prevent overlapping typing
+    let messageQueue = [];
+    let isTyping = false;
+
+    async function processQueue() {
+        if (isTyping || messageQueue.length === 0) return;
+        isTyping = true;
+        const { sender, text, qIdx, note, resolve } = messageQueue.shift();
+
         const msgDiv = document.createElement('div');
         msgDiv.className = `chat-msg ${sender === 'user' ? 'user-msg' : 'system-msg'}`;
         if (qIdx !== -1) msgDiv.setAttribute('data-q-idx', qIdx);
         if (sender === 'user') msgDiv.setAttribute('data-is-user-ans', 'true');
 
-        let html = "";
         if (note) {
-            html += `<div class="msg-note">${note}</div>`;
+            const noteDiv = document.createElement('div');
+            noteDiv.className = 'msg-note';
+            noteDiv.textContent = note;
+            msgDiv.appendChild(noteDiv);
         }
 
-        html += `<p>${text}</p>`;
+        const p = document.createElement('p');
+        msgDiv.appendChild(p);
 
-        // Add "Thay đổi câu trả lời" link for user answers
+        // Nút sửa câu trả lời cho User
         if (sender === 'user' && qIdx !== -1) {
-            html += `<div class="chat-edit-link" onclick="window.changeAnswer(${qIdx})">Thay đổi câu trả lời</div>`;
+            const editLink = document.createElement('div');
+            editLink.className = 'chat-edit-link';
+            editLink.textContent = 'Thay đổi câu trả lời';
+            editLink.onclick = () => window.changeAnswer(qIdx);
+            msgDiv.appendChild(editLink);
         }
 
-        msgDiv.innerHTML = html;
         chatWindow.appendChild(msgDiv);
         chatWindow.scrollTop = chatWindow.scrollHeight;
+
+        // Áp dụng hiệu ứng gõ cho cả User và System
+        // User gõ nhanh hơn Bot một chút
+        const speed = sender === 'user' ? 15 : 25;
+        await typeWriter(p, text, speed);
+
+        isTyping = false;
+        if (resolve) resolve();
+        processQueue();
+    }
+
+    function appendMessage(sender, text, qIdx = -1, note = "") {
+        return new Promise(resolve => {
+            messageQueue.push({ sender, text, qIdx, note, resolve });
+            processQueue();
+        });
+    }
+
+    async function typeWriter(element, text, speed = 30) {
+        return new Promise(resolve => {
+            element.classList.add('typing-cursor');
+            element.style.opacity = '1';
+            let i = 0;
+
+            function type() {
+                if (i < text.length) {
+                    element.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                } else {
+                    element.classList.remove('typing-cursor');
+                    resolve();
+                }
+            }
+            type();
+        });
     }
 
     function nextQuestion() {
@@ -404,6 +467,13 @@ document.addEventListener('DOMContentLoaded', () => {
     function finishQuiz() {
         appendMessage('system', "Tôi đã nhìn thấu tâm hồn bạn. Hãy xem bản đồ kho báu nhé!");
         inputArea.classList.add('hidden');
+
+        // Hide start button and show restart/view chat options
+        const startBtn = document.getElementById('quiz-start-btn');
+        const postOptions = document.getElementById('post-quiz-options');
+        if (startBtn) startBtn.classList.add('hidden');
+        if (postOptions) postOptions.classList.remove('hidden');
+
         setTimeout(() => {
             generateFinalProfile();
             quizCard.classList.remove('fullscreen');
@@ -412,25 +482,158 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 1500);
     }
 
+    window.restartQuiz = function () {
+        if (!confirm('Bạn có chắc chắn muốn làm lại bài giải mã từ đầu không?')) return;
+
+        // Reset data
+        scores = [0, 0, 0, 0, 0, 0, 0];
+        currentIdx = 0;
+        appliedWeights = {};
+
+        // Reset UI
+        chatWindow.innerHTML = '';
+        inputArea.classList.remove('hidden');
+        document.getElementById('quiz-progress-fill').style.width = '0%';
+        document.getElementById('progress-text').textContent = '0%';
+
+        // Hide post-quiz options
+        const postOptions = document.getElementById('post-quiz-options');
+        if (postOptions) postOptions.classList.add('hidden');
+
+        // Restart chat flow
+        initChat();
+    };
+
     function generateFinalProfile() {
         const maxScoreIdx = scores.indexOf(Math.max(...scores));
         const profiles = [
-            { tag: 'Người Logic', title: 'Kiến trúc sư hệ thống', desc: 'Bạn có tư duy phản biện sắc bén.', career: ['Lập trình', 'Kỹ thuật'] },
-            { tag: 'Người Kết nối', title: 'Sứ giả thấu cảm', desc: 'Bạn nhạy cảm với cảm xúc.', career: ['Tâm lý', 'Nhân sự'] },
-            { tag: 'Người Nghệ thuật', title: 'Phù thủy sáng tạo', desc: 'Thế giới là bảng màu của bạn.', career: ['Thiết kế', 'Nghệ thuật'] },
-            { tag: 'Người Chiến lược', title: 'Nhà lãnh đạo tầm nhìn', desc: 'Bạn bị thu hút bởi kế hoạch lớn.', career: ['Quản lý', 'Chiến lược'] },
-            { tag: 'Người Thực tế', title: 'Chuyên gia tối ưu', desc: 'Bạn thực dụng và quyết đoán.', career: ['Tài chính', 'Kinh doanh'] },
-            { tag: 'Người Khám phá', title: 'Nhà thám hiểm trí tuệ', desc: 'Bản tính tò mò dẫn lối.', career: ['Nghiên cứu', 'Khoa học'] },
-            { tag: 'Người Tinh thần', title: 'Người gieo mầm hạnh phúc', desc: 'Bạn trân trọng sự cân bằng.', career: ['Coach', 'Thiền'] }
+            {
+                tag: 'Người Logic',
+                title: 'Kiến trúc sư Hệ thống',
+                nature: 'Bạn sở hữu bộ óc phân tích sắc sảo, luôn tìm kiếm quy luật và cấu trúc trong mọi vấn đề. Bạn coi trọng sự chính xác và hiệu quả hơn là những cảm xúc mơ hồ.',
+                strengths: ['Tư duy logic mạnh mẽ', 'Giải quyết vấn đề phức tạp', 'Khả năng tập trung cao độ'],
+                weaknesses: ['Đôi khi quá cứng nhắc', 'Khó thấu cảm cảm xúc người khác', 'Dễ bị sa lầy vào chi tiết'],
+                career: ['Software Engineer', 'Data Scientist', 'Bác sĩ Chẩn đoán hình ảnh', 'Dược sĩ Nghiên cứu & Phát triển', 'Kỹ sư Y sinh (Biomedical)', 'Automation Engineer', 'Security Architect', 'Forensic Data Analyst', 'Kỹ sư Vi mạch', 'Blockchain Developer']
+            },
+            {
+                tag: 'Người Kết nối',
+                title: 'Sứ giả Thấu cảm',
+                nature: 'Trái tim bạn luôn hướng về con người. Bạn có khả năng cảm nhận được những gì người khác chưa nói ra và luôn mong muốn xây dựng một cộng đồng hòa hợp.',
+                strengths: ['Lắng nghe sâu sắc', 'Xây dựng lòng tin tốt', 'Trí tuệ cảm xúc (EQ) cao'],
+                weaknesses: ['Dễ bị ảnh hưởng bởi năng lượng tiêu cực', 'Khó từ chối người khác', 'Hay lo âu về các mối quan hệ'],
+                career: ['HR Manager', 'Bác sĩ Gia đình', 'Điều dưỡng trưởng', 'Tư vấn viên Tâm lý', 'Customer Success Manager', 'Educational Consultant', 'Community Manager', 'Crisis Intervention Specialist', 'Chuyên viên Tư vấn Tâm lý học đường', 'Social Worker']
+            },
+            {
+                tag: 'Người Nghệ thuật',
+                title: 'Phù thủy Sáng tạo',
+                nature: 'Bạn nhìn thế giới qua lăng kính của cái đẹp và sự đổi mới. Bạn không chấp nhận những gì rập khuôn và luôn khát khao để lại dấu ấn cá nhân trong mọi việc.',
+                strengths: ['Trực giác nhạy bén', 'Khả năng thẩm mỹ tốt', 'Tư duy "out-of-the-box"'],
+                weaknesses: ['Dễ mất tập trung', 'Khó làm việc trong môi trường kỷ luật thép', 'Cảm xúc hay thay đổi'],
+                career: ['UI/UX Designer', 'Kiến trúc sư nội thất', 'Creative Director', 'Thiết kế thời trang', 'Chủ Gallery nghệ thuật', 'Food Stylist', 'Game Artist', 'Multimedia Designer', 'Nghệ nhân Thủ công mỹ nghệ', 'Chuyên gia Sáng tạo Nội dung Số']
+            },
+            {
+                tag: 'Người Chiến lược',
+                title: 'Nhà Lãnh đạo Tầm nhìn',
+                nature: 'Bạn sinh ra để nhìn thấy bức tranh lớn. Bạn không chỉ muốn hoàn thành công việc, mà còn muốn dẫn dắt mọi người đi tới một tương lai tốt đẹp hơn.',
+                strengths: ['Quyết đoán', 'Khả năng hoạch định', 'Truyền cảm hứng cho đám đông'],
+                weaknesses: ['Có xu hướng áp đặt', 'Thiếu kiên nhẫn với tiểu tiết', 'Dễ bị stress do áp lực thành công'],
+                career: ['Founder / CEO', 'Kinh doanh Bất động sản', 'Quản trị Bệnh viện', 'Luật sư Tranh tụng', 'Chủ chuỗi F&B', 'Venture Capitalist', 'Management Consultant', 'Corporate Strategist', 'Investment Banker', 'Operations Director']
+            },
+            {
+                tag: 'Người Thực tế',
+                title: 'Chuyên gia Tối ưu',
+                nature: 'Bạn là người thực tế nhất trong đám đông. Bạn không tin vào những lời hứa suông mà chỉ tin vào những giá trị thực, con số thực và kết quả có thể đo lường.',
+                strengths: ['Tính kỷ luật cao', 'Quản lý tài chính tốt', 'Sự kiên định'],
+                weaknesses: ['Thiếu sự linh hoạt', 'Ngần ngại với những ý tưởng đột phá', 'Có phần khô khan'],
+                career: ['Dược sĩ Lâm sàng', 'Financial Analyst', 'Kinh doanh Thiết bị Y tế', 'Logistics Coordinator', 'Kỹ thuật viên Xét nghiệm', 'Operations Manager', 'Supply Chain Planner', 'Quality Assurance Manager', 'Kiểm toán viên nội bộ', 'Quản lý Kho Dược phẩm']
+            },
+            {
+                tag: 'Người Khám phá',
+                title: 'Nhà Thám hiểm Trí tuệ',
+                nature: 'Thế giới trong mắt bạn là một kho tàng tri thức vô tận. Bạn luôn đặt câu hỏi "Tại sao?" và không bao giờ thỏa mãn với những câu trả lời bề nổi.',
+                strengths: ['Tò mò vô hạn', 'Khả năng tự học xuất sắc', 'Khách quan trong đánh giá'],
+                weaknesses: ['Dễ bị cô độc', 'Hay phê phán quá mức', 'Khó hòa nhập vào các quy định xã hội'],
+                career: ['Bác sĩ Nghiên cứu (R&D)', 'Dược sĩ Phát triển thuốc', 'AI Ethics Researcher', 'Market Analyst', 'Nhà Khảo cổ học', 'Bioinformatician', 'Consumer Behavior Researcher', 'Data Journalist', 'Product Auditor', 'Geopolitical Analyst']
+            },
+            {
+                tag: 'Người Tinh thần',
+                title: 'Người Gieo mầm An lạc',
+                nature: 'Bạn tìm thấy ý nghĩa trong sự tĩnh lặng và cân bằng. Mục tiêu cuối cùng của bạn là sự phát triển nội tâm và giúp đỡ mọi người tìm thấy sự bình yên.',
+                strengths: ['Kiên nhẫn', 'Ổn định về tâm lý', 'Biết cách thưởng thức cuộc sống'],
+                weaknesses: ['Thiếu tính cạnh tranh', 'Dễ bị coi là thụ động', 'Khó thích nghi với môi trường áp lực cao'],
+                career: ['Bác sĩ Tâm lý', 'Executive Coach', 'Dược sĩ Tư vấn Cộng đồng', 'Employee Wellness Lead', 'NGO Project Manager', 'Public Health Consultant', 'Life Coach', 'Chuyên gia Trị liệu Tâm lý', 'Sustainability Officer', 'Mindfulness Trainer']
+            }
         ];
 
         const p = profiles[maxScoreIdx];
-        document.getElementById('res-personality-tag').textContent = p.tag;
-        document.getElementById('res-personality-title').textContent = p.title;
-        document.getElementById('res-personality-desc').textContent = p.desc;
+
+        // Show title
+        const titleEl = document.getElementById('res-personality-title');
+        if (titleEl) {
+            titleEl.textContent = p.title;
+            titleEl.classList.remove('hidden');
+        }
+
+        document.getElementById('res-personality-nature').textContent = p.nature;
+
+        // Update Strengths
+        const strengthList = document.getElementById('res-personality-strengths');
+        strengthList.innerHTML = '';
+        p.strengths.forEach(s => {
+            const li = document.createElement('li');
+            li.textContent = s;
+            strengthList.appendChild(li);
+        });
+
+        // Update Weaknesses
+        const weaknessList = document.getElementById('res-personality-weaknesses');
+        weaknessList.innerHTML = '';
+        p.weaknesses.forEach(w => {
+            const li = document.createElement('li');
+            li.textContent = w;
+            weaknessList.appendChild(li);
+        });
+
+        // Update Career Tags
         const tagContainer = document.getElementById('res-career-tags');
         tagContainer.innerHTML = '';
-        p.career.forEach(c => { const span = document.createElement('span'); span.textContent = c; tagContainer.appendChild(span); });
+        p.career.forEach(c => {
+            const span = document.createElement('span');
+            span.textContent = c;
+            tagContainer.appendChild(span);
+        });
+
+        // Update result action button
+        const resActionBtn = document.getElementById('res-action-btn');
+        if (resActionBtn) {
+            resActionBtn.textContent = 'Làm lại';
+            resActionBtn.onclick = restartQuiz;
+        }
+
+        // Feedback Logic
+        const feedbackContainer = document.getElementById('res-feedback-container');
+        const feedbackOptions = feedbackContainer.querySelector('.feedback-options');
+        const feedbackResponse = document.getElementById('feedback-response');
+        const yesBtn = document.getElementById('feedback-yes');
+        const noBtn = document.getElementById('feedback-no');
+
+        feedbackContainer.classList.remove('hidden');
+        feedbackOptions.classList.remove('hidden');
+        feedbackResponse.classList.add('hidden');
+
+        yesBtn.onclick = () => {
+            feedbackOptions.classList.add('hidden');
+            feedbackResponse.textContent = 'Vậy thì cùng bắt tay vào hành động thôi nào!';
+            feedbackResponse.classList.remove('hidden');
+            feedbackResponse.style.color = 'var(--primary)';
+        };
+
+        noBtn.onclick = () => {
+            feedbackOptions.classList.add('hidden');
+            feedbackResponse.textContent = 'Bạn thấy có điểm nào chưa phù hợp, hãy nói với tôi nhé!';
+            feedbackResponse.classList.remove('hidden');
+            feedbackResponse.style.color = 'var(--text-muted)';
+        };
     }
 
     sendBtn.onclick = submitAnswer;
@@ -486,6 +689,43 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     createPetals();
+
+    // 6. Typing Effect for Dream Sequence
+    async function startTypingSequence() {
+        const text1 = document.getElementById('type-text-1');
+        const text2 = document.getElementById('type-text-2');
+        const text3 = document.getElementById('type-text-3');
+
+        if (!text1 || !text2 || !text3) return;
+
+        // Lưu văn bản gốc và xóa nội dung hiện tại
+        const content1 = text1.textContent.trim().replace(/\s+/g, ' ');
+        const content2 = text2.textContent.trim().replace(/\s+/g, ' ');
+        const content3 = text3.textContent.trim().replace(/\s+/g, ' ');
+
+        text1.textContent = '';
+        text2.textContent = '';
+        text3.textContent = '';
+
+        // Sử dụng hàm typeWriter toàn cục đã định nghĩa ở trên
+
+        // Chạy tuần tự với tốc độ chậm hơn và mượt mà hơn
+        await typeWriter(text1, content1, 60); // Chậm lại
+        await new Promise(r => setTimeout(r, 800));
+        await typeWriter(text2, content2, 60); // Chậm lại
+        await new Promise(r => setTimeout(r, 1000));
+        await typeWriter(text3, content3, 80); // Chậm hơn nữa cho tiêu đề chính 
+
+        // Hiện nút Bắt đầu sau khi gõ xong
+        const startBtn = document.getElementById('quiz-start-btn');
+        if (startBtn) {
+            startBtn.classList.remove('hidden');
+            startBtn.style.animation = 'slideUpFade 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards';
+        }
+    }
+
+    // Kích hoạt hiệu ứng gõ chữ
+    startTypingSequence();
 
     if (typeof lucide !== 'undefined') lucide.createIcons();
 });
