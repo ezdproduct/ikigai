@@ -335,7 +335,7 @@ const questionsData = [
             { label: 'F', text: "Cả nhóm cùng vượt qua vô số khó khăn.", weight: [0, 5, 0, 0, 0, 0, 10] }
         ]
     },
-    // PHẦN 2: CÂU HỎI CHIỀU SÂU - KHÁM PHÁ NỖI ĐAU (25 câu)
+    // PHẦN 2: CÂU HỎI CHIỀU SÂU - KHÁM PHÁ TRĂN TRỞ (25 câu)
     {
         text: "Hãy nghĩ về một công việc thường ngày bạn cực kỳ ghét làm. Điều gì khiến bạn ghét nó nhất?",
         hints: [

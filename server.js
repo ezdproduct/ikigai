@@ -15,7 +15,7 @@ const MIME_TYPES = {
 };
 
 const server = http.createServer((req, res) => {
-    let filePath = '.' + req.url;
+    let filePath = '.' + decodeURIComponent(req.url);
     if (filePath === './') filePath = './index.html';
 
     const extname = String(path.extname(filePath)).toLowerCase();

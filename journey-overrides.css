@@ -1,0 +1,177 @@
+.journey-section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 120px 0 80px;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    background: linear-gradient(rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.35)), url('15.png') no-repeat center center / cover;
+    color: #1a1a1a;
+    position: relative;
+    overflow: hidden;
+}
+
+.journey-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 15vh;
+    background: linear-gradient(to bottom, #FFFFFF 0%, transparent 100%);
+    z-index: 1;
+}
+
+.journey-section::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 15vh;
+    background: linear-gradient(to top, #FFFFFF 0%, transparent 100%);
+    z-index: 1;
+}
+
+/* Transitions handled above */
+
+/* Hide old elements if they still exist in some form */
+.journey-visual-side,
+.visual-card,
+.visual-overlay {
+    display: none !important;
+}
+
+.journey-section .container {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: 6rem;
+    position: relative;
+    z-index: 100;
+}
+
+.journey-intro-text {
+    flex: 2.5;
+    /* Expanded to prevent title from wrapping inappropriately */
+    text-align: left;
+    position: relative;
+    z-index: 101;
+}
+
+.journey-intro-text h2 {
+    font-size: 3.2rem;
+    line-height: 1.1;
+    margin-bottom: 2rem;
+    font-family: var(--font-heading);
+    /* High Contrast Sunset Gradient */
+    background: linear-gradient(135deg, #F39C12, #D35400, #5A2100);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-transform: none;
+    font-weight: 800;
+}
+
+.journey-intro-text p {
+    font-size: 1.3rem;
+    color: #1a1a1a;
+    /* Darkest for readability */
+    max-width: 1000px;
+    /* Expanded for better flow */
+    font-weight: 400;
+    /* Normal weight for contrast with heading */
+    line-height: 1.6;
+}
+
+.journey-container-horizontal {
+    flex: 1.2;
+    position: relative;
+    z-index: 20;
+}
+
+.journey-steps-row {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.journey-step-box {
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(25px);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 30px;
+    padding: 1.5rem 2rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+    gap: 2rem;
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    max-width: 420px;
+    width: 100%;
+}
+
+.journey-step-box:hover {
+    transform: translateY(-10px);
+    background: rgba(255, 255, 255, 0.82);
+    border-color: #E67E22;
+    box-shadow: 0 30px 60px rgba(230, 126, 34, 0.1);
+}
+
+.step-img-wrap {
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.step-img-wrap img {
+    width: 70%;
+    height: 70%;
+    object-fit: contain;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+}
+
+.step-info h4 {
+    font-size: 1.4rem;
+    color: #A04000;
+    /* Rich orange-brown */
+    margin-bottom: 0.4rem;
+    font-family: var(--font-creative);
+    font-weight: 700;
+}
+
+.step-label {
+    display: block;
+    color: #E67E22;
+    /* Stronger Orange */
+    font-weight: 700;
+    letter-spacing: 2px;
+    font-size: 0.85rem;
+    margin-bottom: 0.8rem;
+    text-transform: uppercase;
+    font-family: var(--font-body);
+}
+
+.step-info p {
+    color: #444444;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+@media (max-width: 1100px) {
+    .journey-steps-row {
+        grid-template-columns: 1fr;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+}

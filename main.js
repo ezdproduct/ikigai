@@ -2,13 +2,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // 1. Radar Chart Configuration
     const ctx = document.getElementById('radarChart').getContext('2d');
     const categories = [
-        'Logic & Kỹ thuật',
-        'Thấu cảm & Xã hội',
-        'Sáng tạo & Nghệ thuật',
-        'Chiến lược & Lãnh đạo',
-        'Quản trị & Kinh tế',
-        'Khám phá & Khoa học',
-        'Phát triển bản thân'
+        ['Logic &', 'Kỹ thuật'],
+        ['Thấu cảm &', 'Xã hội'],
+        ['Sáng tạo &', 'Nghệ thuật'],
+        ['Chiến lược &', 'Lãnh đạo'],
+        ['Quản trị &', 'Kinh tế'],
+        ['Khám phá &', 'Khoa học'],
+        ['Phát triển', 'bản thân']
     ];
 
     let scores = [0, 0, 0, 0, 0, 0, 0];
@@ -38,10 +38,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 maintainAspectRatio: false,
                 layout: {
                     padding: {
-                        top: 40,
-                        bottom: 40,
-                        left: 140,
-                        right: 140
+                        top: 20,
+                        bottom: 80,
+                        left: 50,
+                        right: 50
                     }
                 },
                 scales: {
@@ -58,12 +58,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         ticks: { display: false },
                         pointLabels: {
                             font: {
-                                size: 13,
+                                size: 10,
                                 weight: '600',
                                 family: "'Be Vietnam Pro', sans-serif"
                             },
                             color: '#2D3436',
-                            padding: 15
+                            padding: 30
                         }
                     }
                 },
@@ -80,6 +80,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const questions = questionsData;
 
     let currentIdx = 0;
+    let isChatStarted = false;
+    let isQuizCompleted = false;
     const chatWindow = document.getElementById('quiz-window');
     const inputArea = document.getElementById('quiz-input-area');
     const suggestionBox = document.getElementById('suggestion-box');
@@ -87,11 +89,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const userInput = document.getElementById('user-answer');
     const sendBtn = document.getElementById('send-btn');
     const hintBtn = document.getElementById('show-hints-btn');
+    const chapterTabs = document.getElementById('chapter-tabs');
     const startScreen = document.getElementById('quiz-start-screen');
+    const quizSection = document.getElementById('test');
 
     const quizCard = document.querySelector('.glass-quiz-card');
     const exitBtn = document.getElementById('exit-quiz-btn');
-    const analysisBtn = document.getElementById('analysis-btn');
     const analysisModal = document.getElementById('analysis-modal');
     const closeModal = document.getElementById('close-modal');
 
@@ -99,6 +102,69 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentCtx = document.getElementById('currentRadarChart').getContext('2d');
     let currentAnalysisChart;
 
+    const sideCtx = document.getElementById('sideRadarChart').getContext('2d');
+    let sideAnalysisChart;
+
+    function initSideChart() {
+        sideAnalysisChart = new Chart(sideCtx, {
+            type: 'radar',
+            data: {
+                labels: categories,
+                datasets: [{
+                    label: 'Tiềm năng',
+                    data: scores,
+                    backgroundColor: 'rgba(255, 142, 113, 0.2)',
+                    borderColor: 'rgb(255, 142, 113)',
+                    pointBackgroundColor: 'rgb(255, 142, 113)',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        suggestedMin: 0,
+                        suggestedMax: 100,
+                        ticks: { display: false },
+                        pointLabels: {
+                            font: { size: 9, weight: '600' },
+                            padding: 25
+                        }
+                    }
+                },
+                layout: {
+                    padding: {
+                        top: 10,
+                        bottom: 40,
+                        left: 10,
+                        right: 10
+                    }
+                },
+                plugins: { legend: { display: false } }
+            }
+        });
+    }
+
+    function updateActionButtons() {
+        const resActionBtn = document.getElementById('res-action-btn');
+        const startBtn = document.getElementById('quiz-start-btn');
+
+        let label = "Bắt đầu giải mã";
+        if (isQuizCompleted) {
+            label = "Xem đoạn chat";
+        } else if (isChatStarted) {
+            label = "Tiếp tục giải mã";
+        }
+
+        if (resActionBtn) resActionBtn.textContent = label;
+        // Also update quiz window start button label for consistency if desired
+        if (startBtn) {
+            if (isQuizCompleted) startBtn.textContent = "Xem đoạn chat";
+            else if (isChatStarted) startBtn.textContent = "Tiếp tục";
+            else startBtn.textContent = "Bắt đầu";
+        }
+    }
     function initCurrentChart() {
         currentAnalysisChart = new Chart(currentCtx, {
             type: 'radar',
@@ -115,10 +181,10 @@ document.addEventListener('DOMContentLoaded', () => {
             options: {
                 layout: {
                     padding: {
-                        top: 30,
-                        bottom: 30,
-                        left: 100,
-                        right: 100
+                        top: 40,
+                        bottom: 40,
+                        left: 60,
+                        right: 60
                     }
                 },
                 scales: {
@@ -128,11 +194,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         ticks: { display: false },
                         pointLabels: {
                             font: {
-                                size: 11,
+                                size: 10,
                                 weight: '600',
                                 family: "'Be Vietnam Pro', sans-serif"
                             },
-                            padding: 10
+                            padding: 12
                         }
                     }
                 },
@@ -143,15 +209,29 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     window.initChat = function () {
+        if (quizSection) quizSection.classList.remove('hidden');
         quizCard.classList.add('fullscreen');
         document.body.classList.add('no-scroll');
-        startScreen.classList.add('hidden');
+        if (startScreen) startScreen.classList.add('hidden');
+
+        const quizBody = document.querySelector('.quiz-body-wrapper');
+        if (quizBody) quizBody.classList.remove('hidden');
+
         inputArea.classList.remove('hidden');
-        chatWindow.innerHTML = '';
-        appendMessage('user', 'Tôi muốn tìm thấy đam mê của mình');
-        setTimeout(() => appendMessage('system', 'Hmm tôi cảm giác bạn đang khá mơ hồ về con đường phía trước.'), 800);
-        setTimeout(() => appendMessage('system', 'Nhưng không sao, chúng ta sẽ cùng nhau tìm ra con đường dành cho bản thân mình mà thoi! Bạn có thể thoải mái chia sẻ qua những gợi mở của tôi nhé!'), 2300);
-        setTimeout(() => nextQuestion(), 4000);
+
+        if (!isChatStarted) {
+            isChatStarted = true;
+            updateActionButtons();
+            if (chapterTabs) chapterTabs.classList.remove('hidden');
+            chatWindow.innerHTML = '';
+            appendMessage('user', 'Tôi muốn tìm thấy đam mê của mình');
+            setTimeout(() => appendMessage('system', 'Hmm tôi cảm giác bạn đang khá mơ hồ về con đường phía trước.'), 800);
+            setTimeout(() => appendMessage('system', 'Nhưng không sao, chúng ta rồi sẽ tìm ra con đường dành cho bản thân mình mà thoi! Bạn có thể thoải mái chia sẻ qua những gợi mở của tôi nhé!'), 2300);
+            setTimeout(() => nextQuestion(), 4000);
+        } else {
+            // Continuation logic: ensure scroll to bottom
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+        }
     };
 
     function updateSuggestions(qIdx) {
@@ -166,7 +246,7 @@ document.addEventListener('DOMContentLoaded', () => {
         q.hints.forEach((hint) => {
             const item = document.createElement('div');
             item.className = 'suggestion-item';
-            item.innerHTML = `<i data-lucide="circle" class="hint-icon"></i> ${hint.text}`;
+            item.innerHTML = `<i data-lucide="check" class="hint-icon"></i> ${hint.text}`;
             item.onclick = () => selectHint(hint, item);
             suggestionGrid.appendChild(item);
         });
@@ -174,24 +254,71 @@ document.addEventListener('DOMContentLoaded', () => {
         if (typeof lucide !== 'undefined') lucide.createIcons();
     }
 
-    function exitChat() {
-        if (confirm('Bạn có chắc muốn thoát? Kết quả hiện tại sẽ bị hủy.')) {
-            quizCard.classList.remove('fullscreen');
-            document.body.classList.remove('no-scroll');
-            // Reset state
-            currentIdx = 0;
-            scores = [0, 0, 0, 0, 0, 0, 0];
-            updateChart();
-            startScreen.classList.remove('hidden');
-            inputArea.classList.add('hidden');
-            window.location.hash = '#';
+    function syncHintBtn() {
+        if (!hintBtn) return;
+        const isHidden = suggestionBox.classList.contains('hidden');
+        if (isHidden) {
+            hintBtn.innerHTML = `<i data-lucide="help-circle"></i> Xem gợi ý`;
+            hintBtn.title = "Xem gợi ý";
+        } else {
+            hintBtn.innerHTML = `<i data-lucide="eye-off"></i> Ẩn gợi ý`;
+            hintBtn.title = "Ẩn gợi ý";
         }
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+    }
+
+    const confirmModal = document.getElementById('confirm-modal');
+    const confirmTitle = document.getElementById('confirm-title');
+    const confirmMessage = document.getElementById('confirm-message');
+    const confirmOkBtn = document.getElementById('confirm-ok-btn');
+    const confirmCancelBtn = document.getElementById('confirm-cancel-btn');
+
+    function showConfirm(title, message, callback) {
+        confirmTitle.textContent = title;
+        confirmMessage.innerHTML = message;
+        confirmModal.classList.remove('hidden');
+
+        confirmOkBtn.onclick = () => {
+            confirmModal.classList.add('hidden');
+            callback();
+        };
+
+        confirmCancelBtn.onclick = () => {
+            confirmModal.classList.add('hidden');
+        };
+    }
+
+    function exitChat() {
+        showConfirm(
+            'Tạm dừng hội thoại',
+            'Bạn có chắc muốn tạm dừng không?<br>Đoạn chat sẽ được lưu và chúng ta vẫn có thể tiếp tục đoạn chat khi bạn sẵn sàng!',
+            () => {
+                // Chúng ta không reset currentIdx hay scores ở đây để user có thể quay lại
+                hideChatAndShowStart();
+                window.location.hash = '#';
+            }
+        );
+    }
+
+    function hideChatAndShowStart() {
+        if (quizSection) quizSection.classList.add('hidden');
+        quizCard.classList.remove('fullscreen');
+        document.body.classList.remove('no-scroll');
+
+        const quizBody = document.querySelector('.quiz-body-wrapper');
+        if (quizBody) quizBody.classList.add('hidden');
+
+        inputArea.classList.add('hidden');
+        if (startScreen) startScreen.classList.remove('hidden');
+
+        updateActionButtons();
     }
 
     let appliedWeights = []; // Keep track of weights applied at each question index
     let lastAppliedWeight = null;
     let reansweringIdx = null; // Track if we are re-answering an old question
     let selectedHints = []; // NEW: Track multiple selected hints voor each question
+    let offTopicCounter = {}; // Track off-topic/short answers per question index
 
     // Message Queue for System Messages to prevent overlapping typing
     let messageQueue = [];
@@ -232,7 +359,13 @@ document.addEventListener('DOMContentLoaded', () => {
         // Áp dụng hiệu ứng gõ cho cả User và System
         // User gõ nhanh hơn Bot một chút
         const speed = sender === 'user' ? 15 : 25;
-        await typeWriter(p, text, speed);
+
+        // Use innerHTML for final message with link, otherwise use textContent
+        if (text.includes('<a')) {
+            await typeWriterHTML(p, text, speed);
+        } else {
+            await typeWriter(p, text, speed);
+        }
 
         isTyping = false;
         if (resolve) resolve();
@@ -266,6 +399,44 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    async function typeWriterHTML(element, html, speed = 30) {
+        return new Promise(resolve => {
+            element.classList.add('typing-cursor');
+            element.style.opacity = '1';
+
+            // For HTML, we'll just inject it and simulate typing delay for UX
+            // because typing character by character into innerHTML is complex
+            let i = 0;
+            const textContent = html.replace(/<[^>]*>/g, '');
+
+            function fakeType() {
+                if (i < textContent.length) {
+                    i += 2; // Type faster
+                    setTimeout(fakeType, speed);
+                } else {
+                    element.innerHTML = html;
+                    element.classList.remove('typing-cursor');
+
+                    // Re-bind Lucide icons if any
+                    if (typeof lucide !== 'undefined') lucide.createIcons();
+
+                    // Add click event for the custom link
+                    const resultLink = element.querySelector('.result-link-chat');
+                    if (resultLink) {
+                        resultLink.onclick = (e) => {
+                            e.preventDefault();
+                            hideChatAndShowStart();
+                            window.location.hash = '#results';
+                        };
+                    }
+
+                    resolve();
+                }
+            }
+            fakeType();
+        });
+    }
+
     function nextQuestion() {
         if (currentIdx >= questions.length) {
             finishQuiz();
@@ -273,13 +444,34 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const q = questions[currentIdx];
-        const qIdxAtCalling = currentIdx; // Capture current index
-        setTimeout(() => {
-            appendMessage('system', q.text, qIdxAtCalling);
+        const qIdxAtCalling = currentIdx;
+
+        setTimeout(async () => {
+            await appendMessage('system', q.text, qIdxAtCalling);
+
+            // Check for split trigger AFTER the message has finished typing
+            if (q.text.includes("Hãy tưởng tượng bạn bước vào một hiệu sách")) {
+                activateSplitView();
+            }
+
             updateProgress();
-            selectedHints = []; // Clear current selections
+            selectedHints = [];
             updateSuggestions(currentIdx);
+            syncHintBtn();
         }, 600);
+    }
+
+    function activateSplitView() {
+        const sidePanel = document.getElementById('analysis-side-panel');
+        if (sidePanel && sidePanel.classList.contains('hidden')) {
+            sidePanel.classList.remove('hidden');
+            setTimeout(() => {
+                sidePanel.classList.add('active');
+                quizCard.classList.add('is-split');
+                if (!sideAnalysisChart) initSideChart();
+                if (typeof lucide !== 'undefined') lucide.createIcons();
+            }, 100);
+        }
     }
 
     let lastAnswerFeedback = "";
@@ -292,13 +484,13 @@ document.addEventListener('DOMContentLoaded', () => {
             selectedHints.splice(index, 1);
             element.classList.remove('selected');
             if (icon) {
-                icon.setAttribute('data-lucide', 'circle');
+                icon.setAttribute('data-lucide', 'check');
             }
         } else {
             selectedHints.push(hint);
             element.classList.add('selected');
             if (icon) {
-                icon.setAttribute('data-lucide', 'check-circle-2');
+                icon.setAttribute('data-lucide', 'check');
             }
         }
 
@@ -313,11 +505,75 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const defaultResponses = [
-        "Tôi đang lắng nghe, hãy cứ tiếp tục chia sẻ nhé.",
-        "Tôi cảm nhận được sự chân thành trong câu trả lời của bạn.",
-        "Cảm ơn bạn, những điều này giúp chân dung của bạn rõ nét hơn.",
-        "Một góc nhìn rất đáng để suy ngẫm."
+        "Có vẻ như bạn là người luôn quan sát cuộc sống một cách khá tỉ mỉ và có chiều sâu.",
+        "Tôi nhận thấy một phần tính cách khá thú vị ẩn sau cách bạn lựa chọn đấy.",
+        "Những chia sẻ này bắt đầu cho thấy một lăng kính thực sự khác biệt ở bạn.",
+        "Tôi đang dần hình dung rõ hơn về 'bản đồ' bên trong con người bạn rồi, hãy cứ tiếp tục nhé.",
+        "Lựa chọn này nói lên khá nhiều điều về cách bạn vận hành thế giới nội tâm của mình.",
+        "Thú vị đấy, đây là một góc nhìn mà không phải ai cũng dễ dàng nhận ra."
     ];
+
+    function validateAnswer(text, qIdx) {
+        const lowerText = text.toLowerCase();
+        const q = questions[qIdx];
+
+        // Nếu người dùng chọn từ gợi ý, luôn tính là hợp lệ
+        if (selectedHints.length > 0) return { valid: true };
+
+        // Khởi tạo counter cho câu hỏi này nếu chưa có
+        if (!offTopicCounter[qIdx]) offTopicCounter[qIdx] = 0;
+
+        // 1. Kiểm tra độ dài (Dữ liệu chưa đủ)
+        const words = lowerText.split(/\s+/).filter(w => w.length > 0);
+
+        // 2. Kiểm tra lạc đề (Relevance Check)
+        const qWords = q.text.toLowerCase().replace(/[?,.!“"”]/g, '').split(/\s+/).filter(w => w.length > 3);
+        const hintWords = q.hints.flatMap(h => h.text.toLowerCase().replace(/[.,!“"”]/g, '').split(/\s+/)).filter(w => w.length > 3);
+        const allKeywords = [...new Set([...qWords, ...hintWords])];
+        const stopWords = ['không', 'có', 'là', 'và', 'của', 'cho', 'với', 'trong', 'như', 'một', 'những', 'để', 'thấy', 'cuốn', 'nên', 'này', 'đó', 'bạn', 'mình', 'được', 'ngay', 'phải'];
+        const meaningfulWords = words.filter(w => !stopWords.includes(w) && w.length > 1);
+        const hasOverlap = meaningfulWords.some(w =>
+            allKeywords.some(kw => kw.includes(w) || w.includes(kw))
+        );
+
+        const isTooShort = words.length < 3;
+        const isOffTopic = !hasOverlap && words.length < 8;
+
+        if (isTooShort || isOffTopic) {
+            offTopicCounter[qIdx]++;
+
+            // Nếu mới lạc đề/ngắn 1-2 lần, cho phép "trò chuyện" thay vì chặn đứng
+            if (offTopicCounter[qIdx] <= 2) {
+                const politeResponses = [
+                    "Tôi hiểu ý bạn, một góc nhìn khá ngẫu hứng! Nhưng để 'giãi mã' sâu hơn, bạn kể tôi nghe thêm về [target] được không?",
+                    "Thú vị đấy, dường như tâm trí bạn đang phiêu du một chút. Quay lại một chút nhé, bạn thấy sao về [target]?",
+                    "Mọi chia sẻ đều có giá trị riêng, nhưng tôi rất muốn biết cụ thể hơn cảm giác của bạn về [target] vào lúc này."
+                ];
+                let msg = politeResponses[Math.floor(Math.random() * politeResponses.length)];
+
+                // Trích xuất từ khóa chính từ câu hỏi để gợi ý quay lại (lọc bỏ stop-words)
+                const subjects = allKeywords.filter(w => !stopWords.includes(w)).slice(0, 2);
+                const targetSubject = subjects.length > 0 ? subjects.join(' ') : "chủ đề này";
+                msg = msg.replace("[target]", targetSubject);
+
+                return {
+                    valid: true,
+                    isConversationOnly: true, // Tag để không nhảy sang câu hỏi tiếp theo
+                    message: msg
+                };
+            } else {
+                // Sau 2 lần thì yêu cầu nghiêm túc quay lại
+                return {
+                    valid: false,
+                    message: isTooShort
+                        ? "Chúng ta cần đi sâu hơn một chút để thấy được bức tranh toàn cảnh. Bạn hãy chia sẻ chi tiết hơn câu trả lời nhé!"
+                        : "Tôi rất thích trò chuyện cùng bạn, nhưng hãy giúp tôi tập trung vào câu hỏi này để kết quả phân tích chính xác nhất bạn nhé!"
+                };
+            }
+        }
+
+        return { valid: true };
+    }
 
     function getFreeTextFeedback(text) {
         const lowerText = text.toLowerCase();
@@ -333,16 +589,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const keywords = [
-            { words: ['thích', 'yêu', 'đam mê', 'muốn', 'ước'], response: "Sự khao khát chính là ngọn lửa dẫn lối cho mọi hành trình sáng tạo. Tôi cảm nhận được một tâm hồn rất đầy nhiệt huyết." },
-            { words: ['ghét', 'không thích', 'bực', 'mệt', 'chán'], response: "Việc nhận ra những gì không phù hợp cũng là một cách để chúng ta tiến gần hơn đến điều mình thực sự cần. Đừng ngại gạt bỏ những thứ không thuộc về mình." },
-            { words: ['lo', 'sợ', 'ngại', 'băn khoăn', 'sao'], response: "Sự bất định đôi khi lại mở ra những cánh cửa bất ngờ. Hãy cứ kiên nhẫn và bao dung hơn với chính mình bạn nhé." },
-            { words: ['tiền', 'giàu', 'kinh tế', 'tài chính', 'lương'], response: "Sự thịnh vượng là một phần của hạnh phúc, nhưng nó cần một tâm hồn tự do để thực sự rực rỡ và bền vững." },
-            { words: ['người', 'nhân loại', 'xã hội', 'giúp', 'gia đình', 'bạn'], response: "Hướng về cộng đồng và những kết nối con người là một cách để chúng ta thấy cuộc sống này có ý nghĩa hơn. Bạn có một trái tim thật ấm áp." },
-            { words: ['khoa học', 'logic', 'số', 'kỹ thuật', 'máy', 'code'], response: "Thế giới vận hành theo những quy luật tuyệt đẹp mà chúng ta cần sự tĩnh lặng và kiên nhẫn để thấu hiểu." },
-            { words: ['vẽ', 'hát', 'nghệ thuật', 'đẹp', 'nhạc', 'thẩm mỹ', 'sáng tạo'], response: "Nghệ thuật xoa dịu tâm hồn và giúp chúng ta kết nối với những phần bản thể sâu thẳm nhất. Gu của bạn thật đặc biệt." },
-            { words: ['tự do', 'đi', 'khám phá', 'phượt', 'du lịch'], response: "Mỗi bước chân đi xa là một lần ta được quay về gần hơn với bản chất thật của mình. Sự tự do là một món quà vô giá." },
-            { words: ['học', 'đọc', 'sách', 'kiến thức', 'nghiên cứu'], response: "Tri thức là ánh sáng duy nhất giúp chúng ta không bị lạc lối trong sự hỗn loạn của thế giới này." },
-            { words: ['bình yên', 'nhẹ nhàng', 'tĩnh', 'thiền'], response: "Trong sự tĩnh lặng, mọi câu trả lời sẽ tự khắc hiện rõ. Tâm hồn bạn đang tìm về đúng nơi nó cần thuộc về." }
+            { words: ['thích', 'yêu', 'đam mê', 'muốn', 'ước'], response: "Có vẻ bạn là người sống rất nhiệt huyết. Khi bạn đã xác định được mục tiêu, ngọn lửa bên trong bạn sẽ tỏa sáng rất mạnh mẽ." },
+            { words: ['ghét', 'không thích', 'bực', 'mệt', 'chán'], response: "Phản ứng này cho thấy bạn là người có tiêu chuẩn khá rõ ràng. Việc biết mình ghét gì đôi khi quan trọng hơn cả việc biết mình thích gì." },
+            { words: ['lo', 'sợ', 'ngại', 'băn khoăn', 'sao'], response: "Sự bất định này cho thấy bạn là một tâm hồn nhạy cảm. Đừng lo, những người sâu sắc thường hay có những trăn trở như vậy." },
+            { words: ['tiền', 'giàu', 'kinh tế', 'tài chính', 'lương'], response: "Bạn có vẻ là người khá thực tế và có đầu óc quản trị. Trong thế giới đầy mơ mộng này, sự tỉnh táo của bạn là một lợi thế lớn." },
+            { words: ['người', 'nhân loại', 'xã hội', 'giúp', 'gia đình', 'bạn'], response: "Có vẻ bạn là người có xu hướng hướng ngoại và vị tha. Kết nối con người chính là nguồn năng lượng của bạn." },
+            { words: ['khoa học', 'logic', 'số', 'kỹ thuật', 'máy', 'code'], response: "Có vẻ bạn tôn sùng sự mạch lạc và trật tự. Đây là một lĩnh vực khá kén người và cần một trí tuệ sắc bén đấy." },
+            { words: ['vẽ', 'hát', 'nghệ thuật', 'đẹp', 'nhạc', 'thẩm mỹ', 'sáng tạo'], response: "Tâm hồn bạn có vẻ rất bay bổng và không chịu khuất phục trước những quy tắc gò bó. Gu thẩm mỹ của bạn thực sự có 'chất' riêng." },
+            { words: ['tự do', 'đi', 'khám phá', 'phượt', 'du lịch'], response: "Có vẻ bạn là một linh hồn tự do, luôn khao khát những chân trời mới. Sự tò mò chính là chiếc la bàn tốt nhất của bạn." },
+            { words: ['học', 'đọc', 'sách', 'kiến thức', 'nghiên cứu'], response: "Bạn có vẻ là người có trí tò mò vô hạn. Tri thức đối với bạn không chỉ là thông tin, mà là cách bạn định nghĩa bản thân." },
+            { words: ['bình yên', 'nhẹ nhàng', 'tĩnh', 'thiền'], response: "Bạn có vẻ đang tìm kiếm sự cân bằng tuyệt đối. Một tâm hồn tĩnh lặng giữa thế giới ồn ào là một sức mạnh cực kỳ đáng gờm." }
         ];
 
         for (const item of keywords) {
@@ -359,6 +615,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const isReanswer = reansweringIdx !== null;
         const targetIdx = isReanswer ? reansweringIdx : currentIdx;
+
+        // XÁC THỰC CÂU TRẢ LỜI
+        const validation = validateAnswer(text, targetIdx);
+        if (!validation.valid) {
+            appendMessage('user', text, targetIdx);
+            userInput.value = '';
+            setTimeout(() => {
+                appendMessage('system', validation.message, targetIdx);
+            }, 600);
+            return;
+        }
 
         // If re-answering, subtract old scores first
         if (isReanswer) {
@@ -405,6 +672,7 @@ document.addEventListener('DOMContentLoaded', () => {
         appendMessage('user', text, targetIdx, noteText);
         userInput.value = '';
         suggestionBox.classList.add('hidden');
+        syncHintBtn();
         selectedHints = []; // Clear selections for next question
 
         // Store weight for undoing/re-answering later
@@ -416,16 +684,26 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Feedback
-        const systemResponse = lastAnswerFeedback || getFreeTextFeedback(text) || defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
+        const systemResponse = validation.isConversationOnly
+            ? validation.message
+            : (lastAnswerFeedback || getFreeTextFeedback(text) || defaultResponses[Math.floor(Math.random() * defaultResponses.length)]);
+
         lastAnswerFeedback = "";
 
         setTimeout(() => {
             appendMessage('system', systemResponse, targetIdx);
+
+            // Nếu chỉ là trò chuyện (lạc đề), không chuyển câu hỏi
+            if (validation.isConversationOnly) {
+                // Loop back: update suggestions for the same question
+                updateSuggestions(targetIdx);
+                return;
+            }
+
             if (!isReanswer) {
                 setTimeout(() => nextQuestion(), 1200);
             } else {
                 reansweringIdx = null; // Done re-answering
-                // Restore suggestions for currentIdx
                 updateSuggestions(currentIdx);
             }
         }, 800);
@@ -439,6 +717,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateSuggestions(targetQIdx);
 
         suggestionBox.classList.remove('hidden');
+        syncHintBtn();
         userInput.focus();
 
         // Scroll suggestion box to view
@@ -449,6 +728,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const percent = Math.round((currentIdx / questions.length) * 100);
         document.getElementById('quiz-progress-fill').style.width = `${percent}%`;
         document.getElementById('progress-text').textContent = `${percent}%`;
+
+        // Update Chapter Tabs based on currentIdx (Matching questions.js structure)
+        // Chapter 1: 0-29 (Tình huống), Chapter 2: 30-54 (Trăn trở), Chapter 3: 55-74 (Phép màu), Chapter 4: 75-99 (Lựa chọn)
+        let currentChapter = 1;
+        if (currentIdx >= 75) currentChapter = 4;
+        else if (currentIdx >= 55) currentChapter = 3;
+        else if (currentIdx >= 30) currentChapter = 2;
+
+        document.querySelectorAll('.chapter-tab').forEach(tab => {
+            if (parseInt(tab.dataset.chapter) === currentChapter) {
+                tab.classList.add('active');
+            } else {
+                tab.classList.remove('active');
+            }
+        });
     }
 
     function updateChart() {
@@ -462,50 +756,67 @@ document.addEventListener('DOMContentLoaded', () => {
             currentAnalysisChart.data.datasets[0].data = scores;
             currentAnalysisChart.update();
         }
+
+        if (sideAnalysisChart) {
+            sideAnalysisChart.options.scales.r.suggestedMax = maxVal;
+            sideAnalysisChart.data.datasets[0].data = scores;
+            sideAnalysisChart.update();
+        }
     }
 
     function finishQuiz() {
-        appendMessage('system', "Tôi đã nhìn thấu tâm hồn bạn. Hãy xem bản đồ kho báu nhé!");
+        isQuizCompleted = true;
+        updateActionButtons();
+        const finalText = `Tuyệt vời, chúng ta đã dần hiểu rõ bản thân mình rồi đấy! Hãy cùng xem kết quả phân tích cuối cùng nào!<br><br><a href="#results" class="result-link-chat"><b>Xem kết quả phân tích chi tiết</b></a>`;
+
+        appendMessage('system', finalText);
         inputArea.classList.add('hidden');
 
-        // Hide start button and show restart/view chat options
-        const startBtn = document.getElementById('quiz-start-btn');
-        const postOptions = document.getElementById('post-quiz-options');
-        if (startBtn) startBtn.classList.add('hidden');
-        if (postOptions) postOptions.classList.remove('hidden');
-
+        // Close quiz window after a delay to let user see the message
         setTimeout(() => {
             generateFinalProfile();
-            quizCard.classList.remove('fullscreen');
-            document.body.classList.remove('no-scroll');
-            window.location.hash = '#results';
+            // We keep the chat open but let the profile generate in the background
         }, 1500);
     }
 
     window.restartQuiz = function () {
-        if (!confirm('Bạn có chắc chắn muốn làm lại bài giải mã từ đầu không?')) return;
+        showConfirm(
+            'Làm lại từ đầu',
+            'Bạn muốn xóa hết những gì chúng ta đã cùng trò chuyện và bắt đầu lại từ chương đầu tiên sao?',
+            () => {
+                // Reset data
+                scores = [0, 0, 0, 0, 0, 0, 0];
+                currentIdx = 0;
+                appliedWeights = {};
 
-        // Reset data
-        scores = [0, 0, 0, 0, 0, 0, 0];
-        currentIdx = 0;
-        appliedWeights = {};
+                // Reset UI
+                chatWindow.innerHTML = '';
+                inputArea.classList.remove('hidden');
+                document.getElementById('quiz-progress-fill').style.width = '0%';
+                document.getElementById('progress-text').textContent = '0%';
 
-        // Reset UI
-        chatWindow.innerHTML = '';
-        inputArea.classList.remove('hidden');
-        document.getElementById('quiz-progress-fill').style.width = '0%';
-        document.getElementById('progress-text').textContent = '0%';
+                // Reset split view
+                const sidePanel = document.getElementById('analysis-side-panel');
+                if (sidePanel) {
+                    sidePanel.classList.add('hidden');
+                    sidePanel.classList.remove('active');
+                }
+                quizCard.classList.remove('is-split');
 
-        // Hide post-quiz options
-        const postOptions = document.getElementById('post-quiz-options');
-        if (postOptions) postOptions.classList.add('hidden');
+                // Hide post-quiz options
+                const postOptions = document.getElementById('post-quiz-options');
+                if (postOptions) postOptions.classList.add('hidden');
 
-        // Restart dynamic samples
-        isQuizCompleted = false;
-        startCycleSamples();
+                // Restart dynamic samples
+                isQuizCompleted = false;
+                isChatStarted = false;
+                updateActionButtons();
+                startCycleSamples();
 
-        // Restart chat flow
-        initChat();
+                // Restart chat flow
+                initChat();
+            }
+        );
     };
 
     // Updated: Result Update Logic for both Sample & Real data
@@ -574,31 +885,10 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // Feedback Logic (Hidden in Demo)
-        const feedbackContainer = document.getElementById('res-feedback-container');
-        if (feedbackContainer) {
-            if (isDemo) {
-                feedbackContainer.classList.add('hidden');
-            } else {
-                feedbackContainer.classList.remove('hidden');
-                const feedbackOptions = feedbackContainer.querySelector('.feedback-options');
-                const feedbackResponse = document.getElementById('feedback-response');
-                if (feedbackOptions) feedbackOptions.classList.remove('hidden');
-                if (feedbackResponse) feedbackResponse.classList.add('hidden');
-            }
-        }
-
-        // Update result action button label
-        if (!isDemo) {
-            const resActionBtn = document.getElementById('res-action-btn');
-            if (resActionBtn) {
-                resActionBtn.textContent = 'Làm lại';
-                resActionBtn.onclick = restartQuiz;
-            }
-        }
+        // Removed button changes to "Làm lại" per user request
     }
 
-    let isQuizCompleted = false;
+
     let sampleInterval;
 
     const sampleProfiles = [
@@ -722,45 +1012,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const p = profiles[maxScoreIdx];
         updateResultsUI(p, scores, false);
 
-        // Feedback Logic
-        const feedbackContainer = document.getElementById('res-feedback-container');
-        const feedbackOptions = feedbackContainer.querySelector('.feedback-options');
-        const feedbackResponse = document.getElementById('feedback-response');
-        const yesBtn = document.getElementById('feedback-yes');
-        const noBtn = document.getElementById('feedback-no');
 
-        if (yesBtn) {
-            yesBtn.onclick = () => {
-                feedbackOptions.classList.add('hidden');
-                feedbackResponse.textContent = 'Vậy thì cùng bắt tay vào hành động thôi nào!';
-                feedbackResponse.classList.remove('hidden');
-                feedbackResponse.style.color = 'var(--primary)';
-            };
-        }
-
-        if (noBtn) {
-            noBtn.onclick = () => {
-                feedbackOptions.classList.add('hidden');
-                feedbackResponse.textContent = 'Bạn thấy có điểm nào chưa phù hợp, hãy nói với tôi nhé!';
-                feedbackResponse.classList.remove('hidden');
-                feedbackResponse.style.color = 'var(--text-muted)';
-            };
-        }
     }
 
     sendBtn.onclick = submitAnswer;
     userInput.onkeypress = (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); submitAnswer(); } };
-    hintBtn.onclick = () => suggestionBox.classList.toggle('hidden');
+    hintBtn.onclick = () => {
+        suggestionBox.classList.toggle('hidden');
+        syncHintBtn();
+    };
 
     exitBtn.onclick = exitChat;
-    analysisBtn.onclick = () => {
-        if (!currentAnalysisChart) initCurrentChart();
-        const maxVal = Math.max(...scores, 100);
-        currentAnalysisChart.options.scales.r.suggestedMax = maxVal;
-        currentAnalysisChart.data.datasets[0].data = scores;
-        currentAnalysisChart.update();
-        analysisModal.classList.remove('hidden');
-    };
     closeModal.onclick = () => analysisModal.classList.add('hidden');
 
     window.addEventListener('scroll', () => {

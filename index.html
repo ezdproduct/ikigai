@@ -7,9 +7,12 @@
     <title>Ikigai Garden - Tìm thấy Đam Mê & Nở rộ Sự Nghiệp</title>
     <!-- Fonts: Lora for Headings, Be Vietnam Pro for Body -->
     <link
-        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Lora:wght@500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Playwrite+VN:wght@100..400&family=Bricolage+Grotesque:wght@200..800&family=Carattere&family=Be+Vietnam+Pro:wght@100;300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="journey-overrides.css">
+    <link rel="stylesheet" href="about-carousel.css">
+    <link rel="stylesheet" href="garden-effects.css">
     <!-- Lucide Icons for better UI -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -20,10 +23,8 @@
         <div class="container">
             <a href="#" class="logo">MindGarden</a>
             <div class="nav-links">
-                <a href="#journey">Hành trình</a>
-                <a href="#comparison">Khác biệt</a>
-                <a href="#test">Giải mã</a>
-                <a href="#game">Trò chơi</a>
+                <a href="#comparison">Về chúng tôi</a>
+                <a href="#journey">Khám phá</a>
                 <a href="#results">Kết quả</a>
             </div>
             <a href="#test" class="btn-primary">Đăng kí/Đăng nhập</a>
@@ -49,103 +50,145 @@
                         style="white-space: nowrap;">tài năng</span> thiên bẩm và kiến tạo một sự nghiệp thăng hoa từ
                     chính nội lực của mình.</p>
                 <div class="hero-btns-centered">
-                    <a href="#test" class="btn-primary">Bắt đầu!</a>
+                    <a href="javascript:void(0)" class="btn-primary" onclick="initChat()">Bắt đầu</a>
                     <a href="#journey" class="btn-secondary">Khám phá hành trình</a>
                 </div>
             </div>
         </div>
+
     </header>
 
     <main>
-        <section id="journey" class="journey-section">
-            <div class="container">
-                <div class="section-title">
-                    <h2>Hành trình Tìm lại Chính mình</h2>
-                    <p>3 bước đơn giản để thấu hiểu bản thân và chọn lựa tương lai</p>
-                </div>
-                <div class="path-visual">
-                    <div class="path-line"></div>
-                    <div class="step-card">
-                        <span class="step-num">01</span>
-                        <h3>Kết nối</h3>
-                        <p>Thực hiện bài giải mã tâm lý để thấu hiểu bản chất và đam mê tiềm ẩn.</p>
+        <!-- The Difference Section -->
+        <section id="comparison" class="comparison-section">
+            <div class="container text-centered">
+
+
+                <div class="about-split-layout">
+                    <div class="about-column-left">
+                        <div class="about-title-shape">
+                            <h2 class="about-gradient-title">Về Mindgarden</h2>
+                        </div>
                     </div>
-                    <div class="step-card">
-                        <span class="step-num">02</span>
-                        <h3>Trải nghiệm</h3>
-                        <p>Vượt qua các thử thách trong trò chơi để bộc lộ kỹ năng giải quyết vấn đề.</p>
-                    </div>
-                    <div class="step-card">
-                        <span class="step-num">03</span>
-                        <h3>Định hướng</h3>
-                        <p>Nhận báo cáo chi tiết về bản thân và lộ trình sự nghiệp phù hợp nhất.</p>
+                    <div class="about-column-right">
+                        <div class="flower-showcase">
+                            <div class="flower-item" data-index="0">
+                                <div class="flower-circle-wrapper">
+                                    <div class="flower-circle-flower color-1"></div>
+                                </div>
+                                <div class="flower-content">
+                                    <h3>Trò chuyện Nội tâm</h3>
+                                    <p>Cuộc hội thoại như "giấc mơ" dẫn dắt, giúp khám phá bản thân tự nhiên như tâm sự
+                                        với chính mình.</p>
+                                </div>
+                            </div>
+                            <div class="flower-item" data-index="1">
+                                <div class="flower-circle-wrapper">
+                                    <div class="flower-circle-flower color-2"></div>
+                                </div>
+                                <div class="flower-content">
+                                    <h3>Nền tảng Khoa học</h3>
+                                    <p>Thiết kế dựa trên JTBD, Miracle Question và Jealousy as a Map để thấu hiểu động
+                                        lực sâu thẳm.</p>
+                                </div>
+                            </div>
+                            <div class="flower-item" data-index="2">
+                                <div class="flower-circle-wrapper">
+                                    <div class="flower-circle-flower color-3"></div>
+                                </div>
+                                <div class="flower-content">
+                                    <h3>7 Nhóm Năng lượng</h3>
+                                    <p>Tách biệt "Chiến lược", "Quản trị" và "Phát triển" – phù hợp hơn với giới trẻ.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="flower-item" data-index="3">
+                                <div class="flower-circle-wrapper">
+                                    <div class="flower-circle-flower color-4"></div>
+                                </div>
+                                <div class="flower-content">
+                                    <h3>Radar Chart Từng Câu</h3>
+                                    <p>Visualize chân dung bản thể 7 chiều ngay lập tức qua từng thay đổi của cuộc hội
+                                        thoại.</p>
+                                </div>
+                            </div>
+                            <div class="flower-item" data-index="4">
+                                <div class="flower-circle-wrapper">
+                                    <div class="flower-circle-flower color-5"></div>
+                                </div>
+                                <div class="flower-content">
+                                    <h3>Kỹ thuật Tâm lý</h3>
+                                    <p>Tích hợp Priming và Loss Aversion (Kahneman) để nhận diện sở thích ngầm cá nhân.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- The Difference Section -->
-        <section id="comparison" class="comparison-section">
-            <div class="container text-centered">
-                <div class="section-title reveal-zoom">
-                    <span class="badge">Sự khác biệt</span>
-                    <h2>Tại sao chọn MindGarden?</h2>
-                    <p>Sự đột phá so với các platform trắc nghiệm truyền thống trên thị trường</p>
+        <section id="journey" class="journey-section">
+            <div class="container">
+                <div class="journey-intro-text text-centered">
+
+                    <h2>Hành trình Khai mở<br>Bản thể</h2>
+                    <p>Vượt qua sương mù thực tại, chạm tới tiềm năng vô hạn với 3 giai đoạn.</p>
                 </div>
 
-                <div class="comparison-grid">
-                    <div class="comparison-card animate-up">
-                        <div class="card-icon"><i data-lucide="message-circle-more"></i></div>
-                        <h3>Hội thoại AI Chuyên sâu</h3>
-                        <p>Không còn là những form trắc nghiệm khô khan. Chúng tôi sử dụng AI để thực hiện một cuộc trò
-                            chuyện sâu sắc, thấu hiểu suy nghĩ và cảm xúc thật của bạn.</p>
-                        <div class="market-vs">Thị trường hiện nay: Đa số là câu hỏi trắc nghiệm A-B-C cố định.</div>
-                    </div>
+                <div class="journey-container-horizontal">
+                    <div class="journey-steps-row">
+                        <div class="journey-step-box">
+                            <div class="step-img-wrap">
+                                <img src="journey_step_1_connect_1772443516975.png" alt="Connect">
+                            </div>
+                            <div class="step-info">
+                                <span class="step-label">Trạm 01</span>
+                                <h4>Kết nối Nội tại</h4>
+                                <p>Giải mã những tín hiệu từ tiềm thức để thấu hiểu bản chất con người thật của bạn.</p>
+                                <a href="javascript:void(0)" class="step-link" onclick="initChat()">Bắt đầu ngay <i
+                                        data-lucide="chevron-right"></i></a>
+                            </div>
+                        </div>
 
-                    <div class="comparison-card animate-up" style="animation-delay: 0.1s;">
-                        <div class="card-icon"><i data-lucide="zap"></i></div>
-                        <h3>Phản hồi Thời gian thực</h3>
-                        <p>Bản đồ tiềm năng được vẽ và cập nhật ngay trong lúc bạn chia sẻ, giúp bạn trực quan hóa quá
-                            trình thấu hiểu bản thân từng phút giây.</p>
-                        <div class="market-vs">Thị trường hiện nay: Chỉ nhận được kết quả tĩnh sau khi đã trả lời xong
-                            tất cả.</div>
-                    </div>
+                        <div class="journey-step-box">
+                            <div class="step-img-wrap">
+                                <img src="journey_step_2_experience_1772443539241.png" alt="Experience">
+                            </div>
+                            <div class="step-info">
+                                <span class="step-label">Trạm 02</span>
+                                <h4>Thử thách Trực giác</h4>
+                                <p>Bộc lộ tài năng thiên bẩm thông qua những trải nghiệm tương thực đầy thú vị.</p>
+                                <a href="#game" class="step-link">Trải nghiệm <i data-lucide="chevron-right"></i></a>
+                            </div>
+                        </div>
 
-                    <div class="comparison-card animate-up" style="animation-delay: 0.2s;">
-                        <div class="card-icon"><i data-lucide="fingerprint"></i></div>
-                        <h3>Giải mã Tổng diện Bản thể</h3>
-                        <p>Phân tích sâu sắc về sự kết hợp giữa bản chất, điểm mạnh và cả những điểm yếu cần lưu ý để
-                            bạn có cái nhìn trọn vẹn nhất.</p>
-                        <div class="market-vs">Thị trường hiện nay: Thường chỉ phân loại nhóm tính cách theo sơ đồ
-                            chung.</div>
-                    </div>
-
-                    <div class="comparison-card animate-up" style="animation-delay: 0.3s;">
-                        <div class="card-icon"><i data-lucide="target"></i></div>
-                        <h3>Hướng nghiệp Thực tế</h3>
-                        <p>Gợi ý những vị trí công việc cụ thể trong xã hội hiện đại (ví dụ: Dược sĩ Lâm sàng, AI
-                            Researcher...) thay vì các lĩnh vực mơ hồ.</p>
-                        <div class="market-vs">Thị trường hiện nay: Thường gợi ý những nghề nghiệp truyền thống và quá
-                            bao quát.</div>
+                        <div class="journey-step-box">
+                            <div class="step-img-wrap">
+                                <img src="journey_step_3_direction_1772443558880.png" alt="Direction">
+                            </div>
+                            <div class="step-info">
+                                <span class="step-label">Trạm 03</span>
+                                <h4>Kiến tạo Tương lai</h4>
+                                <p>Sở hữu bản đồ định vị sự nghiệp và lộ trình phát triển bền vững nhất.</p>
+                                <a href="#results" class="step-link">Xem lối đi <i data-lucide="chevron-right"></i></a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Conversational Quiz Section -->
-        <section id="test" class="quiz-section">
+        <section id="test" class="quiz-section hidden">
             <div class="container">
                 <div class="glass-quiz-card">
                     <div class="quiz-header">
                         <div class="quiz-header-top">
                             <div>
-                                <span class="tag">Bản đồ nội tâm</span>
                                 <h2>Cuộc hội thoại với Bản thân</h2>
                             </div>
                             <div class="quiz-controls">
-                                <button id="analysis-btn" class="quiz-control-btn" title="Xem phân tích hiện tại">
-                                    <i data-lucide="bar-chart-2"></i> <span>Phân tích tạm thời</span>
-                                </button>
                                 <button id="restart-quiz-btn" class="quiz-control-btn" title="Làm lại từ đầu"
                                     onclick="restartQuiz()">
                                     <i data-lucide="refresh-cw"></i> Làm lại
@@ -163,52 +206,71 @@
                         </div>
                     </div>
 
-                    <div id="quiz-window" class="quiz-chat-window">
-                        <!-- Chat messages will be injected here -->
-                        <div class="chat-msg system-msg">
-                            <p>Đang khởi tạo không gian tĩnh lặng...</p>
+                    <div class="quiz-chapters-tabs hidden" id="chapter-tabs">
+                        <div class="chapter-tab active" data-chapter="1">
+                            <span class="chapter-label">Chương 1</span>
+                            <span class="chapter-name">Tình huống</span>
+                        </div>
+                        <div class="chapter-tab" data-chapter="2">
+                            <span class="chapter-label">Chương 2</span>
+                            <span class="chapter-name">Trăn trở</span>
+                        </div>
+                        <div class="chapter-tab" data-chapter="3">
+                            <span class="chapter-label">Chương 3</span>
+                            <span class="chapter-name">Phép màu</span>
+                        </div>
+                        <div class="chapter-tab" data-chapter="4">
+                            <span class="chapter-label">Chương 4</span>
+                            <span class="chapter-name">Lựa chọn</span>
+                        </div>
+                    </div>
+
+                    <div class="quiz-body-wrapper hidden">
+                        <div id="analysis-side-panel" class="analysis-side-panel hidden">
+                            <div class="side-panel-header">
+                                <div class="side-panel-title">
+                                    <i data-lucide="gauge"></i> Phân tích nội tâm
+                                </div>
+                                <p class="side-panel-subtitle">Dữ liệu được cập nhật Real-time qua từng câu trả lời</p>
+                            </div>
+                            <div class="side-panel-chart-container">
+                                <canvas id="sideRadarChart"></canvas>
+                            </div>
+
+                        </div>
+                        <div id="quiz-window" class="quiz-chat-window">
+                            <!-- Chat messages will be injected here -->
+                            <div class="chat-msg system-msg">
+                                <p>Đang khởi tạo không gian tĩnh lặng...</p>
+                            </div>
                         </div>
                     </div>
 
                     <div id="quiz-input-area" class="quiz-input-area hidden">
-                        <div class="suggestion-box hidden" id="suggestion-box">
-                            <div class="suggestion-header">Bạn có thể chọn hoặc tự nhập câu trả lời:</div>
-                            <div class="suggestion-grid" id="suggestion-grid">
-                                <!-- Options A-G will be injected here -->
+                        <button id="show-hints-btn" class="hint-btn" title="Xem gợi ý">
+                            <i data-lucide="help-circle"></i> Xem gợi ý
+                        </button>
+                        <div class="quiz-input-main">
+                            <div class="suggestion-box hidden" id="suggestion-box">
+                                <div class="suggestion-header">Bạn có thể chọn hoặc tự nhập câu trả lời:</div>
+                                <div class="suggestion-grid" id="suggestion-grid">
+                                    <!-- Options A-G will be injected here -->
+                                </div>
                             </div>
-                        </div>
-                        <div class="input-row">
-                            <textarea id="user-answer" placeholder="Nhập suy nghĩ của bạn tại đây..."></textarea>
-                            <div class="input-actions">
-                                <button id="show-hints-btn" class="hint-btn" title="Gợi ý">
-                                    <i data-lucide="help-circle"></i> Gợi ý
-                                </button>
-                                <button id="send-btn" class="send-btn">
-                                    <i data-lucide="send"></i>
-                                </button>
+                            <div class="input-row">
+                                <textarea id="user-answer" placeholder="Nhập suy nghĩ của bạn tại đây..."></textarea>
+                                <div class="input-actions">
+                                    <button id="send-btn" class="send-btn">
+                                        <i data-lucide="send"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div id="quiz-start-screen" class="quiz-start-screen">
-                        <div class="dream-sequence">
-                            <p id="type-text-1">Có quá nhiều con đường nhưng bạn không biết con đường nào là dành cho
-                                mình?</p>
-                            <p class="highlight" id="type-text-2">Hãy cùng quay về bên trong để tìm hiểu xem</p>
-                            <h2 class="title-glow" id="type-text-3">BẠN THỰC SỰ LÀ AI?</h2>
-                        </div>
-                        <button id="quiz-start-btn" class="btn-primary pulse hidden" onclick="initChat()">Bắt
-                            đầu!</button>
-
-                        <div id="post-quiz-options" class="hidden">
-                            <p class="view-results-text">Xem kết quả bên dưới</p>
-                            <div class="post-quiz-btns">
-                                <button class="btn-secondary" onclick="restartQuiz()">Làm lại</button>
-                                <button class="btn-primary" onclick="initChat()">Xem đoạn chat</button>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- Start screen removed - triggered directly -->
                 </div>
+            </div>
             </div>
         </section>
 
@@ -216,7 +278,6 @@
             <div class="container">
                 <div class="section-title">
                     <h2 class="reveal-zoom">Bản đồ Kho báu của Bạn</h2>
-                    <p>Phân tích chi tiết về bản chất và hướng đi sự nghiệp</p>
                 </div>
                 <div class="results-grid">
                     <div class="chart-container reveal-zoom">
@@ -253,14 +314,7 @@
                                 tương lai?</p>
                         </div>
 
-                        <div id="res-feedback-container" class="feedback-section hidden">
-                            <p class="feedback-question">Bạn thấy đề xuất này phù hợp với mình chứ?</p>
-                            <div class="feedback-options">
-                                <button class="btn-feedback" id="feedback-yes">Có</button>
-                                <button class="btn-feedback" id="feedback-no">Không</button>
-                            </div>
-                            <p id="feedback-response" class="feedback-response hidden"></p>
-                        </div>
+
 
                         <div class="result-actions">
                             <button id="res-action-btn" class="btn-primary" onclick="initChat()">Bắt đầu giải
@@ -284,6 +338,18 @@
                     thoại</button>
             </div>
         </div>
+
+        <!-- Confirm Modal -->
+        <div id="confirm-modal" class="modal hidden">
+            <div class="modal-content glass-card confirm-modal-content">
+                <h3 id="confirm-title">Xác nhận</h3>
+                <p id="confirm-message">Bạn có chắc chắn muốn thực hiện hành động này?</p>
+                <div class="confirm-actions">
+                    <button id="confirm-cancel-btn" class="btn-secondary">Hủy bỏ</button>
+                    <button id="confirm-ok-btn" class="btn-primary">Đồng ý</button>
+                </div>
+            </div>
+        </div>
     </main>
 
     <footer>
@@ -295,8 +361,39 @@
 
     <script src="questions.js"></script>
     <script src="main.js"></script>
+    <script src="garden-effects.js"></script>
+
     <script>
-        lucide.createIcons();
+        // Flower Showcase Logic - Vertical Auto-Zoom
+        function initFlowerShowcase() {
+            const flowerItems = document.querySelectorAll('.flower-item');
+            if (flowerItems.length === 0) return;
+
+            let currentFlowerIndex = 0;
+
+            function updateFlowerShowcase() {
+                flowerItems.forEach((item, idx) => {
+                    if (idx === currentFlowerIndex) {
+                        item.classList.add('active');
+                    } else {
+                        item.classList.remove('active');
+                    }
+                });
+
+                // Next index
+                currentFlowerIndex = (currentFlowerIndex + 1) % flowerItems.length;
+            }
+
+            // Initial call
+            updateFlowerShowcase();
+
+            // Set interval for auto-cycling (3 seconds)
+            setInterval(updateFlowerShowcase, 3000);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initFlowerShowcase();
+        });
     </script>
 </body>
 
