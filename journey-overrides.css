@@ -224,8 +224,8 @@
     }
 
     .journey-header-stacked {
-        margin-bottom: 20px !important;
-        /* Giảm từ 40px xuống 20px */
+        margin-bottom: 10px !important;
+        /* Giảm thêm để sát nội dung hành trình */
         gap: 1.2rem !important;
         display: flex !important;
         flex-direction: column !important;
@@ -240,14 +240,8 @@
     }
 
     .journey-subtitle {
-        font-size: 1.1rem !important;
-        line-height: 1.5 !important;
-        text-align: left !important;
-        /* Căn trái theo yêu cầu */
-        max-width: 100% !important;
-        margin-top: 5px !important;
-        padding-left: 10px !important;
-        /* Thêm chút đệm đồng bộ với title */
+        display: none !important;
+        /* Ẩn câu phụ đề trên mobile theo yêu cầu */
     }
 
     .journey-zigzag-mobile {
