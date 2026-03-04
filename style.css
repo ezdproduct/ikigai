@@ -2646,15 +2646,51 @@ footer {
         animation: slideDownFade 0.3s ease;
     }
 
-    /* Thu gọn nút "Xem gợi ý" và "Phân tích tạm thời" trên mobile */
-    .hint-btn {
-        padding: 0.25rem 0.6rem !important;
-        font-size: 0.7rem !important;
+    /* Thu gọn nút thành icon-only tròn nhỏ - compact nhưng vẫn rõ ràng */
+    .input-top-actions {
+        gap: 6px !important;
     }
 
+    .hint-btn {
+        width: 32px !important;
+        height: 32px !important;
+        padding: 0 !important;
+        border-radius: 50% !important;
+        font-size: 0 !important;
+        /* Ẩn text */
+        gap: 0 !important;
+        justify-content: center;
+        position: relative;
+    }
+
+    /* Cho icon hiện lại trong vòng tròn nhỏ */
     .hint-btn i,
     .hint-btn svg {
-        display: none !important;
-        /* Bỏ icon theo yêu cầu */
+        display: block !important;
+        width: 16px !important;
+        height: 16px !important;
+        flex-shrink: 0;
+    }
+
+    /* Label ẩn bên dưới icon hiện khi hover (UX hint) */
+    .hint-btn::after {
+        content: attr(title);
+        position: absolute;
+        bottom: calc(100% + 6px);
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.75);
+        color: #fff;
+        font-size: 0.65rem;
+        white-space: nowrap;
+        padding: 3px 8px;
+        border-radius: 6px;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.2s;
+    }
+
+    .hint-btn:active::after {
+        opacity: 1;
     }
 }
