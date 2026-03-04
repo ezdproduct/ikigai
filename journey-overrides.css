@@ -343,29 +343,5 @@
         opacity: 0.7;
     }
 
-    /* Dấu chấm đỏ trên đường zigzag */
-    .zigzag-dot {
-        position: absolute;
-        width: 8px;
-        height: 8px;
-        background: #D25F15;
-        border-radius: 50%;
-        z-index: 3;
-        top: 10px;
-        box-shadow: 0 0 10px rgba(210, 95, 21, 0.5);
-    }
 
-    .step-1 .zigzag-dot {
-        right: 30%;
-    }
-
-    .step-2 .zigzag-dot {
-        left: 30%;
-        top: 115px;
-    }
-
-    .step-3 .zigzag-dot {
-        right: 30%;
-        top: 225px;
-    }
 }
