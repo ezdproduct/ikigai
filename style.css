@@ -2555,7 +2555,8 @@ footer {
     /* Messenger style: Input is part of the flow at the bottom */
     .quiz-input-area {
         position: relative !important;
-        width: 100%;
+        width: 100% !important;
+        max-width: 100% !important;
         background: #fff !important;
         border-top: 1px solid rgba(0, 0, 0, 0.05);
         padding: 10px 12px calc(10px + env(safe-area-inset-bottom, 0)) !important;
@@ -2567,7 +2568,8 @@ footer {
         gap: 8px !important;
         z-index: 100;
         margin-top: auto !important;
-        /* Đẩy xuống đáy card */
+        box-sizing: border-box !important;
+        overflow: hidden !important;
     }
 
     .quiz-input-area:focus-within .input-top-actions {
@@ -2576,7 +2578,8 @@ footer {
 
     /* Vùng 7 phần bên phải */
     .quiz-input-main {
-        flex: 0 0 calc(75% - 8px) !important;
+        flex: 1 !important;
+        /* Dùng flex: 1 để tự động chiếm phần còn lại chuẩn xác nhất */
         min-width: 0;
         background: transparent !important;
         border: none !important;
@@ -2725,14 +2728,19 @@ footer {
         flex-direction: column !important;
         height: 100dvh !important;
         height: 100svh !important;
-        overflow: hidden !important;
+        width: 100% !important;
+        /* Ép đúng 100% */
+        overflow-x: hidden !important;
+        /* Ngăn trôi ngang */
+        overflow-y: hidden !important;
         background-attachment: scroll !important;
     }
 
     .quiz-section .container {
         padding: 0 !important;
         margin: 0 !important;
-        max-width: none !important;
+        max-width: 100% !important;
+        width: 100% !important;
         height: 100% !important;
         display: flex !important;
         flex-direction: column !important;
@@ -2740,14 +2748,24 @@ footer {
 
     .glass-quiz-card {
         margin: 0 !important;
-        padding: 10px 0 0 0 !important;
-        /* Để dành chỗ cho input bên trong */
+        padding: 10px 15px 0 15px !important;
+        /* Thêm lại padding cho các thành phần bên trong không bị sát lề quá */
         flex: 1 !important;
+        width: 100% !important;
         height: 100% !important;
         border-radius: 0 !important;
         display: flex !important;
         flex-direction: column !important;
         background: rgba(255, 255, 255, 0.9) !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Reset cho các thành phần bên trong Card */
+    .quiz-header,
+    .quiz-progress-container {
+        width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
     }
 
     .quiz-body-wrapper {
