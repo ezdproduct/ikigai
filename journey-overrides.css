@@ -193,89 +193,162 @@
     line-height: 1.5;
 }
 
-@media (max-width: 1100px) {
-    .journey-steps-row {
-        grid-template-columns: 1fr;
-        max-width: 500px;
-        margin: 0 auto;
-    }
+/* --- Trải nghiệm Zigzag Mobile --- */
+.desktop-only {
+    display: block;
+}
+
+.mobile-only {
+    display: none;
 }
 
 @media (max-width: 768px) {
+    .desktop-only {
+        display: none !important;
+    }
+
+    .mobile-only {
+        display: block !important;
+    }
+
     .journey-section {
-        padding: 80px 0 !important;
-        background: linear-gradient(180deg, #FFFFFF 0%, #FFF8E8 100%) !important;
-        /* Nền vàng cam nhạt tinh tế */
+        padding: 60px 0 100px !important;
+        background: #fff !important;
+        /* Trắng sáng cho giống hình mẫu */
     }
 
     .journey-section::before,
     .journey-section::after {
         display: none !important;
-        /* Bỏ vệt mờ gradient chuyển cảnh */
-    }
-
-    .journey-section .container {
-        flex-direction: column !important;
-        gap: 40px !important;
     }
 
     .journey-intro-text {
-        text-align: left !important;
-        /* Left alignment for intro */
+        text-align: center !important;
+        margin-bottom: 50px !important;
+        padding: 0 20px !important;
     }
 
     .journey-intro-text h2 {
-        font-size: 2.5rem !important;
-        line-height: 1.15 !important;
-        letter-spacing: -1px;
+        font-size: 2.2rem !important;
+        margin-bottom: 1rem !important;
     }
 
-    .journey-intro-text p {
-        font-size: 1.15rem !important;
-        line-height: 1.5 !important;
+    .journey-zigzag-mobile {
+        position: relative;
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 20px 0;
+        overflow: visible;
     }
 
-    .journey-steps-row {
-        padding-left: 0 !important;
-        gap: 16px !important;
-        /* Minimal gap between lists */
+    /* Đường nối zigzag mờ ảo */
+    .zigzag-path-svg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        pointer-events: none;
+        opacity: 0.6;
     }
 
-    .journey-scan-arrow {
-        display: none !important;
+    .zigzag-step {
+        position: relative;
+        z-index: 2;
+        margin-bottom: 80px;
+        width: 100%;
     }
 
-    .journey-step-box {
-        flex-direction: row !important;
-        /* Horizontal stacking! */
-        text-align: left !important;
-        gap: 20px !important;
-        padding: 24px !important;
-        margin: 0 !important;
-        /* Don't auto center */
-        border-radius: 12px !important;
-        /* Sharper */
-        border: none !important;
-        background: #fdfdfd !important;
-        /* minimal */
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03) !important;
+    .zigzag-content {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        padding: 0 15px;
     }
 
-    .step-img-wrap {
-        width: 60px !important;
-        height: 60px !important;
-        border-radius: 8px !important;
-        /* Clean square */
-        clip-path: none !important;
+    /* Organic Blob Shape cho ảnh */
+    .organic-image-wrap {
+        width: 140px;
+        height: 140px;
+        flex-shrink: 0;
+        overflow: hidden;
+        /* Hình dạng blob tự nhiên */
+        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        border: 4px solid #fff;
     }
 
-    .step-info h4 {
-        font-size: 1.25rem !important;
-        margin-bottom: 4px !important;
+    .organic-image-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
 
-    .step-info p {
-        font-size: 0.95rem !important;
-        line-height: 1.4 !important;
+    /* Đảo ngược vị trí cho bước 2 (zigzag) */
+    .zigzag-step.alternate .zigzag-content {
+        flex-direction: row;
+        justify-content: flex-end;
+        text-align: right;
+    }
+
+    .zigzag-step.alternate .organic-image-wrap {
+        border-radius: 40% 60% 70% 30% / 30% 60% 40% 70%;
+    }
+
+    .zigzag-info {
+        flex: 1;
+    }
+
+    .zigzag-info h5 {
+        font-size: 1.25rem;
+        color: #D25F15;
+        margin-bottom: 6px;
+        font-family: var(--font-heading);
+        font-weight: 800;
+    }
+
+    .zigzag-info p {
+        font-size: 0.9rem;
+        line-height: 1.4;
+        color: #555;
+        margin-bottom: 8px;
+    }
+
+    .step-detail {
+        display: inline-block;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #A04000;
+        font-weight: 700;
+        opacity: 0.7;
+    }
+
+    /* Dấu chấm đỏ trên đường zigzag */
+    .zigzag-dot {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        background: #D25F15;
+        border-radius: 50%;
+        z-index: 3;
+        top: 10px;
+        box-shadow: 0 0 10px rgba(210, 95, 21, 0.5);
+    }
+
+    .step-1 .zigzag-dot {
+        right: 30%;
+    }
+
+    .step-2 .zigzag-dot {
+        left: 30%;
+        top: 115px;
+    }
+
+    .step-3 .zigzag-dot {
+        right: 30%;
+        top: 225px;
     }
 }

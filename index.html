@@ -136,7 +136,8 @@
                     <p>Vượt qua sương mù thực tại, chạm tới tiềm năng vô hạn với 3 giai đoạn.</p>
                 </div>
 
-                <div class="journey-container-horizontal">
+                <!-- Web/Desktop: Existing row -->
+                <div class="journey-container-horizontal desktop-only">
                     <div class="journey-steps-row">
                         <div class="journey-scan-arrow" id="journey-scan-arrow">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"
@@ -145,7 +146,6 @@
                             </svg>
                         </div>
                         <div class="journey-step-box">
-
                             <div class="step-info">
                                 <h4>Kết nối Nội tại</h4>
                                 <p>Giải mã những tín hiệu từ tiềm thức để thấu hiểu bản chất con người thật của bạn.</p>
@@ -155,7 +155,6 @@
                         </div>
 
                         <div class="journey-step-box">
-
                             <div class="step-info">
                                 <h4>Thử thách</h4>
                                 <p>Bộc lộ tài năng thiên bẩm thông qua những trải nghiệm tương thực đầy thú vị.</p>
@@ -164,11 +163,65 @@
                         </div>
 
                         <div class="journey-step-box">
-
                             <div class="step-info">
                                 <h4>Định hướng</h4>
                                 <p>Sở hữu bản đồ định vị sự nghiệp và lộ trình phát triển bền vững nhất.</p>
                                 <a href="#results" class="step-link">Xem lối đi <i data-lucide="chevron-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile: Zigzag Path Design -->
+                <div class="journey-zigzag-mobile mobile-only">
+                    <div class="zigzag-path-svg">
+                        <svg viewBox="0 0 100 300" preserveAspectRatio="none">
+                            <path d="M70,10 C70,50 30,50 30,100 C30,150 70,150 70,200 C70,250 30,250 30,290" fill="none"
+                                stroke="rgba(210, 95, 21, 0.2)" stroke-width="0.5" stroke-dasharray="2,2" />
+                            <circle cx="70" cy="10" r="1.5" fill="#D25F15" />
+                            <circle cx="30" cy="115" r="1.5" fill="#D25F15" />
+                            <circle cx="70" cy="225" r="1.5" fill="#D25F15" />
+                        </svg>
+                    </div>
+
+                    <div class="zigzag-step step-1">
+                        <div class="zigzag-dot"></div>
+                        <div class="zigzag-content">
+                            <div class="organic-image-wrap">
+                                <img src="journey_step_1.png" alt="Kết nối">
+                            </div>
+                            <div class="zigzag-info">
+                                <h5>Kết nối Nội tại</h5>
+                                <p>Giải mã tín hiệu tiềm thức, thấu hiểu chính mình.</p>
+                                <span class="step-detail">GĐ 1 • Khám phá</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="zigzag-step step-2 alternate">
+                        <div class="zigzag-dot"></div>
+                        <div class="zigzag-content">
+                            <div class="zigzag-info">
+                                <h5>Thử thách</h5>
+                                <p>Bộc lộ tài năng qua trải nghiệm tương tác.</p>
+                                <span class="step-detail">GĐ 2 • Đối diện</span>
+                            </div>
+                            <div class="organic-image-wrap">
+                                <img src="journey_step_2.png" alt="Thử thách">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="zigzag-step step-3">
+                        <div class="zigzag-dot"></div>
+                        <div class="zigzag-content">
+                            <div class="organic-image-wrap">
+                                <img src="journey_step_3.png" alt="Định hướng">
+                            </div>
+                            <div class="zigzag-info">
+                                <h5>Định hướng</h5>
+                                <p>Lộ trình phát triển sự nghiệp bền vững nhất.</p>
+                                <span class="step-detail">GĐ 3 • Vươn tầm</span>
                             </div>
                         </div>
                     </div>
