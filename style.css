@@ -2561,10 +2561,11 @@ footer {
         background: #fff !important;
         /* Đảm bảo có nền để không bị xuyên thấu chat */
         border-top: 1px solid rgba(0, 0, 0, 0.05);
-        padding: 8px 8px calc(8px + env(safe-area-inset-bottom, 0)) !important;
+        padding: 6px 8px calc(6px + env(safe-area-inset-bottom, 0)) !important;
         display: flex;
         flex-direction: row !important;
-        align-items: flex-end;
+        align-items: center;
+        /* Ngang hàng tuyệt đối */
         gap: 8px !important;
         z-index: 2000;
         margin: 0 !important;
@@ -2604,8 +2605,8 @@ footer {
         display: flex;
         flex-direction: row;
         gap: 4px !important;
-        padding-bottom: 5px !important;
-        /* Căn giữa theo chiều dọc với input */
+        padding-bottom: 0 !important;
+        /* Đã dùng align-items: center nên không cần padding này */
         margin: 0 !important;
         flex-shrink: 0;
     }
