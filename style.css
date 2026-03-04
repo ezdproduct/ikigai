@@ -2569,4 +2569,25 @@ footer {
         height: 54px !important;
         /* Cao lên chút để đủ ôm trọn 2 dòng text */
     }
+
+    /* Giảm padding và font chữ của bong bóng chat */
+    .chat-msg {
+        font-size: 0.95rem !important;
+        max-width: 85% !important;
+        /* Mở rộng tối đa chiều ngang trên mobile */
+    }
+
+    .system-msg-content,
+    .user-msg {
+        padding: 0.8rem 1.2rem !important;
+    }
+
+    .system-msg {
+        gap: 8px !important;
+    }
+
+    .system-avatar {
+        width: 36px !important;
+        height: 36px !important;
+    }
 }
