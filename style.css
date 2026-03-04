@@ -376,9 +376,7 @@ select {
 /* Journey Section Redesign - Immersive Full Background */
 .journey-section {
     padding: 220px 0 160px;
-    /* Increased top padding */
-    background: url('journey_background_full.png') no-repeat left top / cover;
-    /* Background aligned to top */
+    background: #ffffff;
     color: var(--text-dark);
     position: relative;
     overflow: hidden;
@@ -1950,7 +1948,7 @@ footer {
 /* Comparison Section */
 .comparison-section {
     padding: 8rem 0;
-    background: linear-gradient(180deg, #fff 0%, #fffcfb 100%);
+    background: linear-gradient(160deg, #fff7f4 0%, #ffe8df 60%, #fff5f0 100%);
 }
 
 .comparison-grid {
