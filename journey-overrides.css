@@ -204,7 +204,14 @@
 @media (max-width: 768px) {
     .journey-section {
         padding: 80px 0 !important;
-        /* Standardized whitespace */
+        background: none !important;
+        /* Bỏ background trang trí trên mobile */
+    }
+
+    .journey-section::before,
+    .journey-section::after {
+        display: none !important;
+        /* Bỏ vệt mờ gradient chuyển cảnh */
     }
 
     .journey-section .container {
