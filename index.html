@@ -186,13 +186,19 @@
                                 <h2>Cuộc hội thoại với Bản thân</h2>
                             </div>
                             <div class="quiz-controls">
-                                <button id="restart-quiz-btn" class="quiz-control-btn" title="Làm lại từ đầu"
-                                    onclick="restartQuiz()">
-                                    <i data-lucide="refresh-cw"></i> Làm lại
+                                <button id="quiz-mobile-menu-btn" class="quiz-control-btn mobile-menu-btn" title="Menu"
+                                    onclick="document.getElementById('quiz-menu-dropdown').classList.toggle('active')">
+                                    <i data-lucide="menu"></i>
                                 </button>
-                                <button id="exit-quiz-btn" class="quiz-control-btn exit" title="Thoát ra trang chủ">
-                                    <i data-lucide="log-out"></i> Thoát
-                                </button>
+                                <div id="quiz-menu-dropdown" class="quiz-menu-dropdown">
+                                    <button id="restart-quiz-btn" class="quiz-control-btn" title="Làm lại từ đầu"
+                                        onclick="restartQuiz()">
+                                        <i data-lucide="refresh-cw"></i> Làm lại
+                                    </button>
+                                    <button id="exit-quiz-btn" class="quiz-control-btn exit" title="Thoát ra trang chủ">
+                                        <i data-lucide="log-out"></i> Thoát
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         <div class="quiz-progress-container">

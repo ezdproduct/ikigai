@@ -684,6 +684,20 @@ body.no-scroll {
 }
 
 .quiz-controls {
+    position: relative;
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+}
+
+.mobile-menu-btn {
+    display: none;
+    /* hidden on desktop */
+    padding: 0.6rem !important;
+    /* make it square/round */
+}
+
+.quiz-menu-dropdown {
     display: flex;
     gap: 0.8rem;
 }
@@ -2404,5 +2418,52 @@ footer {
         text-align: center;
         padding: 14px 24px;
         border-radius: 50px !important;
+    }
+
+    /* Quiz Header Mobile Dropdown */
+    .mobile-menu-btn {
+        display: flex !important;
+    }
+
+    .quiz-menu-dropdown {
+        display: none;
+        /* hidden by default on mobile */
+        position: absolute;
+        top: 100%;
+        right: 0;
+        margin-top: 10px;
+        flex-direction: column;
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        padding: 8px;
+        border-radius: 12px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+        gap: 4px;
+        z-index: 1000;
+        min-width: 150px;
+    }
+
+    .quiz-menu-dropdown.active {
+        display: flex !important;
+    }
+
+    .quiz-menu-dropdown .quiz-control-btn {
+        width: 100%;
+        justify-content: flex-start;
+        border: none !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        padding: 12px 14px;
+        border-radius: 8px;
+    }
+
+    .quiz-menu-dropdown .quiz-control-btn:hover {
+        background: rgba(0, 0, 0, 0.04) !important;
+    }
+
+    .quiz-menu-dropdown .quiz-control-btn.exit:hover {
+        background: rgba(255, 82, 82, 0.1) !important;
     }
 }
