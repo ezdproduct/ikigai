@@ -130,15 +130,70 @@
 
         <section id="journey" class="journey-section">
             <div class="container">
-                <!-- Unified Header (was mobile-only, now for all) -->
-                <div class="journey-header-stacked text-centered">
-                    <div class="about-title-shape">
-                        <h2 class="about-gradient-title">Hành trình Khai mở<br>Bản thể</h2>
+                <!-- Web/Desktop: Original Header -->
+                <div class="journey-intro-text desktop-only">
+                    <h2>Hành trình Khai mở<br>Bản thể</h2>
+                    <p>Vượt qua sương mù thực tại, chạm tới tiềm năng vô hạn với 3 giai đoạn.</p>
+                </div>
+
+                <!-- Web/Desktop: Existing row -->
+                <div class="journey-container-horizontal desktop-only">
+                    <div class="journey-steps-row">
+                        <div class="journey-scan-arrow" id="journey-scan-arrow">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M6 4l14 8-14 8V4z" />
+                            </svg>
+                        </div>
+                        <div class="journey-step-box">
+                            <div class="step-img-wrap organic-blob-style">
+                                <img src="journey_step_1.png" alt="Kết nối">
+                            </div>
+                            <div class="step-info">
+                                <h4>Kết nối Nội tại</h4>
+                                <p>Giải mã tín hiệu tiềm thức, thấu hiểu chính mình.</p>
+                                <a href="javascript:void(0)" class="step-link" onclick="initChat()">Bắt đầu ngay <i
+                                        data-lucide="chevron-right"></i></a>
+                            </div>
+                        </div>
+
+                        <div class="journey-step-box">
+                            <div class="step-img-wrap organic-blob-style">
+                                <img src="journey_step_2.png" alt="Thử thách">
+                            </div>
+                            <div class="step-info">
+                                <h4>Thử thách</h4>
+                                <p>Bộc lộ tài năng qua trò chơi tương tác.</p>
+                                <a href="#game" class="step-link">Trải nghiệm <i data-lucide="chevron-right"></i></a>
+                            </div>
+                        </div>
+
+                        <div class="journey-step-box">
+                            <div class="step-img-wrap organic-blob-style">
+                                <img src="journey_step_3.png" alt="Định hướng">
+                            </div>
+                            <div class="step-info">
+                                <h4>Định hướng</h4>
+                                <p>Sở hữu bản phân tích tiềm năng và gợi ý hướng đi sự nghiệp phù hợp.</p>
+                                <a href="#results" class="step-link">Xem lối đi <i data-lucide="chevron-right"></i></a>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Unified: Zigzag Path Design (for all devices) -->
-                <div class="journey-zigzag-mobile">
+                <!-- Mobile: Stacked Header -->
+                <div class="mobile-only">
+                    <div class="journey-header-stacked text-centered">
+                        <div class="about-title-shape">
+                            <h2 class="about-gradient-title">Hành trình Khai mở<br>Bản thể</h2>
+                        </div>
+                        <p class="journey-subtitle">Vượt qua sương mù thực tại, chạm tới tiềm năng vô hạn với 3 giai
+                            đoạn.</p>
+                    </div>
+                </div>
+
+                <!-- Mobile: Zigzag Path Design -->
+                <div class="journey-zigzag-mobile mobile-only">
                     <div class="zigzag-path-svg">
                         <svg viewBox="0 0 100 300" preserveAspectRatio="none">
                             <path d="M70,10 C70,50 30,50 30,100 C30,150 70,150 70,200 C70,250 30,250 30,290" fill="none"
