@@ -2585,7 +2585,6 @@ footer {
     /* Vùng 7 phần bên phải */
     .quiz-input-main {
         flex: 1 !important;
-        /* Dùng flex: 1 để tự động chiếm phần còn lại chuẩn xác nhất */
         min-width: 0;
         background: transparent !important;
         border: none !important;
@@ -2597,19 +2596,28 @@ footer {
         flex: 0 0 100% !important;
     }
 
-    /* Thu nhỏ khoảng dư thừa ở khung gõ chữ */
+    /* Biến ô soạn thảo thành hình viên thuốc hệt như Messenger */
     .input-row {
-        padding: 0.35rem 0.5rem !important;
-        gap: 0.4rem !important;
-        border-radius: 24px !important;
+        background: #f1f1f1 !important;
+        border: 1px solid rgba(0, 0, 0, 0.05) !important;
+        padding: 4px 10px 4px 15px !important;
+        gap: 5px !important;
+        border-radius: 22px !important;
+        display: flex !important;
+        align-items: center !important;
+        width: 100% !important;
     }
 
     #user-answer {
         font-size: 16px !important;
-        /* Ngăn auto-zoom */
-        padding: 0.4rem !important;
-        height: 42px !important;
+        text-align: left !important;
+        /* Ép canh trái tránh bị center */
+        padding: 8px 0 !important;
+        height: 40px !important;
         background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        flex: 1 !important;
     }
 
     .send-btn {
@@ -2747,7 +2755,6 @@ footer {
         display: flex !important;
         flex-direction: column !important;
         position: fixed !important;
-        /* Fix toàn màn hình để không bị trôi */
         top: 0 !important;
         left: 0 !important;
         right: 0 !important;
@@ -2757,8 +2764,8 @@ footer {
         width: 100% !important;
         overflow: hidden !important;
         z-index: 1500;
-        background: #fff;
-        /* Nền trắng để không bị lọt hình nền ngoài */
+        /* Hình nền khu vườn cũ */
+        background: linear-gradient(rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.35)), url('garden_game_theme.png') no-repeat center center / cover !important;
     }
 
     .quiz-section .container {
