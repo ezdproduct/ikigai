@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }]
         };
 
+        const isMobile = window.innerWidth <= 768;
         chart = new Chart(ctx, {
             type: 'radar',
             data: data,
@@ -39,9 +40,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 layout: {
                     padding: {
                         top: 20,
-                        bottom: 80,
-                        left: 50,
-                        right: 50
+                        bottom: isMobile ? 30 : 80,
+                        left: isMobile ? 25 : 50,
+                        right: isMobile ? 25 : 50
                     }
                 },
                 scales: {
@@ -58,12 +59,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         ticks: { display: false },
                         pointLabels: {
                             font: {
-                                size: 10,
+                                size: isMobile ? 9 : 10,
                                 weight: '600',
                                 family: "'Be Vietnam Pro', sans-serif"
                             },
                             color: '#2D3436',
-                            padding: 30
+                            padding: isMobile ? 12 : 30
                         }
                     }
                 },
