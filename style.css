@@ -691,7 +691,7 @@ body.no-scroll {
 }
 
 .mobile-menu-btn {
-    display: none;
+    display: none !important;
     /* hidden on desktop */
     padding: 0.6rem !important;
     /* make it square/round */
