@@ -50,7 +50,7 @@
                         style="white-space: nowrap;">tài năng</span> thiên bẩm và kiến tạo một sự nghiệp thăng hoa từ
                     chính nội lực của mình.</p>
                 <div class="hero-btns-centered">
-                    <a href="javascript:void(0)" class="btn-primary" onclick="initChat()">Bắt đầu</a>
+                    <a href="#journey" class="btn-primary">Bắt đầu</a>
                     <a href="#journey" class="btn-secondary">Khám phá hành trình</a>
                 </div>
             </div>
@@ -79,7 +79,7 @@
                                 <div class="flower-content">
                                     <h3>Trò chuyện Nội tâm</h3>
                                     <p>Cuộc hội thoại như "giấc mơ" dẫn dắt, giúp khám phá bản thân tự nhiên như tâm sự
-                                        với chính mình.</p>
+                                        với chính mình thay vì phải làm trắc nghiệm khô khan.</p>
                                 </div>
                             </div>
                             <div class="flower-item" data-index="1">
@@ -108,8 +108,8 @@
                                 </div>
                                 <div class="flower-content">
                                     <h3>Radar Chart Từng Câu</h3>
-                                    <p>Visualize chân dung bản thể 7 chiều ngay lập tức qua từng thay đổi của cuộc hội
-                                        thoại.</p>
+                                    <p>Có thể quan sát sự thay đổi của "bản thể" 7 chiều ngay lập tức qua từng đoạn chat
+                                        trong hội thoại mà không cần phải đợi đến khi hoàn thành.</p>
                                 </div>
                             </div>
                             <div class="flower-item" data-index="4">
@@ -138,12 +138,15 @@
 
                 <div class="journey-container-horizontal">
                     <div class="journey-steps-row">
+                        <div class="journey-scan-arrow" id="journey-scan-arrow">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M6 4l14 8-14 8V4z" />
+                            </svg>
+                        </div>
                         <div class="journey-step-box">
-                            <div class="step-img-wrap">
-                                <img src="journey_step_1_connect_1772443516975.png" alt="Connect">
-                            </div>
+
                             <div class="step-info">
-                                <span class="step-label">Trạm 01</span>
                                 <h4>Kết nối Nội tại</h4>
                                 <p>Giải mã những tín hiệu từ tiềm thức để thấu hiểu bản chất con người thật của bạn.</p>
                                 <a href="javascript:void(0)" class="step-link" onclick="initChat()">Bắt đầu ngay <i
@@ -152,24 +155,18 @@
                         </div>
 
                         <div class="journey-step-box">
-                            <div class="step-img-wrap">
-                                <img src="journey_step_2_experience_1772443539241.png" alt="Experience">
-                            </div>
+
                             <div class="step-info">
-                                <span class="step-label">Trạm 02</span>
-                                <h4>Thử thách Trực giác</h4>
+                                <h4>Thử thách</h4>
                                 <p>Bộc lộ tài năng thiên bẩm thông qua những trải nghiệm tương thực đầy thú vị.</p>
                                 <a href="#game" class="step-link">Trải nghiệm <i data-lucide="chevron-right"></i></a>
                             </div>
                         </div>
 
                         <div class="journey-step-box">
-                            <div class="step-img-wrap">
-                                <img src="journey_step_3_direction_1772443558880.png" alt="Direction">
-                            </div>
+
                             <div class="step-info">
-                                <span class="step-label">Trạm 03</span>
-                                <h4>Kiến tạo Tương lai</h4>
+                                <h4>Định hướng</h4>
                                 <p>Sở hữu bản đồ định vị sự nghiệp và lộ trình phát triển bền vững nhất.</p>
                                 <a href="#results" class="step-link">Xem lối đi <i data-lucide="chevron-right"></i></a>
                             </div>
@@ -241,7 +238,10 @@
                         <div id="quiz-window" class="quiz-chat-window">
                             <!-- Chat messages will be injected here -->
                             <div class="chat-msg system-msg">
-                                <p>Đang khởi tạo không gian tĩnh lặng...</p>
+                                <img src="system_avatar.jpg" class="system-avatar" alt="Avatar">
+                                <div class="system-msg-content">
+                                    <p>Đang khởi tạo không gian tĩnh lặng...</p>
+                                </div>
                             </div>
                         </div>
                     </div>

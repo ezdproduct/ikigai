@@ -103,7 +103,12 @@ select {
 
 .nav-links {
     display: flex;
-    gap: 3rem;
+    gap: 6rem;
+    /* Increased to spread tabs */
+    position: absolute;
+    /* Centered perfectly in navbar */
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .nav-links a {
@@ -174,12 +179,13 @@ select {
 .hero::after {
     content: '';
     position: absolute;
-    bottom: 0;
+    bottom: -2px;
     left: 0;
     width: 100%;
     height: 25vh;
-    background: linear-gradient(to top, #FFFFFF 0%, transparent 100%);
+    background: linear-gradient(to top, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
     z-index: 10;
+    pointer-events: none;
 }
 
 .hero-bg-landscape {
@@ -515,12 +521,6 @@ select {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
 }
 
-.journey-step-box:hover {
-    background: white;
-    border-color: rgba(255, 142, 113, 0.3);
-    transform: translateX(-15px);
-    box-shadow: 0 20px 40px rgba(255, 142, 113, 0.1);
-}
 
 /* Hexagon-like shape for images using clip-path */
 .step-img-wrap {
@@ -541,10 +541,6 @@ select {
     transition: 0.3s;
 }
 
-.journey-step-box:hover .step-img-wrap img {
-    opacity: 1;
-    transform: scale(1.1);
-}
 
 .step-info {
     flex: 1;
@@ -667,7 +663,7 @@ select {
     max-width: none;
     border-radius: 0;
     z-index: 2000;
-    padding: 2rem 5rem;
+    padding: 1rem 5rem 2rem 5rem;
 }
 
 body.no-scroll {
@@ -680,6 +676,11 @@ body.no-scroll {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 0.5rem;
+}
+
+.quiz-header-top h2 {
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 .quiz-controls {
@@ -878,11 +879,12 @@ body.no-scroll {
 .analysis-side-panel.active {
     width: 30%;
     opacity: 1;
-    padding: 1.5rem;
+    padding: 0.5rem 1.5rem 1.5rem 1.5rem;
 }
 
 .side-panel-header {
-    margin-bottom: 2rem;
+    margin-top: 0;
+    margin-bottom: 1rem;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -935,8 +937,6 @@ body.no-scroll {
 
 .chat-msg {
     max-width: 80%;
-    padding: 1.25rem 1.75rem;
-    border-radius: 25px;
     font-size: 1.05rem;
     line-height: 1.5;
     position: relative;
@@ -974,8 +974,26 @@ body.no-scroll {
 
 .system-msg {
     align-self: flex-start;
-    background: var(--bubble-system);
     color: var(--text-dark);
+    display: flex;
+    gap: 12px;
+    align-items: flex-end;
+    /* Avatar sits at the bottom */
+}
+
+.system-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.system-msg-content {
+    background: var(--bubble-system);
+    padding: 1.25rem 1.75rem;
+    border-radius: 25px;
     border-bottom-left-radius: 5px;
 }
 
@@ -983,6 +1001,8 @@ body.no-scroll {
     align-self: flex-end;
     background: var(--bubble-self);
     color: white;
+    padding: 1.25rem 1.75rem;
+    border-radius: 25px;
     border-bottom-right-radius: 5px;
     font-weight: 500;
 }
@@ -1491,7 +1511,7 @@ body.no-scroll {
 
 .personality-type h3 {
     font-size: 4rem;
-    background: linear-gradient(135deg, #FFD93D, #FFC107, #FF8E71);
+    background: linear-gradient(135deg, #FFC107, #FF8A00, #D25F15);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;

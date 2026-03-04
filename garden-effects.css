@@ -10,6 +10,18 @@
     overflow: hidden;
 }
 
+.garden-effects-container.in-modal {
+    z-index: -1;
+    /* Placed exactly between modal background and modal text content */
+    opacity: 0.6;
+    /* Slightly fade effects inside chat */
+}
+
+.garden-effects-container.in-modal .butterfly:nth-child(even) {
+    display: none !important;
+    /* Hide half of the butterflies when inside modal */
+}
+
 /* Butterfly Styles */
 .butterfly {
     position: absolute;

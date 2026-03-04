@@ -212,6 +212,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (quizSection) quizSection.classList.remove('hidden');
         quizCard.classList.add('fullscreen');
         document.body.classList.add('no-scroll');
+        const gardenEffects = document.querySelector('.garden-effects-container');
+        if (gardenEffects) {
+            quizCard.appendChild(gardenEffects);
+            gardenEffects.classList.add('in-modal');
+        }
         if (startScreen) startScreen.classList.add('hidden');
 
         const quizBody = document.querySelector('.quiz-body-wrapper');
@@ -304,6 +309,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (quizSection) quizSection.classList.add('hidden');
         quizCard.classList.remove('fullscreen');
         document.body.classList.remove('no-scroll');
+        const gardenEffects = document.querySelector('.garden-effects-container');
+        if (gardenEffects) {
+            document.body.appendChild(gardenEffects);
+            gardenEffects.classList.remove('in-modal');
+        }
 
         const quizBody = document.querySelector('.quiz-body-wrapper');
         if (quizBody) quizBody.classList.add('hidden');
@@ -334,15 +344,29 @@ document.addEventListener('DOMContentLoaded', () => {
         if (qIdx !== -1) msgDiv.setAttribute('data-q-idx', qIdx);
         if (sender === 'user') msgDiv.setAttribute('data-is-user-ans', 'true');
 
+        let msgContentWrapper = msgDiv;
+        if (sender === 'system') {
+            const avatar = document.createElement('img');
+            avatar.src = 'system_avatar.jpg';
+            avatar.className = 'system-avatar';
+            avatar.alt = 'System Avatar';
+            msgDiv.appendChild(avatar);
+
+            const msgContent = document.createElement('div');
+            msgContent.className = 'system-msg-content';
+            msgDiv.appendChild(msgContent);
+            msgContentWrapper = msgContent;
+        }
+
         if (note) {
             const noteDiv = document.createElement('div');
             noteDiv.className = 'msg-note';
             noteDiv.textContent = note;
-            msgDiv.appendChild(noteDiv);
+            msgContentWrapper.appendChild(noteDiv);
         }
 
         const p = document.createElement('p');
-        msgDiv.appendChild(p);
+        msgContentWrapper.appendChild(p);
 
         // Nút sửa câu trả lời cho User
         if (sender === 'user' && qIdx !== -1) {
@@ -350,7 +374,7 @@ document.addEventListener('DOMContentLoaded', () => {
             editLink.className = 'chat-edit-link';
             editLink.textContent = 'Thay đổi câu trả lời';
             editLink.onclick = () => window.changeAnswer(qIdx);
-            msgDiv.appendChild(editLink);
+            msgContentWrapper.appendChild(editLink);
         }
 
         chatWindow.appendChild(msgDiv);
@@ -1100,6 +1124,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Kích hoạt hiệu ứng gõ chữ
     startTypingSequence();
+
+    // Hiệu ứng mũi tên quét dọc các Trạm hành trình
+    const stepsRow = document.querySelector('.journey-steps-row');
+    const journeySteps = document.querySelectorAll('.journey-step-box');
+    const scanArrow = document.getElementById('journey-scan-arrow');
+
+    if (journeySteps.length > 0 && scanArrow && stepsRow) {
+        let currentStepIndex = 0;
+
+        function updateScanner() {
+            journeySteps.forEach(step => step.classList.remove('active-scan'));
+            const currentStep = journeySteps[currentStepIndex];
+            currentStep.classList.add('active-scan');
+
+            const stepOffsetTop = currentStep.offsetTop;
+            const stepHeight = currentStep.offsetHeight;
+            const arrowTop = stepOffsetTop + (stepHeight / 2) - 14;
+
+            scanArrow.style.transform = `translateY(${arrowTop}px)`;
+            currentStepIndex = (currentStepIndex + 1) % journeySteps.length;
+        }
+
+        setTimeout(updateScanner, 100);
+        setInterval(updateScanner, 3500);
+    }
 
     if (typeof lucide !== 'undefined') lucide.createIcons();
 });

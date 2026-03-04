@@ -25,6 +25,9 @@ class GardenEffects {
     }
 
     spawnPetal() {
+        if (this.container.classList.contains('in-modal')) {
+            if (Math.random() > 0.3) return; // Skip 70% of petals to reduce amount
+        }
         const petal = document.createElement('div');
         const type = Math.floor(Math.random() * 3) + 1;
         petal.className = `petal petal-${type}`;
