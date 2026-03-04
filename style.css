@@ -2552,25 +2552,22 @@ footer {
         font-size: 0.85rem !important;
     }
 
-    /* Messenger style: Fixed at bottom, icons hide on focus */
+    /* Messenger style: Input is part of the flow at the bottom */
     .quiz-input-area {
-        position: fixed !important;
-        bottom: 0;
-        left: 0;
+        position: relative !important;
         width: 100%;
         background: #fff !important;
-        /* Đảm bảo có nền để không bị xuyên thấu chat */
         border-top: 1px solid rgba(0, 0, 0, 0.05);
-        padding: 6px 8px calc(6px + env(safe-area-inset-bottom, 0)) !important;
+        padding: 10px 12px calc(10px + env(safe-area-inset-bottom, 0)) !important;
         display: flex !important;
         flex-direction: row !important;
         flex-wrap: nowrap !important;
-        /* Ngăn rớt dòng */
         align-items: center !important;
         justify-content: space-between !important;
         gap: 8px !important;
-        z-index: 2000;
-        margin: 0 !important;
+        z-index: 100;
+        margin-top: auto !important;
+        /* Đẩy xuống đáy card */
     }
 
     .quiz-input-area:focus-within .input-top-actions {
@@ -2722,22 +2719,47 @@ footer {
     }
 
     .quiz-section {
-        padding-bottom: 80px !important;
-        /* Khoảng chừa cho thanh input cố định */
-        margin-bottom: 0 !important;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
+        padding: 0 !important;
+        margin: 0 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        height: 100dvh !important;
+        height: 100svh !important;
+        overflow: hidden !important;
+        background-attachment: scroll !important;
+    }
+
+    .quiz-section .container {
+        padding: 0 !important;
+        margin: 0 !important;
+        max-width: none !important;
+        height: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
     }
 
     .glass-quiz-card {
-        margin-bottom: 0 !important;
-        padding-bottom: 10px !important;
-        height: calc(100vh - 80px) !important;
-        /* Tránh card đè lên input */
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
+        margin: 0 !important;
+        padding: 10px 0 0 0 !important;
+        /* Để dành chỗ cho input bên trong */
+        flex: 1 !important;
+        height: 100% !important;
+        border-radius: 0 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        background: rgba(255, 255, 255, 0.9) !important;
+    }
+
+    .quiz-body-wrapper {
+        flex: 1 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        min-height: 0 !important;
+    }
+
+    .quiz-chat-window {
+        flex: 1 !important;
+        padding: 10px 15px !important;
     }
 
     /* Label ẩn bên dưới icon hiện khi hover (UX hint) */
