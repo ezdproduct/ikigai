@@ -2577,8 +2577,14 @@ footer {
     }
 
     .quiz-input-main {
-        flex: 1;
+        flex: 0 0 calc(70% - 8px);
+        /* Chiếm 7 phần */
         min-width: 0;
+    }
+
+    /* Khi đang gõ: Khung gõ chiếm trọn 100% */
+    .quiz-input-area:focus-within .quiz-input-main {
+        flex: 0 0 100% !important;
     }
 
     /* Thu nhỏ khoảng dư thừa ở khung gõ chữ */
@@ -2602,11 +2608,14 @@ footer {
     }
 
     .input-top-actions {
+        flex: 0 0 30%;
+        /* Chiếm 3 phần */
         display: flex;
         flex-direction: row;
-        gap: 4px !important;
+        justify-content: center;
+        /* Căn giữa 2 icon trong vùng 3 phần */
+        gap: 8px !important;
         padding-bottom: 0 !important;
-        /* Đã dùng align-items: center nên không cần padding này */
         margin: 0 !important;
         flex-shrink: 0;
     }
