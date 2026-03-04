@@ -2520,4 +2520,30 @@ footer {
         top: 12px !important;
         right: 16px !important;
     }
+
+    /* Scrollable chapter tabs on mobile */
+    .quiz-chapters-tabs {
+        justify-content: flex-start !important;
+        overflow-x: auto;
+        padding: 0.5rem 1rem !important;
+        gap: 1.5rem !important;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+
+    .quiz-chapters-tabs::-webkit-scrollbar {
+        display: none;
+    }
+
+    .chapter-tab {
+        flex-shrink: 0;
+    }
+
+    .chapter-label {
+        font-size: 0.65rem !important;
+    }
+
+    .chapter-name {
+        font-size: 0.85rem !important;
+    }
 }
