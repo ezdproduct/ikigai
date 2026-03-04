@@ -2561,8 +2561,8 @@ footer {
         margin-bottom: 0 !important;
         display: flex;
         flex-direction: column-reverse;
-        gap: 24px !important;
-        /* Chỉnh lại gap một chút cho cân đối */
+        gap: 10px !important;
+        /* Giảm vùng đệm giữa khung chat và nút bấm */
     }
 
     /* Thu nhỏ khoảng dư thừa ở khung gõ chữ cho đỡ bị scroll dính chữ */
@@ -2691,6 +2691,9 @@ footer {
     .glass-quiz-card {
         margin-bottom: 0 !important;
         padding-bottom: 0 !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
     }
 
     /* Label ẩn bên dưới icon hiện khi hover (UX hint) */
