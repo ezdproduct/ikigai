@@ -2557,12 +2557,12 @@ footer {
         margin-top: auto;
         flex-shrink: 0;
         z-index: 100;
-        padding-bottom: 2px !important;
-        /* Xóa khoảng trống thừa bên dưới */
+        padding-bottom: 0 !important;
+        margin-bottom: 0 !important;
         display: flex;
         flex-direction: column-reverse;
-        gap: 28px !important;
-        /* Đẩy xuống sâu hơn nữa theo yêu cầu */
+        gap: 24px !important;
+        /* Chỉnh lại gap một chút cho cân đối */
     }
 
     /* Thu nhỏ khoảng dư thừa ở khung gõ chữ cho đỡ bị scroll dính chữ */
@@ -2671,13 +2671,26 @@ footer {
         position: relative;
     }
 
-    /* Cho icon hiện lại trong vòng tròn nhỏ */
     .hint-btn i,
     .hint-btn svg {
         display: block !important;
         width: 16px !important;
         height: 16px !important;
         flex-shrink: 0;
+    }
+
+    .quiz-section {
+        padding-bottom: 0 !important;
+        margin-bottom: 0 !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        /* Đẩy nội dung xuống sát đáy */
+    }
+
+    .glass-quiz-card {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
     }
 
     /* Label ẩn bên dưới icon hiện khi hover (UX hint) */
