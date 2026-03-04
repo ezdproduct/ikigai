@@ -226,6 +226,11 @@
     .journey-header-stacked {
         margin-bottom: 40px !important;
         gap: 1.2rem !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        /* Căn lề trái cho toàn bộ header block trên mobile */
+        padding: 0 10px !important;
     }
 
     .journey-header-stacked .about-gradient-title {
@@ -236,9 +241,12 @@
     .journey-subtitle {
         font-size: 1.1rem !important;
         line-height: 1.5 !important;
-        text-align: center !important;
+        text-align: left !important;
+        /* Căn trái theo yêu cầu */
         max-width: 100% !important;
         margin-top: 5px !important;
+        padding-left: 10px !important;
+        /* Thêm chút đệm đồng bộ với title */
     }
 
     .journey-zigzag-mobile {
