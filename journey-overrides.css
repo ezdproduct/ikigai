@@ -225,7 +225,8 @@
     .journey-intro-text {
         text-align: center !important;
         margin-bottom: 50px !important;
-        padding: 0 20px !important;
+        padding: 0 10px !important;
+        /* Giảm padding lề */
     }
 
     .journey-intro-text h2 {
@@ -264,8 +265,10 @@
     .zigzag-content {
         display: flex;
         align-items: center;
-        gap: 20px;
-        padding: 0 15px;
+        gap: 15px;
+        /* Giảm gap nhẹ */
+        padding: 0 5px;
+        /* Giảm padding sát lề hơn */
     }
 
     /* Organic Blob Shape cho ảnh */
