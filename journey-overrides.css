@@ -233,7 +233,8 @@
     color: #fff;
     background: linear-gradient(135deg, #FFB76B, #FF9F4F);
     /* Màu cam nhạt và dịu hơn */
-    padding: 8px 22px;
+    padding: 5px 16px;
+    /* Giảm padding cho gọn hơn */
     border-radius: 50px;
     text-decoration: none;
     font-weight: 700;
@@ -242,7 +243,8 @@
     gap: 8px;
     transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     box-shadow: 0 4px 15px rgba(255, 138, 0, 0.2);
-    margin-top: 5px;
+    margin-top: 2px;
+    /* Giảm margin sát chữ hơn */
 }
 
 .journey-zigzag-desktop .step-link:hover {
@@ -456,7 +458,8 @@
         color: #fff;
         background: linear-gradient(135deg, #FFB76B, #FF9F4F);
         /* Màu cam nhạt thanh thoát hơn */
-        padding: 6px 18px;
+        padding: 4px 14px;
+        /* Giảm padding tối đa cho mobile */
         border-radius: 50px;
         text-decoration: none;
         font-weight: 700;
@@ -464,6 +467,7 @@
         align-items: center;
         gap: 6px;
         box-shadow: 0 4px 12px rgba(255, 138, 0, 0.2);
+        margin-top: 2px;
     }
 
 
