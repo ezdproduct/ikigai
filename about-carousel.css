@@ -32,34 +32,36 @@
     background: linear-gradient(135deg, #F6D365 0%, #FDA085 100%);
 }
 
-/* Flower & Petal Layout Styles */
+/* Flower & Petal Layout Styles - Fixed */
 .flower-layout-wrapper {
     position: relative;
     width: 100%;
-    max-width: 1100px;
-    height: 850px;
+    max-width: 1200px;
+    min-height: 850px;
     margin: 60px auto;
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 10;
 }
 
 /* Central Circle */
 .flower-center-circle {
     position: relative;
-    width: 200px;
-    height: 200px;
+    width: 240px;
+    height: 240px;
     background: #ffffff;
     border-radius: 50%;
-    z-index: 10;
+    z-index: 20;
     display: flex;
     justify-content: center;
     align-items: center;
     box-shadow:
-        0 15px 45px rgba(0, 0, 0, 0.1),
-        inset 0 2px 5px rgba(255, 255, 255, 0.8);
-    border: 10px solid #f8f9fa;
+        0 20px 60px rgba(0, 0, 0, 0.1),
+        inset 0 2px 10px rgba(255, 255, 255, 0.9);
+    border: 12px solid #fcfdfd;
     text-align: center;
+    padding: 20px;
 }
 
 .flower-main-title {
@@ -68,6 +70,7 @@
     font-weight: 800;
     color: var(--text-dark);
     font-family: var(--font-heading);
+    margin: 0;
 }
 
 .flower-main-title span {
@@ -95,107 +98,112 @@
     flex-direction: column;
     align-items: center;
     pointer-events: auto;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 5;
+    flex-shrink: 0;
+    /* Prevention of squeezing */
 }
 
 .flower-petal:hover {
-    transform: scale(1.05) translateY(-10px);
-    z-index: 15;
+    transform: scale(1.08) !important;
+    z-index: 30;
 }
 
-/* The colored "tab" from the image */
+/* Colored tab */
 .petal-tab {
-    width: 70px;
-    height: 30px;
-    border-radius: 12px 12px 0 0;
+    width: 80px;
+    height: 35px;
+    border-radius: 15px 15px 0 0;
     position: relative;
     z-index: 2;
     margin-bottom: -5px;
-    /* Slight overlap with body */
-    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.05);
 }
 
 /* Petal main body */
 .petal-body {
     background: #ffffff;
-    padding: 1.8rem 1.5rem;
-    border-radius: 30px;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.06);
-    border: 1px solid rgba(0, 0, 0, 0.03);
+    padding: 2rem 1.5rem;
+    border-radius: 35px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(0, 0, 0, 0.02);
     text-align: center;
     width: 100%;
 }
 
 .petal-body h3 {
-    font-size: 1.2rem;
+    font-size: 1.25rem;
     font-weight: 800;
     margin-bottom: 0.8rem;
     font-family: var(--font-heading);
 }
 
 .petal-body p {
-    font-size: 0.92rem;
+    font-size: 0.95rem;
     line-height: 1.5;
     color: var(--text-muted);
     margin: 0;
 }
 
-/* Positioning Petals around the center (Radius ~ 320px) */
-/* Petal 1: Top (12 o'clock) */
+/* Positioning Petals around the center */
+/* Radius logic to avoid squeezing: Use percentages that make sense */
 .petal-1 {
-    top: 0;
+    top: -20px;
     left: 50%;
     transform: translateX(-50%);
 }
 
-/* Petal 2: Top Right */
 .petal-2 {
-    top: 15%;
-    right: 0%;
+    top: 18%;
+    right: -20px;
 }
 
-/* Petal 3: Bottom Right */
 .petal-3 {
-    bottom: 5%;
-    right: 10%;
+    bottom: 0%;
+    right: 50px;
 }
 
-/* Petal 4: Bottom Left */
 .petal-4 {
-    bottom: 5%;
-    left: 10%;
+    bottom: 0%;
+    left: 50px;
 }
 
-/* Petal 5: Top Left */
 .petal-5 {
-    top: 15%;
-    left: 0%;
+    top: 18%;
+    left: -20px;
 }
 
 /* Responsive Styles */
-@media (max-width: 1100px) {
+@media (max-width: 1200px) {
     .flower-layout-wrapper {
+        min-height: auto;
         height: auto;
-        padding: 40px 0;
-        display: block;
+        padding: 60px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 60px;
     }
 
     .flower-center-circle {
-        margin: 0 auto 60px;
+        position: static;
+        margin: 0 auto;
+        flex-shrink: 0;
     }
 
     .flower-petals-container {
         position: static;
+        width: 100%;
+        height: auto;
         display: flex;
         flex-direction: column;
-        gap: 30px;
+        gap: 40px;
         align-items: center;
+        pointer-events: auto;
     }
 
     .flower-petal {
-        position: static;
+        position: static !important;
         width: 100%;
-        max-width: 500px;
+        max-width: 480px;
         transform: none !important;
     }
 
@@ -205,13 +213,26 @@
 }
 
 @media (max-width: 768px) {
+    .comparison-section {
+        padding: 60px 0 !important;
+    }
+
+    .flower-center-circle {
+        width: 220px;
+        height: 220px;
+    }
+
     .flower-main-title {
         font-size: 1.8rem;
     }
 
     .petal-body {
         padding: 1.5rem;
-        border-radius: 20px;
+        border-radius: 25px;
+    }
+
+    .petal-body h3 {
+        font-size: 1.15rem;
     }
 }
 
@@ -224,10 +245,9 @@
 }
 
 .color-3-text {
-    color: #5bc580;
+    color: #4dab71;
 }
 
-/* Darker green for contrast */
 .color-4-text {
     color: #eba1eb;
 }
