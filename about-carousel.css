@@ -122,16 +122,21 @@
     /* Anchor at scene center */
     top: 50%;
     left: 50%;
-    /* Width = reach from center: dot(46px) + gap(16px) + card-width(240px) + extra(98px) */
+    /*
+      spacer(105px) = center-radius(95px) + gap(10px)
+      dot(46px) + inner-gap(16px) + card(240px)
+      Total = 105 + 46 + 16 + 240 = 407px → use 420px
+    */
     width: 420px;
-    /* The arm's own height is 0; children position via flexbox on the arm */
     height: 0;
     transform-origin: 0% 0%;
-    /* rotate around the anchor (scene center) */
     display: flex;
     align-items: center;
-    /* vertically center dot & card */
     pointer-events: none;
+    /* Push content past center circle radius */
+    padding-left: 105px;
+    /* padding-left is included in the 420px width box */
+    box-sizing: border-box;
 }
 
 .arm-dot {
