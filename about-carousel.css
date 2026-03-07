@@ -32,163 +32,189 @@
     background: linear-gradient(135deg, #F6D365 0%, #FDA085 100%);
 }
 
-/* Infographic Layout Styles */
-.infographic-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 1200px;
-    margin: 40px auto;
-    padding: 60px 20px;
+/* Flower & Petal Layout Styles */
+.flower-layout-wrapper {
     position: relative;
-    gap: 40px;
-}
-
-.infographic-left {
-    text-align: left;
+    width: 100%;
+    max-width: 1100px;
+    height: 850px;
+    margin: 60px auto;
     display: flex;
-    flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
 
-.infographic-main-title {
-    font-size: 4.5rem;
-    font-weight: 800;
+/* Central Circle */
+.flower-center-circle {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    background: #ffffff;
+    border-radius: 50%;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow:
+        0 15px 45px rgba(0, 0, 0, 0.1),
+        inset 0 2px 5px rgba(255, 255, 255, 0.8);
+    border: 10px solid #f8f9fa;
+    text-align: center;
+}
+
+.flower-main-title {
+    font-size: 2.2rem;
     line-height: 1.1;
+    font-weight: 800;
     color: var(--text-dark);
     font-family: var(--font-heading);
-    margin-bottom: 1.5rem;
 }
 
-.infographic-main-title span {
+.flower-main-title span {
     background: linear-gradient(135deg, #FFC107, #FF8A00, #D25F15);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-.infographic-subtitle {
-    font-size: 1.2rem;
-    color: var(--text-muted);
-    font-weight: 500;
-}
-
-.infographic-center {
-    position: relative;
-    width: 150px;
-    height: 600px;
-}
-
-.infographic-svg {
-    width: 100%;
-    height: 100%;
-}
-
-.arc-path {
-    stroke-dasharray: 8, 8;
-    stroke: #e0e0e0;
-}
-
-.node-container {
+/* Petals Container */
+.flower-petals-container {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    pointer-events: none;
 }
 
-.node {
+/* Individual Petal */
+.flower-petal {
     position: absolute;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    border: 4px solid #fff;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    transform: translate(-50%, -50%);
-    z-index: 5;
-}
-
-/* Positions along the arc curve (manual adjustment) */
-.node-1 {
-    top: 4%;
-    left: 66%;
-}
-
-.node-2 {
-    top: 27%;
-    left: 33%;
-}
-
-.node-3 {
-    top: 50%;
-    left: 22%;
-}
-
-.node-4 {
-    top: 73%;
-    left: 33%;
-}
-
-.node-5 {
-    top: 96%;
-    left: 66%;
-}
-
-.infographic-right {
+    width: 320px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    width: 50%;
-}
-
-.feature-card {
-    background: rgba(255, 255, 255, 0.9);
-    padding: 1.2rem 2.5rem;
-    border-radius: 60px;
-    /* Modern capsule shape */
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
-    border: 1px solid rgba(0, 0, 0, 0.03);
-    text-align: left;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    position: relative;
-    cursor: default;
-}
-
-.feature-card:hover {
-    transform: translateX(15px);
-    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.08);
-}
-
-.feature-header {
-    display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 4px;
+    pointer-events: auto;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.feature-title {
+.flower-petal:hover {
+    transform: scale(1.05) translateY(-10px);
+    z-index: 15;
+}
+
+/* The colored "tab" from the image */
+.petal-tab {
+    width: 70px;
+    height: 30px;
+    border-radius: 12px 12px 0 0;
+    position: relative;
+    z-index: 2;
+    margin-bottom: -5px;
+    /* Slight overlap with body */
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Petal main body */
+.petal-body {
+    background: #ffffff;
+    padding: 1.8rem 1.5rem;
+    border-radius: 30px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    text-align: center;
+    width: 100%;
+}
+
+.petal-body h3 {
     font-size: 1.2rem;
     font-weight: 800;
+    margin-bottom: 0.8rem;
     font-family: var(--font-heading);
-    margin: 0;
 }
 
-.feature-card p {
-    font-size: 0.95rem;
+.petal-body p {
+    font-size: 0.92rem;
+    line-height: 1.5;
     color: var(--text-muted);
-    line-height: 1.4;
     margin: 0;
 }
 
-.feature-icon {
-    width: 32px;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/* Positioning Petals around the center (Radius ~ 320px) */
+/* Petal 1: Top (12 o'clock) */
+.petal-1 {
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
-/* Title text colors matching node gradients (approximate) */
+/* Petal 2: Top Right */
+.petal-2 {
+    top: 15%;
+    right: 0%;
+}
+
+/* Petal 3: Bottom Right */
+.petal-3 {
+    bottom: 5%;
+    right: 10%;
+}
+
+/* Petal 4: Bottom Left */
+.petal-4 {
+    bottom: 5%;
+    left: 10%;
+}
+
+/* Petal 5: Top Left */
+.petal-5 {
+    top: 15%;
+    left: 0%;
+}
+
+/* Responsive Styles */
+@media (max-width: 1100px) {
+    .flower-layout-wrapper {
+        height: auto;
+        padding: 40px 0;
+        display: block;
+    }
+
+    .flower-center-circle {
+        margin: 0 auto 60px;
+    }
+
+    .flower-petals-container {
+        position: static;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        align-items: center;
+    }
+
+    .flower-petal {
+        position: static;
+        width: 100%;
+        max-width: 500px;
+        transform: none !important;
+    }
+
+    .petal-tab {
+        width: 100px;
+    }
+}
+
+@media (max-width: 768px) {
+    .flower-main-title {
+        font-size: 1.8rem;
+    }
+
+    .petal-body {
+        padding: 1.5rem;
+        border-radius: 20px;
+    }
+}
+
 .color-1-text {
     color: #FF9A9E;
 }
@@ -198,86 +224,14 @@
 }
 
 .color-3-text {
-    color: #35f17d;
+    color: #5bc580;
 }
 
-/* Slightly darker for readability on white */
+/* Darker green for contrast */
 .color-4-text {
     color: #eba1eb;
 }
 
 .color-5-text {
     color: #FDA085;
-}
-
-/* Feature specific adjustments for flow */
-.f-1 {
-    transform: translateX(-15px);
-}
-
-.f-2 {
-    transform: translateX(-5px);
-}
-
-.f-3 {
-    transform: translateX(0);
-}
-
-.f-4 {
-    transform: translateX(-5px);
-}
-
-.f-5 {
-    transform: translateX(-15px);
-}
-
-.f-1:hover,
-.f-2:hover,
-.f-3:hover,
-.f-4:hover,
-.f-5:hover {
-    transform: translateX(10px);
-}
-
-/* Responsive */
-@media (max-width: 992px) {
-    .infographic-wrapper {
-        flex-direction: column;
-        text-align: center;
-        gap: 60px;
-    }
-
-    .infographic-left {
-        text-align: center;
-    }
-
-    .infographic-center {
-        display: none;
-        /* Hide arc on mobile for better space */
-    }
-
-    .infographic-right {
-        width: 100%;
-        gap: 30px;
-    }
-
-    .feature-card {
-        transform: none !important;
-        border-radius: 30px;
-        padding: 1.5rem;
-    }
-}
-
-@media (max-width: 768px) {
-    .comparison-section {
-        padding: 80px 0 !important;
-    }
-
-    .infographic-main-title {
-        font-size: 2.8rem;
-    }
-
-    .feature-title {
-        font-size: 1.1rem;
-    }
 }
