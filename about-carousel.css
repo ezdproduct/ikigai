@@ -1,9 +1,11 @@
+/* ===== Comparison / About Section ===== */
 .comparison-section {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 20px 0;
+    align-items: center;
+    padding: 60px 0;
     scroll-snap-align: start;
     scroll-snap-stop: always;
     background: var(--white);
@@ -12,246 +14,320 @@
     position: relative;
 }
 
+/* ===== Dot / Tab Colors ===== */
 .color-1 {
-    background: linear-gradient(135deg, #FF9A9E 0%, #FAD0C4 100%);
+    background: linear-gradient(135deg, #FF9A9E, #FAD0C4);
 }
 
 .color-2 {
-    background: linear-gradient(135deg, #A18CD1 0%, #FBC2EB 100%);
+    background: linear-gradient(135deg, #A18CD1, #FBC2EB);
 }
 
 .color-3 {
-    background: linear-gradient(135deg, #84FAB0 0%, #8FD3F4 100%);
+    background: linear-gradient(135deg, #43E97B, #38F9D7);
 }
 
 .color-4 {
-    background: linear-gradient(135deg, #FFD1FF 0%, #FAE1FF 100%);
+    background: linear-gradient(135deg, #F093FB, #F5576C);
 }
 
 .color-5 {
-    background: linear-gradient(135deg, #F6D365 0%, #FDA085 100%);
+    background: linear-gradient(135deg, #F6D365, #FDA085);
 }
 
-/* Flower & Petal Layout Styles - Fixed */
-.flower-layout-wrapper {
-    position: relative;
-    width: 100%;
-    max-width: 1200px;
-    min-height: 850px;
-    margin: 60px auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 10;
+.color-1-text {
+    color: #e87c80;
 }
 
-/* Central Circle */
-.flower-center-circle {
+.color-2-text {
+    color: #7B5EA7;
+}
+
+.color-3-text {
+    color: #1e9c5c;
+}
+
+.color-4-text {
+    color: #c044c5;
+}
+
+.color-5-text {
+    color: #e07530;
+}
+
+/* ===== ORBIT SCENE ===== */
+/*
+  Strategy: One square container centered in the section.
+  The center circle sits at 50% 50%.
+  Each arm is absolutely placed at the center, then rotated by N*72°.
+  The arm itself is a flex column that extends outward. The card sits at
+  the far end. Counter-rotate the card so text is always upright.
+*/
+
+.petal-orbit-scene {
     position: relative;
-    width: 240px;
-    height: 240px;
+    /* Size of the whole flower — petals extend outward */
+    width: 780px;
+    height: 780px;
+    flex-shrink: 0;
+}
+
+/* ===== CENTER CIRCLE ===== */
+.petal-core {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 190px;
+    height: 190px;
+    transform: translate(-50%, -50%);
     background: #ffffff;
     border-radius: 50%;
+    border: 12px solid #f0f0f0;
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.10),
+        0 0 0 6px rgba(240, 240, 240, 0.5);
     z-index: 20;
     display: flex;
-    justify-content: center;
     align-items: center;
-    box-shadow:
-        0 20px 60px rgba(0, 0, 0, 0.1),
-        inset 0 2px 10px rgba(255, 255, 255, 0.9);
-    border: 12px solid #fcfdfd;
+    justify-content: center;
     text-align: center;
-    padding: 20px;
 }
 
-.flower-main-title {
-    font-size: 2.2rem;
-    line-height: 1.1;
+.petal-core-title {
+    font-size: 2rem;
     font-weight: 800;
-    color: var(--text-dark);
+    line-height: 1.15;
     font-family: var(--font-heading);
+    color: var(--text-dark);
     margin: 0;
 }
 
-.flower-main-title span {
+.petal-core-title span {
     background: linear-gradient(135deg, #FFC107, #FF8A00, #D25F15);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-/* Petals Container */
-.flower-petals-container {
+/* ===== ARMS ===== */
+/*
+  Each .petal-arm is anchored at center (top:50% left:50%).
+  It is rotated around the center, then its inner content
+  (dot + card) is laid out as a column pointing outward.
+  The card is counter-rotated so it stays readable.
+*/
+
+.petal-arm {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    /* Anchor at scene center */
+    top: 50%;
+    left: 50%;
+    /* Width = reach from center: dot(30px) + gap(20px) + card-width(240px) */
+    width: 310px;
+    /* The arm's own height is 0; children position via flexbox on the arm */
+    height: 0;
+    transform-origin: 0% 0%;
+    /* rotate around the anchor (scene center) */
+    display: flex;
+    align-items: center;
+    /* vertically center dot & card */
     pointer-events: none;
 }
 
-/* Individual Petal */
-.flower-petal {
-    position: absolute;
-    width: 320px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    pointer-events: auto;
-    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    z-index: 5;
+.arm-dot {
     flex-shrink: 0;
-    /* Prevention of squeezing */
-}
-
-.flower-petal:hover {
-    transform: scale(1.08) !important;
-    z-index: 30;
-}
-
-/* Colored tab */
-.petal-tab {
-    width: 80px;
-    height: 35px;
-    border-radius: 15px 15px 0 0;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: 5px solid #fff;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+    pointer-events: auto;
     position: relative;
-    z-index: 2;
-    margin-bottom: -5px;
+    z-index: 10;
 }
 
-/* Petal main body */
-.petal-body {
+.arm-card {
+    margin-left: 12px;
+    width: 240px;
     background: #ffffff;
-    padding: 2rem 1.5rem;
-    border-radius: 35px;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.06);
-    border: 1px solid rgba(0, 0, 0, 0.02);
-    text-align: center;
-    width: 100%;
+    border-radius: 28px;
+    padding: 1.2rem 1.4rem;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.07);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    text-align: left;
+    pointer-events: auto;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    flex-shrink: 0;
 }
 
-.petal-body h3 {
-    font-size: 1.25rem;
+.arm-card:hover {
+    box-shadow: 0 22px 55px rgba(0, 0, 0, 0.12);
+    transform: scale(1.04);
+}
+
+.arm-card h3 {
+    font-size: 1.1rem;
     font-weight: 800;
-    margin-bottom: 0.8rem;
+    margin: 0 0 0.5rem;
     font-family: var(--font-heading);
 }
 
-.petal-body p {
-    font-size: 0.95rem;
-    line-height: 1.5;
+.arm-card p {
+    font-size: 0.88rem;
+    line-height: 1.55;
     color: var(--text-muted);
     margin: 0;
 }
 
-/* Positioning Petals around the center */
-/* Radius logic to avoid squeezing: Use percentages that make sense */
-.petal-1 {
-    top: -20px;
-    left: 50%;
-    transform: translateX(-50%);
+/*
+  5 petals evenly spaced: 0°, 72°, 144°, 216°, 288°
+  Arm points RIGHT by default (angle 0° = 3 o'clock).
+  We want petal-1 at TOP (12 o'clock) = −90°, then add 72° each.
+  -90° = arm-1
+  -90+72 = -18° = arm-2  (top-right)
+  -18+72 =  54° = arm-3  (bottom-right)
+   54+72 = 126° = arm-4  (bottom-left)
+  126+72 = 198° = arm-5  (top-left)
+  
+  Counter-rotate cards to keep text upright.
+*/
+
+.arm-1 {
+    transform: rotate(-90deg);
 }
 
-.petal-2 {
-    top: 18%;
-    right: -20px;
+.arm-1 .arm-card {
+    transform: rotate(90deg);
 }
 
-.petal-3 {
-    bottom: 0%;
-    right: 50px;
+.arm-1 .arm-dot {
+    transform: rotate(90deg);
 }
 
-.petal-4 {
-    bottom: 0%;
-    left: 50px;
+.arm-2 {
+    transform: rotate(-18deg);
 }
 
-.petal-5 {
-    top: 18%;
-    left: -20px;
+.arm-2 .arm-card {
+    transform: rotate(18deg);
 }
 
-/* Responsive Styles */
-@media (max-width: 1200px) {
-    .flower-layout-wrapper {
-        min-height: auto;
-        height: auto;
-        padding: 60px 20px;
-        display: flex;
-        flex-direction: column;
-        gap: 60px;
-    }
+.arm-2 .arm-dot {
+    transform: rotate(18deg);
+}
 
-    .flower-center-circle {
-        position: static;
-        margin: 0 auto;
-        flex-shrink: 0;
-    }
+.arm-3 {
+    transform: rotate(54deg);
+}
 
-    .flower-petals-container {
-        position: static;
+.arm-3 .arm-card {
+    transform: rotate(-54deg);
+}
+
+.arm-3 .arm-dot {
+    transform: rotate(-54deg);
+}
+
+.arm-4 {
+    transform: rotate(126deg);
+}
+
+.arm-4 .arm-card {
+    transform: rotate(-126deg);
+}
+
+.arm-4 .arm-dot {
+    transform: rotate(-126deg);
+}
+
+.arm-5 {
+    transform: rotate(198deg);
+}
+
+.arm-5 .arm-card {
+    transform: rotate(-198deg);
+}
+
+.arm-5 .arm-dot {
+    transform: rotate(-198deg);
+}
+
+/* Hover lift — override individual arm transforms */
+.arm-1:hover .arm-card {
+    transform: rotate(90deg) scale(1.06);
+}
+
+.arm-2:hover .arm-card {
+    transform: rotate(18deg) scale(1.06);
+}
+
+.arm-3:hover .arm-card {
+    transform: rotate(-54deg) scale(1.06);
+}
+
+.arm-4:hover .arm-card {
+    transform: rotate(-126deg) scale(1.06);
+}
+
+.arm-5:hover .arm-card {
+    transform: rotate(-198deg) scale(1.06);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+    .petal-orbit-scene {
         width: 100%;
         height: auto;
         display: flex;
         flex-direction: column;
-        gap: 40px;
         align-items: center;
+        gap: 0;
+    }
+
+    .petal-core {
+        position: static;
+        transform: none;
+        margin-bottom: 50px;
+        width: 170px;
+        height: 170px;
+    }
+
+    .petal-arm {
+        position: static;
+        width: 100%;
+        max-width: 420px;
+        height: auto;
+        transform: none !important;
+        flex-direction: row;
+        align-items: flex-start;
+        margin-bottom: 28px;
         pointer-events: auto;
     }
 
-    .flower-petal {
-        position: static !important;
-        width: 100%;
-        max-width: 480px;
+    .arm-card {
         transform: none !important;
+        width: auto;
+        flex: 1;
     }
 
-    .petal-tab {
-        width: 100px;
-    }
-}
-
-@media (max-width: 768px) {
-    .comparison-section {
-        padding: 60px 0 !important;
-    }
-
-    .flower-center-circle {
-        width: 220px;
-        height: 220px;
-    }
-
-    .flower-main-title {
-        font-size: 1.8rem;
-    }
-
-    .petal-body {
-        padding: 1.5rem;
-        border-radius: 25px;
-    }
-
-    .petal-body h3 {
-        font-size: 1.15rem;
+    .arm-dot {
+        transform: none !important;
+        margin-top: 4px;
+        flex-shrink: 0;
     }
 }
 
-.color-1-text {
-    color: #FF9A9E;
-}
+@media (max-width: 520px) {
+    .petal-core-title {
+        font-size: 1.6rem;
+    }
 
-.color-2-text {
-    color: #A18CD1;
-}
+    .arm-card {
+        padding: 1rem;
+        border-radius: 20px;
+    }
 
-.color-3-text {
-    color: #4dab71;
-}
-
-.color-4-text {
-    color: #eba1eb;
-}
-
-.color-5-text {
-    color: #FDA085;
+    .arm-card h3 {
+        font-size: 1rem;
+    }
 }
