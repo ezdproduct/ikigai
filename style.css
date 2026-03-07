@@ -1502,7 +1502,7 @@ body.no-scroll {
 }
 
 .results-grid.slide-out-result {
-    transform: translateX(-40px);
+    transform: translateX(0);
 }
 
 .results-grid.slide-in-result {
