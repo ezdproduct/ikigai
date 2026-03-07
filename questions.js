@@ -1,5 +1,5 @@
 const questionsData = [
-    // PHẦN 1: TRẮC NGHIỆM TÌNH HUỐNG MỞ RỘNG
+    // PHẦN 1: TRẮC NGHIỆM SỞ THÍCH & TÌNH HUỐNG
     // Tình huống 1: Hiệu sách khổng lồ
     {
         text: "Hãy tưởng tượng bạn bước vào một hiệu sách có đầy đủ mọi kiến thức trên thế giới. Khu vực nào đầu tiên lôi cuốn bạn như một thỏi nam châm?",

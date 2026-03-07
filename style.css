@@ -1169,7 +1169,7 @@ body.no-scroll {
 .input-top-actions {
     position: absolute;
     top: -2.8rem;
-    right: 0.5rem;
+    left: 2.5rem;
     display: flex;
     gap: 8px;
     z-index: 5;

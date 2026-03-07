@@ -752,17 +752,38 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     function updateProgress() {
-        const percent = Math.round((currentIdx / questions.length) * 100);
+        // Chapter mapping:
+        // Ch 1 (Sở thích): 0-29, Ch 2: 30-54, Ch 3: 55-74, Ch 4: 75-99
+        let currentChapter = 1;
+        let chapterIdx = 0;
+        let chapterTotal = 30;
+
+        if (currentIdx >= 75) {
+            currentChapter = 4;
+            chapterIdx = currentIdx - 75;
+            chapterTotal = 25;
+        } else if (currentIdx >= 55) {
+            currentChapter = 3;
+            chapterIdx = currentIdx - 55;
+            chapterTotal = 20;
+        } else if (currentIdx >= 30) {
+            currentChapter = 2;
+            chapterIdx = currentIdx - 30;
+            chapterTotal = 25;
+        } else {
+            currentChapter = 1;
+            chapterIdx = currentIdx;
+            chapterTotal = 30;
+        }
+
+        // Clamp chapterIdx for the 100% case when finishing
+        if (currentIdx >= 100) chapterIdx = chapterTotal;
+
+        const percent = Math.round((chapterIdx / chapterTotal) * 100);
         document.getElementById('quiz-progress-fill').style.width = `${percent}%`;
         document.getElementById('progress-text').textContent = `${percent}%`;
 
-        // Update Chapter Tabs based on currentIdx (Matching questions.js structure)
-        // Chapter 1: 0-29 (Tình huống), Chapter 2: 30-54 (Trăn trở), Chapter 3: 55-74 (Khát vọng), Chapter 4: 75-99 (Lựa chọn)
-        let currentChapter = 1;
-        if (currentIdx >= 75) currentChapter = 4;
-        else if (currentIdx >= 55) currentChapter = 3;
-        else if (currentIdx >= 30) currentChapter = 2;
-
+        // Update Chapter Tabs
         document.querySelectorAll('.chapter-tab').forEach(tab => {
             if (parseInt(tab.dataset.chapter) === currentChapter) {
                 tab.classList.add('active');
