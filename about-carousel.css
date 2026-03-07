@@ -67,8 +67,8 @@
 .petal-orbit-scene {
     position: relative;
     /* Size of the whole flower — petals extend outward */
-    width: 780px;
-    height: 780px;
+    width: 1040px;
+    height: 1040px;
     flex-shrink: 0;
 }
 
@@ -122,8 +122,8 @@
     /* Anchor at scene center */
     top: 50%;
     left: 50%;
-    /* Width = reach from center: dot(30px) + gap(20px) + card-width(240px) */
-    width: 310px;
+    /* Width = reach from center: dot(46px) + gap(16px) + card-width(240px) + extra(98px) */
+    width: 420px;
     /* The arm's own height is 0; children position via flexbox on the arm */
     height: 0;
     transform-origin: 0% 0%;
@@ -147,7 +147,7 @@
 }
 
 .arm-card {
-    margin-left: 12px;
+    margin-left: 16px;
     width: 240px;
     background: #ffffff;
     border-radius: 28px;
