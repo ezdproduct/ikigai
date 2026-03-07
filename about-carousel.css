@@ -77,8 +77,8 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 320px;
-    height: 320px;
+    width: 400px;
+    height: 400px;
     transform: translate(-50%, -50%);
     background: #ffffff;
     border-radius: 50%;
@@ -91,7 +91,7 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 20px;
+    padding: 24px;
 }
 
 .petal-core-title {
@@ -120,22 +120,20 @@
 
 .petal-arm {
     position: absolute;
-    /* Anchor at scene center */
     top: 50%;
     left: 50%;
     /*
-      spacer(170px) = center-radius(160px) + gap(10px)
-      dot(46px) + inner-gap(16px) + card(240px)
-      Total = 170 + 46 + 16 + 240 = 472px → use 490px
+      spacer(210px) = center-radius(200px) + gap(10px)
+      dot(46px) + inner-gap(16px) + card(260px)
+      Total = 210 + 46 + 16 + 260 = 532px
     */
-    width: 490px;
+    width: 540px;
     height: 0;
     transform-origin: 0% 0%;
     display: flex;
     align-items: center;
     pointer-events: none;
-    /* Push content past center circle radius */
-    padding-left: 170px;
+    padding-left: 210px;
     box-sizing: border-box;
 }
 
@@ -153,16 +151,20 @@
 
 .arm-card {
     margin-left: 16px;
-    width: 240px;
+    width: 260px;
+    min-height: 160px;
     background: #ffffff;
     border-radius: 28px;
-    padding: 1.2rem 1.4rem;
+    padding: 1.4rem 1.6rem;
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.07);
     border: 1px solid rgba(0, 0, 0, 0.04);
     text-align: left;
     pointer-events: auto;
     transition: box-shadow 0.3s ease, transform 0.3s ease;
     flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .arm-card:hover {
