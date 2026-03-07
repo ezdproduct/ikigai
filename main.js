@@ -447,13 +447,38 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Re-bind Lucide icons if any
                     if (typeof lucide !== 'undefined') lucide.createIcons();
 
-                    // Add click event for the custom link
+                    // Add click event for the custom links
                     const resultLink = element.querySelector('.result-link-chat');
                     if (resultLink) {
                         resultLink.onclick = (e) => {
                             e.preventDefault();
                             hideChatAndShowStart();
                             window.location.hash = '#results';
+                        };
+                    }
+
+                    // View analysis in sidebar
+                    const viewAnalysisBtn = element.querySelector('.view-analysis-btn');
+                    if (viewAnalysisBtn) {
+                        viewAnalysisBtn.onclick = (e) => {
+                            e.preventDefault();
+                            activateSplitView();
+                            // Scroll side panel into view for mobile if needed
+                            const sidePanel = document.getElementById('analysis-side-panel');
+                            if (sidePanel) sidePanel.scrollIntoView({ behavior: 'smooth' });
+                        };
+                    }
+
+                    // Continue to next chapter
+                    const nextChapterBtn = element.querySelector('.next-chapter-btn');
+                    if (nextChapterBtn) {
+                        nextChapterBtn.onclick = (e) => {
+                            e.preventDefault();
+                            inputArea.classList.remove('hidden');
+                            nextQuestion();
+                            // Remove buttons after clicking
+                            const btnContainer = nextChapterBtn.closest('.chapter-completion-btns');
+                            if (btnContainer) btnContainer.style.display = 'none';
                         };
                     }
 
@@ -728,12 +753,26 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             if (!isReanswer) {
-                setTimeout(() => nextQuestion(), 1200);
+                // CHAPTER BOUNDARIES
+                const boundaries = { 30: 1, 55: 2, 75: 3 };
+                if (boundaries[currentIdx]) {
+                    showChapterCompletion(boundaries[currentIdx]);
+                } else {
+                    setTimeout(() => nextQuestion(), 1200);
+                }
             } else {
                 reansweringIdx = null; // Done re-answering
                 updateSuggestions(currentIdx);
             }
         }, 800);
+    }
+
+    function showChapterCompletion(chapterNum) {
+        const nextChapter = chapterNum + 1;
+        const msg = `Chúc mừng bạn đã hoàn thành xong chương ${chapterNum}. Bạn có thể xem kết quả phân tích về bản thân trong chương này và đến với hành trình tiếp theo!<br><div class="chapter-completion-btns"><a href="#" class="btn-chat-primary view-analysis-btn">Xem phân tích</a><a href="#" class="btn-chat-primary next-chapter-btn">Đến chương ${nextChapter}</a></div>`;
+
+        inputArea.classList.add('hidden');
+        appendMessage('system', msg);
     }
 
     window.changeAnswer = function (targetQIdx) {

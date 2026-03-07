@@ -1029,6 +1029,38 @@ body.no-scroll {
     letter-spacing: 0.5px;
 }
 
+.chapter-completion-btns {
+    display: flex;
+    gap: 12px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.btn-chat-primary {
+    display: inline-block;
+    padding: 10px 20px;
+    background: var(--primary);
+    color: #fff !important;
+    border-radius: 50px;
+    text-decoration: none !important;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 142, 113, 0.2);
+    border: none;
+    cursor: pointer;
+}
+
+.btn-chat-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 142, 113, 0.3);
+    filter: brightness(1.05);
+}
+
+.btn-chat-primary:active {
+    transform: translateY(0);
+}
+
 @keyframes bubbleIn {
     from {
         opacity: 0;
