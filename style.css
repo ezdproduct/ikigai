@@ -2616,6 +2616,11 @@ footer {
         display: none !important;
     }
 
+    /* Ẩn xuống dòng của tiêu đề trên mobile */
+    .desktop-br {
+        display: none !important;
+    }
+
     /* Reset widths AND padding on mobile even if is-split is active (Sửa lỗi bị thụt lề khi vào Split View) */
     .glass-quiz-card.is-split .quiz-header,
     .glass-quiz-card.is-split .quiz-progress-container {
