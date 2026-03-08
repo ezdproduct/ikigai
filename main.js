@@ -850,7 +850,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function showChapterCompletion(chapterNum) {
         const nextChapter = chapterNum + 1;
         const msg = `Chúc mừng bạn đã hoàn thành xong chương ${chapterNum}. Bạn có thể xem kết quả phân tích về bản thân trong chương này và đến với hành trình tiếp theo!<br><div class="chapter-completion-btns">
-            <button class="btn-chat-primary view-chapter-analysis-btn" onclick="showChapterAnalysis(${chapterNum})">Xem phân tích</button>
+            <button class="btn-chat-primary view-chapter-analysis-btn" onclick="openAnalysisAtChapter(${chapterNum})">Xem phân tích</button>
             <button class="btn-chat-primary next-chapter-btn">Đến chương ${nextChapter}</button>
         </div>`;
 
@@ -886,6 +886,14 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             textEl.innerHTML = `<span class="ch-locked">🔒 Hoàn thành Chương ${chNum} để xem phân tích này.</span>`;
         }
+    };
+
+    // Mở modal phân tích radar chính + tự chuyển sang tab chương tương ứng
+    window.openAnalysisAtChapter = function (chNum) {
+        if (!currentAnalysisChart) initCurrentChart();
+        updateChart();
+        analysisModal.classList.remove('hidden');
+        switchAnalysisTab(chNum);
     };
 
     window.showChapterAnalysis = function (chapterNum) {
