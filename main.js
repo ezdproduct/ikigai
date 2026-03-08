@@ -522,6 +522,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const dFactor = isTestMode ? 0.1 : 1;
         setTimeout(async () => {
+            updateProgress(true);
             await appendMessage('system', q.text, qIdxAtCalling);
 
             // Check for split trigger AFTER the message has finished typing
@@ -921,44 +922,59 @@ document.addEventListener('DOMContentLoaded', () => {
         suggestionBox.scrollIntoView({ behavior: 'smooth', block: 'end' });
     };
 
-    function updateProgress() {
+    function updateProgress(isQuestionStarting = false) {
         let currentChapter = 1;
         let chapterIdx = 0;
         let chapterTotal = 30;
 
-        if (isTestMode) {
-            chapterTotal = 2;
-            if (currentIdx >= 6) {
-                currentChapter = 4;
-                chapterIdx = currentIdx - 6;
-            } else if (currentIdx >= 4) {
-                currentChapter = 3;
-                chapterIdx = currentIdx - 4;
-            } else if (currentIdx >= 2) {
-                currentChapter = 2;
-                chapterIdx = currentIdx - 2;
+        const boundaries = isTestMode ? { 2: 1, 4: 2, 6: 3 } : { 30: 1, 55: 2, 75: 3 };
+
+        if (!isQuestionStarting && boundaries[currentIdx]) {
+            // Hiển thị 100% của chương vừa hoàn thành
+            currentChapter = boundaries[currentIdx];
+            if (isTestMode) {
+                chapterTotal = 2;
+                chapterIdx = 2;
             } else {
-                currentChapter = 1;
-                chapterIdx = currentIdx;
+                if (currentChapter === 1) { chapterTotal = 30; chapterIdx = 30; }
+                else if (currentChapter === 2) { chapterTotal = 25; chapterIdx = 25; }
+                else if (currentChapter === 3) { chapterTotal = 20; chapterIdx = 20; }
             }
         } else {
-            // Ch 1 (Sở thích): 0-29, Ch 2: 30-54, Ch 3: 55-74, Ch 4: 75-99
-            if (currentIdx >= 75) {
-                currentChapter = 4;
-                chapterIdx = currentIdx - 75;
-                chapterTotal = 25;
-            } else if (currentIdx >= 55) {
-                currentChapter = 3;
-                chapterIdx = currentIdx - 55;
-                chapterTotal = 20;
-            } else if (currentIdx >= 30) {
-                currentChapter = 2;
-                chapterIdx = currentIdx - 30;
-                chapterTotal = 25;
+            if (isTestMode) {
+                chapterTotal = 2;
+                if (currentIdx >= 6) {
+                    currentChapter = 4;
+                    chapterIdx = currentIdx - 6;
+                } else if (currentIdx >= 4) {
+                    currentChapter = 3;
+                    chapterIdx = currentIdx - 4;
+                } else if (currentIdx >= 2) {
+                    currentChapter = 2;
+                    chapterIdx = currentIdx - 2;
+                } else {
+                    currentChapter = 1;
+                    chapterIdx = currentIdx;
+                }
             } else {
-                currentChapter = 1;
-                chapterIdx = currentIdx;
-                chapterTotal = 30;
+                // Ch 1 (Sở thích): 0-29, Ch 2: 30-54, Ch 3: 55-74, Ch 4: 75-99
+                if (currentIdx >= 75) {
+                    currentChapter = 4;
+                    chapterIdx = currentIdx - 75;
+                    chapterTotal = 25;
+                } else if (currentIdx >= 55) {
+                    currentChapter = 3;
+                    chapterIdx = currentIdx - 55;
+                    chapterTotal = 20;
+                } else if (currentIdx >= 30) {
+                    currentChapter = 2;
+                    chapterIdx = currentIdx - 30;
+                    chapterTotal = 25;
+                } else {
+                    currentChapter = 1;
+                    chapterIdx = currentIdx;
+                    chapterTotal = 30;
+                }
             }
         }
 
