@@ -90,17 +90,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initChart();
 
     // 2. Quiz Data (Loaded from questions.js)
-    // --- CHẾ ĐỘ TEST ---
-    const isTestMode = true; // Đổi thành false để khôi phục đầy đủ 100 câu
+    // --- CHẾ ĐỘ CHÍNH THỨC ---
+    const isTestMode = false; // Đã khôi phục đầy đủ 100 câu
     let questions = questionsData;
-    if (isTestMode) {
-        questions = [
-            ...questionsData.slice(0, 2),   // Ch 1: Sở thích
-            ...questionsData.slice(30, 32), // Ch 2: Trăn trở
-            ...questionsData.slice(55, 57), // Ch 3: Khát vọng
-            ...questionsData.slice(75, 77)  // Ch 4: Lựa chọn
-        ];
-    }
     // -------------------
 
     let currentIdx = 0;
