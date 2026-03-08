@@ -2704,13 +2704,14 @@ footer {
         display: flex !important;
         flex-direction: row !important;
         flex-wrap: nowrap !important;
-        align-items: center !important;
+        align-items: flex-end !important;
         justify-content: space-between !important;
         gap: 8px !important;
         z-index: 2000;
         /* Bump z-index to stay on top */
         margin-top: auto !important;
         box-sizing: border-box !important;
+        position: relative !important;
     }
 
     /* Đảm bảo khung chat không bị trôi đi */
@@ -2730,6 +2731,29 @@ footer {
         background: transparent !important;
         border: none !important;
         box-shadow: none !important;
+    }
+
+    .suggestion-box {
+        position: absolute !important;
+        bottom: 100% !important;
+        left: 0 !important;
+        width: 100% !important;
+        max-width: none !important;
+        border-radius: 20px 20px 0 0 !important;
+        box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.05) !important;
+        background: #fff !important;
+        z-index: 100 !important;
+        border: none !important;
+        border-top: 1px solid rgba(0, 0, 0, 0.05) !important;
+    }
+
+    .suggestion-header {
+        padding: 15px 20px 10px !important;
+        font-size: 0.85rem !important;
+    }
+
+    .suggestion-grid {
+        padding: 0 15px 15px !important;
     }
 
     /* Khi đang gõ: Khung gõ chiếm trọn 100% */
@@ -2773,15 +2797,16 @@ footer {
         top: 0 !important;
         /* Reset từ -2.8rem */
         left: 0 !important;
-        flex: 0 0 25% !important;
-        /* Chiếm khoảng 3 phần */
+        flex: 0 0 auto !important;
+        /* Trả về auto để fit nội dung */
         display: flex !important;
         flex-direction: row;
         justify-content: flex-start;
         /* Sát lề trái */
         align-items: center;
-        gap: 6px !important;
-        padding: 0 !important;
+        gap: 10px !important;
+        padding: 0 0 5px 0 !important;
+        /* Padding đáy để cân với input row */
         margin: 0 !important;
         flex-shrink: 0;
         z-index: 10;
@@ -2803,11 +2828,15 @@ footer {
 
     .user-msg {
         margin-left: auto !important;
+        margin-right: 0 !important;
+        align-self: flex-end !important;
         /* Luôn ép sát bên phải */
     }
 
     .system-msg {
         margin-right: auto !important;
+        margin-left: 0 !important;
+        align-self: flex-start !important;
         width: auto !important;
         /* Trả về auto để bong bóng không bị kéo dài vô lý */
         max-width: 100% !important;
