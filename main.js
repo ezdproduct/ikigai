@@ -523,10 +523,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (viewChapterAnalysisBtn) {
                         viewChapterAnalysisBtn.onclick = (e) => {
                             e.preventDefault();
-                            // The onclick is already in the HTML as showChapterAnalysis(chapterNum)
-                            // But since we inject HTML, sometimes inline handlers need a nudge or we do it here
-                            const chMatch = html.match(/showChapterAnalysis\((\d+)\)/);
-                            if (chMatch) showChapterAnalysis(parseInt(chMatch[1]));
+                            const chMatch = html.match(/openAnalysisAtChapter\((\d+)\)/);
+                            if (chMatch) openAnalysisAtChapter(parseInt(chMatch[1]));
                         };
                     }
 
