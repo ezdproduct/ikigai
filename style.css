@@ -2777,26 +2777,32 @@ footer {
     }
 
     .suggestion-header {
-        padding: 10px 20px 2px !important;
-        /* Giảm padding trên dưới */
-        font-size: 0.8rem !important;
+        padding: 8px 15px 0 !important;
+        /* Cực kỳ sát bên dưới */
+        font-size: 0.75rem !important;
         white-space: normal !important;
         color: var(--text-muted) !important;
         font-weight: 600 !important;
-        opacity: 0.8 !important;
+        opacity: 0.7 !important;
     }
 
     .suggestion-grid {
         display: flex !important;
         flex-direction: row !important;
-        flex-wrap: nowrap !important;
-        padding: 5px 15px 12px !important;
-        /* Giảm padding dưới */
-        gap: 10px !important;
-        /* Giảm gap giữa các item */
-        overflow-x: visible !important;
-        width: max-content !important;
-        /* Quan trọng để cuộn ngang */
+        flex-wrap: wrap !important;
+        padding: 2px 15px 10px !important;
+        /* Cực sát với header */
+        gap: 4px 6px !important;
+        /* Khoảng cách giữa 2 hàng cực nhỏ (4px) */
+        overflow-x: hidden !important;
+        width: 100% !important;
+    }
+
+    .suggestion-item {
+        padding: 5px 12px !important;
+        /* Mỏng hơn nữa */
+        font-size: 0.8rem !important;
+        border-radius: 8px !important;
     }
 
     /* Khi đang gõ: Khung gõ chiếm trọn 100% */
