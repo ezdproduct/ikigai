@@ -98,27 +98,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const inputArea = document.getElementById('quiz-input-area');
     const suggestionBox = document.getElementById('suggestion-box');
     const suggestionGrid = document.getElementById('suggestion-grid');
-    const toggleToolsBtn = document.getElementById('toggle-tools-btn');
-
-    if (toggleToolsBtn) {
-        toggleToolsBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            inputArea.classList.toggle('show-tools');
-        });
-    }
-
-    // Reset tools when clicking away or blur
-    const answerTextarea = document.getElementById('user-answer');
-    if (answerTextarea) {
-        answerTextarea.addEventListener('blur', () => {
-            // Delay slightly to allow click on icons to register if needed
-            setTimeout(() => {
-                if (!inputArea.contains(document.activeElement)) {
-                    inputArea.classList.remove('show-tools');
-                }
-            }, 200);
-        });
-    }
     const userInput = document.getElementById('user-answer');
     const sendBtn = document.getElementById('send-btn');
     const hintBtn = document.getElementById('show-hints-btn');
