@@ -3071,6 +3071,41 @@ footer {
     box-shadow: 0 4px 12px rgba(255, 142, 113, 0.2);
 }
 
+.side-panel-footer {
+    padding: 1.5rem;
+    display: flex;
+    justify-content: center;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    background: #fff;
+}
+
+.side-analysis-btn {
+    background: transparent;
+    border: 1.8px solid var(--primary);
+    color: var(--primary);
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: var(--transition);
+}
+
+.side-analysis-btn:hover {
+    background: var(--primary);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(255, 142, 113, 0.2);
+}
+
+.side-analysis-btn i {
+    width: 20px;
+    height: 20px;
+}
+
 /* Analysis Placeholder */
 #chapter-analysis-placeholder {
     padding: 3rem 1rem;

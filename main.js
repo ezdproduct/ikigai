@@ -1261,6 +1261,14 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
+    const sideViewAnalysisBtn = document.getElementById('side-view-analysis-btn');
+    if (sideViewAnalysisBtn) {
+        sideViewAnalysisBtn.onclick = () => {
+            const currentCh = getChapterNumber(currentIdx);
+            showChapterAnalysis(currentCh);
+        };
+    }
+
     const closeChapterModal = document.getElementById('close-chapter-modal');
     if (closeChapterModal) {
         closeChapterModal.onclick = () => document.getElementById('chapter-analysis-modal').classList.add('hidden');
