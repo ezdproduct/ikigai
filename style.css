@@ -2768,7 +2768,7 @@ footer {
         overflow-x: auto !important;
         overflow-y: hidden !important;
         height: auto !important;
-        max-height: 280px !important;
+        max-height: 110px !important;
         -webkit-overflow-scrolling: touch !important;
     }
 
@@ -2777,26 +2777,25 @@ footer {
     }
 
     .suggestion-header {
-        padding: 10px 20px 2px !important;
-        /* Giảm padding trên dưới */
-        font-size: 0.8rem !important;
+        padding: 6px 15px 0px !important;
+        /* Gọn nhất có thể */
+        font-size: 0.75rem !important;
         white-space: normal !important;
         color: var(--text-muted) !important;
         font-weight: 600 !important;
         opacity: 0.8 !important;
+        line-height: 1.2 !important;
     }
 
     .suggestion-grid {
         display: flex !important;
         flex-direction: row !important;
         flex-wrap: nowrap !important;
-        padding: 5px 15px 12px !important;
-        /* Giảm padding dưới */
-        gap: 10px !important;
-        /* Giảm gap giữa các item */
+        padding: 4px 12px 8px !important;
+        /* Mỏng tối đa */
+        gap: 8px !important;
         overflow-x: visible !important;
         width: max-content !important;
-        /* Quan trọng để cuộn ngang */
     }
 
     /* Khi đang gõ: Khung gõ chiếm trọn 100% */
