@@ -98,6 +98,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const inputArea = document.getElementById('quiz-input-area');
     const suggestionBox = document.getElementById('suggestion-box');
     const suggestionGrid = document.getElementById('suggestion-grid');
+    const toggleToolsBtn = document.getElementById('toggle-tools-btn');
+
+    if (toggleToolsBtn) {
+        toggleToolsBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            inputArea.classList.toggle('show-tools');
+        });
+    }
+
+    // Reset tools when clicking away or blur
+    const answerTextarea = document.getElementById('user-answer');
+    if (answerTextarea) {
+        answerTextarea.addEventListener('blur', () => {
+            // Delay slightly to allow click on icons to register if needed
+            setTimeout(() => {
+                if (!inputArea.contains(document.activeElement)) {
+                    inputArea.classList.remove('show-tools');
+                }
+            }, 200);
+        });
+    }
     const userInput = document.getElementById('user-answer');
     const sendBtn = document.getElementById('send-btn');
     const hintBtn = document.getElementById('show-hints-btn');
@@ -111,32 +132,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const exitBtn = document.getElementById('exit-quiz-btn');
     const analysisModal = document.getElementById('analysis-modal');
     const closeModal = document.getElementById('close-modal');
-    const inputToggleBtn = document.getElementById('input-toggle-actions');
-
-    // Messenger-style toggle logic
-    if (inputToggleBtn) {
-        inputToggleBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            inputArea.classList.toggle('show-actions-mobile');
-        });
-    }
-
-    if (userInput) {
-        userInput.addEventListener('input', () => {
-            // Khi user gõ bất kỳ phím nào, thu hồi icon và mở rộng khung gõ
-            if (inputArea.classList.contains('show-actions-mobile')) {
-                inputArea.classList.remove('show-actions-mobile');
-            }
-        });
-
-        userInput.addEventListener('focus', () => {
-            // Khi bắt đầu focus (bàn phím hiện), mặc định là thu hồi icon nếu đang gõ dở
-            if (userInput.value.trim().length > 0) {
-                inputArea.classList.remove('show-actions-mobile');
-            }
-        });
-    }
 
     // Current Analysis Chart
     const currentCtx = document.getElementById('currentRadarChart').getContext('2d');

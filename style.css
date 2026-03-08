@@ -2744,7 +2744,7 @@ footer {
         display: flex !important;
         flex-direction: row !important;
         flex-wrap: nowrap !important;
-        align-items: center !important;
+        align-items: flex-end !important;
         justify-content: space-between !important;
         gap: 8px !important;
         z-index: 2000;
@@ -2760,38 +2760,14 @@ footer {
         bottom: 0 !important;
     }
 
-    /* Messenger-style toggle logic */
-    .quiz-input-area:focus-within:not(.show-actions-mobile) .input-top-actions {
+    /* Khi focus, ẩn icons gốc để phóng to khung gõ, nhưng chừa chỗ cho nút toggle */
+    .quiz-input-area:focus-within:not(.show-tools) .input-top-actions {
         display: none !important;
     }
 
-    .input-toggle-btn {
-        display: none !important;
-        background: transparent;
-        border: none;
-        padding: 5px;
-        color: #ff8e71;
-        cursor: pointer;
-        font-size: 1.2rem;
-        width: 30px;
-        height: 40px;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .quiz-input-area:focus-within:not(.show-actions-mobile) .input-toggle-btn {
+    .quiz-input-area:focus-within.show-tools .input-top-actions {
         display: flex !important;
-        align-items: center;
-    }
-
-    .quiz-input-area.show-actions-mobile .input-top-actions {
-        display: flex !important;
-        padding-bottom: 0 !important;
-        margin-right: 10px !important;
-    }
-
-    .quiz-input-area.show-actions-mobile .input-toggle-btn {
-        display: none !important;
+        margin-right: 5px !important;
     }
 
     /* Vùng 7 phần bên phải */
@@ -2851,31 +2827,59 @@ footer {
         width: max-content !important;
     }
 
-    /* Khi đang gõ: Khung gõ chiếm trọn 100% hoặc thu lại nếu click nút > */
-    .quiz-input-area:focus-within:not(.show-actions-mobile) .quiz-input-main {
-        flex: 0 0 100% !important;
-    }
-
-    .quiz-input-area.show-actions-mobile .quiz-input-main {
+    /* Khi đang gõ: Khung gõ chiếm trọn 100% */
+    /* Khi đang gõ: Khung gõ chiếm trọn 100% nếu không show tools */
+    .quiz-input-area:focus-within:not(.show-tools) .quiz-input-main {
         flex: 1 !important;
+        width: 100% !important;
     }
 
-    .quiz-input-main {
-        display: flex !important;
-        align-items: center !important;
-        flex-direction: row !important;
+    .quiz-input-area.show-tools .quiz-input-main {
+        flex: 1 !important;
     }
 
     /* Biến ô soạn thảo thành hình viên thuốc hệt như Messenger */
     .input-row {
         background: #f1f1f1 !important;
         border: 1px solid rgba(0, 0, 0, 0.05) !important;
-        padding: 4px 10px 4px 15px !important;
+        padding: 4px 6px 4px 10px !important;
         gap: 5px !important;
         border-radius: 22px !important;
         display: flex !important;
         align-items: center !important;
         width: 100% !important;
+    }
+
+    /* Messenger-style toggle button */
+    .toggle-tools-btn {
+        display: none !important;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        background: #e4e6eb;
+        border-radius: 50%;
+        border: none;
+        color: #65676b;
+        cursor: pointer;
+        padding: 0;
+        flex-shrink: 0;
+        transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .quiz-input-area:focus-within .toggle-tools-btn {
+        display: flex !important;
+    }
+
+    .quiz-input-area.show-tools .toggle-tools-btn {
+        background: var(--primary);
+        color: white;
+        transform: rotate(180deg);
+    }
+
+    .toggle-tools-btn svg {
+        width: 18px;
+        height: 18px;
     }
 
     #user-answer {
