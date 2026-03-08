@@ -288,52 +288,89 @@
         flex-direction: column;
         align-items: center;
         gap: 0;
+        padding: 0 10px;
     }
 
     .petal-core {
-        position: static;
+        position: relative;
+        top: 0;
+        left: 0;
         transform: none;
-        margin-bottom: 50px;
-        width: 170px;
-        height: 170px;
+        margin: 0 auto 60px;
+        width: 220px;
+        height: 220px;
+        border-width: 8px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
     }
 
     .petal-arm {
-        position: static;
+        position: relative;
+        top: 0;
+        left: 0;
         width: 100%;
-        max-width: 420px;
+        max-width: 450px;
         height: auto;
         transform: none !important;
-        flex-direction: row;
-        align-items: flex-start;
-        margin-bottom: 28px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 40px;
+        padding-left: 0 !important;
         pointer-events: auto;
+        text-align: center;
+    }
+
+    .arm-dot {
+        margin-bottom: 12px;
+        margin-top: 0;
+        transform: none !important;
+        width: 40px;
+        height: 40px;
     }
 
     .arm-card {
         transform: none !important;
-        width: auto;
-        flex: 1;
+        width: 100%;
+        min-height: auto;
+        padding: 1.5rem;
+        border-radius: 24px;
+        text-align: center;
+        margin-left: 0;
     }
 
-    .arm-dot {
-        transform: none !important;
-        margin-top: 4px;
-        flex-shrink: 0;
+    .arm-card h3 {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .arm-card p {
+        font-size: 0.95rem;
+    }
+
+    /* Vertical line connecting dots */
+    .petal-arm:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        top: 40px;
+        left: 50%;
+        width: 2px;
+        height: 40px;
+        background: linear-gradient(to bottom, #eee, transparent);
+        z-index: 1;
     }
 }
 
 @media (max-width: 520px) {
     .petal-core-title {
-        font-size: 1.6rem;
+        font-size: 1.8rem;
     }
 
-    .arm-card {
-        padding: 1rem;
-        border-radius: 20px;
+    .petal-core {
+        width: 180px;
+        height: 180px;
     }
 
     .arm-card h3 {
-        font-size: 1rem;
+        font-size: 1.1rem;
     }
 }
