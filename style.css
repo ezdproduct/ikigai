@@ -2667,10 +2667,10 @@ footer {
 
     /* Keep Modal Centered and Scrollable on Mobile */
     .modal-content {
-        width: 92% !important;
-        padding: 24px !important;
+        width: 98% !important;
+        padding: 15px 10px !important;
         border-radius: 20px !important;
-        max-height: 85vh !important;
+        max-height: 92vh !important;
         overflow-y: auto !important;
     }
 
@@ -2685,8 +2685,8 @@ footer {
     }
 
     .modal-chart-container {
-        height: 320px !important;
-        margin: 0.5rem 0 !important;
+        height: 350px !important;
+        margin: 0.2rem 0 !important;
     }
 
     .close-btn {
@@ -2996,9 +2996,9 @@ footer {
 
     /* Nút radar thumbnail: hình vuông bo góc, không có background mạnh */
     .mini-radar-btn {
-        width: 44px !important;
-        height: 44px !important;
-        padding: 2px !important;
+        width: 50px !important;
+        height: 50px !important;
+        padding: 4px !important;
         border-radius: 12px !important;
         border: 1.5px solid rgba(255, 142, 113, 0.3) !important;
         background: rgba(255, 255, 255, 0.8) !important;
@@ -3018,8 +3018,8 @@ footer {
     }
 
     .mini-radar-btn canvas {
-        width: 40px !important;
-        height: 40px !important;
+        width: 42px !important;
+        height: 42px !important;
         display: block !important;
     }
 
@@ -3171,8 +3171,8 @@ footer {
 }
 
 .chapter-chart-wrap {
-    height: 280px !important;
-    margin: 1rem 0 1.5rem;
+    height: 360px !important;
+    margin: 0 !important;
 }
 
 .chapter-analysis-note {

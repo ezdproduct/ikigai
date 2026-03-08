@@ -234,10 +234,10 @@ document.addEventListener('DOMContentLoaded', () => {
             options: {
                 layout: {
                     padding: {
-                        top: 40,
-                        bottom: 40,
-                        left: 60,
-                        right: 60
+                        top: 10,
+                        bottom: 10,
+                        left: window.innerWidth < 480 ? 10 : 60,
+                        right: window.innerWidth < 480 ? 10 : 60
                     }
                 },
                 scales: {
@@ -247,11 +247,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         ticks: { display: false },
                         pointLabels: {
                             font: {
-                                size: 10,
+                                size: window.innerWidth < 480 ? 9 : 10,
                                 weight: '600',
                                 family: "'Be Vietnam Pro', sans-serif"
                             },
-                            padding: 12
+                            padding: window.innerWidth < 480 ? 5 : 12
                         }
                     }
                 },
@@ -972,7 +972,21 @@ document.addEventListener('DOMContentLoaded', () => {
                             suggestedMin: 0,
                             suggestedMax: 100,
                             ticks: { display: false },
-                            pointLabels: { font: { size: 9, weight: '600' }, padding: 15 }
+                            pointLabels: {
+                                font: {
+                                    size: window.innerWidth < 480 ? 9 : 10,
+                                    weight: '600'
+                                },
+                                padding: window.innerWidth < 480 ? 5 : 15
+                            }
+                        }
+                    },
+                    layout: {
+                        padding: {
+                            top: 10,
+                            bottom: 10,
+                            left: window.innerWidth < 480 ? 10 : 50,
+                            right: window.innerWidth < 480 ? 10 : 50
                         }
                     },
                     plugins: { legend: { display: false } }
