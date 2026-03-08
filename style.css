@@ -2616,17 +2616,34 @@ footer {
         display: none !important;
     }
 
-    /* Reset widths on mobile even if is-split is active */
+    /* Reset widths AND padding on mobile even if is-split is active (Sửa lỗi bị thụt lề khi vào Split View) */
     .glass-quiz-card.is-split .quiz-header,
-    .glass-quiz-card.is-split .quiz-chapters-tabs,
+    .glass-quiz-card.is-split .quiz-progress-container {
+        margin-left: 0 !important;
+        width: 100% !important;
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
+
     .glass-quiz-card.is-split .quiz-body-wrapper,
+    .glass-quiz-card.is-split .quiz-chapters-tabs {
+        margin-left: 0 !important;
+        width: 100% !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
     .glass-quiz-card.is-split .quiz-input-area {
         margin-left: 0 !important;
         width: 100% !important;
+        padding: 12px 15px 15px 15px !important;
+        /* Trả về padding chuẩn mobile */
     }
 
     .glass-quiz-card.is-split .quiz-chat-window {
         width: 100% !important;
+        padding: 10px 15.5px !important;
+        /* Trả về padding chuẩn mobile */
     }
 
     /* Show the mobile version of the analysis button */
