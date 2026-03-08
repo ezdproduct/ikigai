@@ -241,6 +241,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!isChatStarted) {
             isChatStarted = true;
             updateActionButtons();
+            updateProgress();
             if (chapterTabs) chapterTabs.classList.remove('hidden');
             chatWindow.innerHTML = '';
             appendMessage('user', 'Tôi muốn tìm thấy đam mê của mình');
@@ -528,7 +529,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 activateSplitView();
             }
 
-            updateProgress();
             selectedHints = [];
             updateSuggestions(currentIdx);
             syncHintBtn();
@@ -766,6 +766,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const dFactor = isTestMode ? 0.1 : 1;
         setTimeout(() => {
+            updateProgress();
             appendMessage('system', systemResponse, targetIdx);
 
             // Nếu chỉ là trò chuyện (lạc đề), không chuyển câu hỏi
