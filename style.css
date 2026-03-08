@@ -2685,8 +2685,8 @@ footer {
     }
 
     .modal-chart-container {
-        height: 250px !important;
-        margin: 1.5rem 0 !important;
+        height: 320px !important;
+        margin: 0.5rem 0 !important;
     }
 
     .close-btn {
