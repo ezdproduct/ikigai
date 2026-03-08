@@ -2675,13 +2675,15 @@ footer {
     }
 
     .modal-content h3 {
-        font-size: 1.6rem !important;
-        line-height: 1.3 !important;
-        margin-top: 16px !important;
+        font-size: 1.5rem !important;
+        line-height: 1.2 !important;
+        margin-top: 5px !important;
+        margin-bottom: 5px !important;
     }
 
     .modal-content p {
-        font-size: 1rem !important;
+        font-size: 0.95rem !important;
+        margin-bottom: 10px !important;
     }
 
     .modal-chart-container {
@@ -3151,9 +3153,9 @@ footer {
 /* --- Chapter Analysis Modal & Buttons --- */
 .chapter-analysis-modal-content {
     max-width: 480px !important;
-    max-height: 85vh;
+    max-height: 92vh;
     overflow-y: auto;
-    padding: 2rem 1.5rem !important;
+    padding: 1.2rem 1rem !important;
 }
 
 /* Custom scrollbar for the modal */
@@ -3221,13 +3223,14 @@ footer {
 }
 
 .modal-content.chapter-analysis-modal-content h3 {
-    margin-bottom: 0.5rem;
+    margin-top: 0 !important;
+    margin-bottom: 0.2rem !important;
     color: var(--primary);
 }
 
 .modal-content.chapter-analysis-modal-content p {
-    margin-bottom: 1.5rem;
-    font-size: 0.95rem;
+    margin-bottom: 0.5rem !important;
+    font-size: 0.92rem;
     color: var(--text-muted);
 }
 
@@ -3236,9 +3239,9 @@ footer {
     display: flex;
     justify-content: flex-start;
     gap: 8px;
-    margin: 0.5rem 0 1.5rem;
+    margin: 0 0 1rem;
     border-bottom: 1px solid #eee;
-    padding-bottom: 12px;
+    padding-bottom: 10px;
     overflow-x: auto;
     scrollbar-width: none;
     /* Hide scrollbar for Chrome/Safari */
@@ -3394,7 +3397,7 @@ footer {
     display: flex;
     justify-content: space-between;
     gap: 6px;
-    margin: 1rem 0 0.5rem;
+    margin: 0.5rem 0 0.2rem;
     border-bottom: 2px solid rgba(255, 142, 113, 0.15);
     padding-bottom: 0;
 }
