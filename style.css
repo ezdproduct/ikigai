@@ -2830,6 +2830,7 @@ footer {
         margin-left: auto !important;
         margin-right: 0 !important;
         align-self: flex-end !important;
+        text-align: left !important;
         /* Luôn ép sát bên phải */
     }
 
@@ -2839,9 +2840,21 @@ footer {
         align-self: flex-start !important;
         width: auto !important;
         /* Trả về auto để bong bóng không bị kéo dài vô lý */
-        max-width: 100% !important;
+        max-width: 90% !important;
         gap: 8px !important;
         display: flex !important;
+        align-items: flex-end !important;
+        text-align: left !important;
+    }
+
+    /* Container chung cho đoạn chat */
+    .quiz-chat-window {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        /* Ép canh trái cho tất cả, user sẽ tự override sang phải */
+        width: 100% !important;
+        padding: 10px 15px !important;
     }
 
     /* QUAN TRỌNG: Sửa lỗi 7/3 của khung chat phía trên */
@@ -2982,11 +2995,6 @@ footer {
         display: flex !important;
         flex-direction: column !important;
         min-height: 0 !important;
-    }
-
-    .quiz-chat-window {
-        flex: 1 !important;
-        padding: 10px 15px !important;
     }
 
     /* Label ẩn bên dưới icon hiện khi hover (UX hint) */
