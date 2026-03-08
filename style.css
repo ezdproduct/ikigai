@@ -2742,10 +2742,11 @@ footer {
         max-width: none !important;
         border-radius: 20px 20px 0 0 !important;
         box-shadow: 0 -15px 30px rgba(0, 0, 0, 0.12) !important;
-        background: #ffffff !important;
+        background: linear-gradient(135deg, #FFFDFB 0%, #FFF0EA 100%) !important;
+        /* Gradient màu cam nhẹ */
         z-index: 10000 !important;
         border: none !important;
-        border-top: 1px solid rgba(0, 0, 0, 0.08) !important;
+        border-top: 2px solid rgba(255, 142, 113, 0.2) !important;
         display: block !important;
         overflow-x: auto !important;
         overflow-y: hidden !important;
@@ -2759,18 +2760,23 @@ footer {
     }
 
     .suggestion-header {
-        padding: 15px 20px 5px !important;
-        font-size: 0.85rem !important;
+        padding: 10px 20px 2px !important;
+        /* Giảm padding trên dưới */
+        font-size: 0.8rem !important;
         white-space: normal !important;
         color: var(--text-muted) !important;
+        font-weight: 600 !important;
+        opacity: 0.8 !important;
     }
 
     .suggestion-grid {
         display: flex !important;
         flex-direction: row !important;
         flex-wrap: nowrap !important;
-        padding: 5px 15px 15px !important;
-        gap: 12px !important;
+        padding: 5px 15px 12px !important;
+        /* Giảm padding dưới */
+        gap: 10px !important;
+        /* Giảm gap giữa các item */
         overflow-x: visible !important;
         width: max-content !important;
         /* Quan trọng để cuộn ngang */
