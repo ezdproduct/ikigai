@@ -2479,7 +2479,8 @@ footer {
     }
 
     .quiz-header-top h2 {
-        font-size: 1.25rem !important;
+        font-size: 1.15rem !important;
+        margin-bottom: 2px !important;
         /* Smaller size to fit on 1 line and preserve space */
     }
 
@@ -3076,8 +3077,8 @@ footer {
 
     .glass-quiz-card {
         margin: 0 !important;
-        padding: 4px 0 0 0 !important;
-        /* Giảm từ 10px xuống 4px để chừa chỗ cho chat */
+        padding: 0 !important;
+        /* Giảm tối đa để chừa chỗ cho chat */
         flex: 1 !important;
         width: 100% !important;
         height: 100% !important;
@@ -3092,8 +3093,8 @@ footer {
     .quiz-header,
     .quiz-progress-container {
         width: 100% !important;
-        padding-left: 15px !important;
-        padding-right: 15px !important;
+        padding-left: 12px !important;
+        padding-right: 12px !important;
         margin-left: 0 !important;
         margin-right: 0 !important;
         box-sizing: border-box !important;
@@ -3101,23 +3102,24 @@ footer {
 
     /* Thắt chặt phần header để nhường chỗ cho chat */
     .quiz-header {
-        padding-bottom: 4px !important;
-        margin-bottom: 2px !important;
+        padding-top: 5px !important;
+        padding-bottom: 2px !important;
+        margin-bottom: 1px !important;
         border-bottom-width: 1px !important;
     }
 
     .quiz-progress-container {
-        margin-top: 2px !important;
-        padding-bottom: 4px !important;
+        margin-top: 1px !important;
+        padding-bottom: 3px !important;
     }
 
     .progress-info {
-        margin-bottom: 3px !important;
-        font-size: 0.78rem !important;
+        margin-bottom: 2px !important;
+        font-size: 0.72rem !important;
     }
 
     .quiz-progress-bar {
-        height: 5px !important;
+        height: 4px !important;
     }
 
     .quiz-body-wrapper {
