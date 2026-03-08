@@ -837,12 +837,11 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.classList.remove('hidden');
 
         // Check if chapter has been reached
-        const currentChapterNum = getChapterNumber(currentIdx);
-        // Chapter is viewable if it's completed or the user is currently in it (with some data)
-        const isReached = isQuizCompleted || chapterNum <= currentChapterNum;
-        const hasSomeData = scores.some(v => v > 0);
+        // Calculate boundaries to check if chapter is completed
+        const boundaries = isTestMode ? { 1: 2, 2: 4, 3: 6 } : { 1: 30, 2: 55, 3: 75 };
+        const isChapterCompleted = isQuizCompleted || (boundaries[chapterNum] && currentIdx >= boundaries[chapterNum]) || (chapterNum === 4 && currentIdx >= questions.length);
 
-        if (!isReached || (chapterNum === 1 && !hasSomeData)) {
+        if (!isChapterCompleted) {
             contentWrap.classList.add('hidden');
             placeholder.classList.remove('hidden');
             if (typeof lucide !== 'undefined') lucide.createIcons();
