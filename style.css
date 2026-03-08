@@ -2741,17 +2741,17 @@ footer {
         width: 100% !important;
         max-width: none !important;
         border-radius: 20px 20px 0 0 !important;
-        box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.08) !important;
-        background: #fff !important;
-        z-index: 9999 !important;
-        /* Cực cao để không bị đè */
+        box-shadow: 0 -15px 30px rgba(0, 0, 0, 0.12) !important;
+        background: #ffffff !important;
+        z-index: 10000 !important;
         border: none !important;
-        border-top: 2px solid var(--primary-light) !important;
+        border-top: 1px solid rgba(0, 0, 0, 0.08) !important;
         display: block !important;
         overflow-x: auto !important;
         overflow-y: hidden !important;
         height: auto !important;
-        max-height: 250px !important;
+        max-height: 280px !important;
+        -webkit-overflow-scrolling: touch !important;
     }
 
     .suggestion-box.hidden {

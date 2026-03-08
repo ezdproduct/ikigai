@@ -246,9 +246,9 @@ document.addEventListener('DOMContentLoaded', () => {
             chatWindow.innerHTML = '';
             appendMessage('user', 'Tôi muốn tìm thấy đam mê của mình');
             const dFactor = isTestMode ? 0.1 : 1;
-            setTimeout(() => appendMessage('system', 'Hmm tôi cảm giác bạn đang khá mơ hồ về con đường phía trước.'), 800 * dFactor);
-            setTimeout(() => appendMessage('system', 'Nhưng không sao, chúng ta rồi sẽ tìm ra con đường dành cho bản thân mình mà thoi! Bạn có thể thoải mái chia sẻ qua những gợi mở của tôi nhé!'), 2300 * dFactor);
-            setTimeout(() => nextQuestion(), 4000 * dFactor);
+            setTimeout(() => appendMessage('system', 'Hmm tôi cảm giác bạn đang khá mơ hồ về con đường phía trước.'), 500 * dFactor);
+            setTimeout(() => appendMessage('system', 'Nhưng không sao, chúng ta rồi sẽ tìm ra con đường dành cho bản thân mình mà thoi! Bạn có thể thoải mái chia sẻ qua những gợi mở của tôi nhé!'), 1500 * dFactor);
+            setTimeout(() => nextQuestion(), 2500 * dFactor);
         } else {
             // Continuation logic: ensure scroll to bottom
             chatWindow.scrollTop = chatWindow.scrollHeight;
@@ -523,16 +523,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const dFactor = isTestMode ? 0.1 : 1;
         setTimeout(async () => {
             updateProgress(true);
+
+            // Show suggestions IMMEDIATELY as typing starts
+            selectedHints = [];
+            updateSuggestions(currentIdx);
+            syncHintBtn();
+
             await appendMessage('system', q.text, qIdxAtCalling);
 
             // Check for split trigger AFTER the message has finished typing
             if (q.text.includes("Hãy tưởng tượng bạn bước vào một hiệu sách")) {
                 activateSplitView();
             }
-
-            selectedHints = [];
-            updateSuggestions(currentIdx);
-            syncHintBtn();
         }, 600);
     }
 
