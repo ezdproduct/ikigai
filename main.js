@@ -1411,6 +1411,36 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
+    // Mobile: Toggle extra actions next to chat input
+    const inputToggleBtn = document.getElementById('input-toggle-actions');
+    if (inputToggleBtn && inputArea && userInput) {
+        inputToggleBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            inputArea.classList.toggle('show-actions-on-focus');
+        });
+
+        // Hide icons when user starts typing or clicks textarea
+        userInput.addEventListener('input', () => {
+            if (inputArea.classList.contains('show-actions-on-focus')) {
+                inputArea.classList.remove('show-actions-on-focus');
+            }
+        });
+
+        userInput.addEventListener('click', () => {
+            if (inputArea.classList.contains('show-actions-on-focus')) {
+                inputArea.classList.remove('show-actions-on-focus');
+            }
+        });
+
+        // Reset state on blur (with delay to allow icon clicks)
+        userInput.addEventListener('blur', () => {
+            setTimeout(() => {
+                inputArea.classList.remove('show-actions-on-focus');
+            }, 300);
+        });
+    }
+
     window.addEventListener('scroll', () => {
         const nav = document.querySelector('.navbar');
         if (window.scrollY > 50) {

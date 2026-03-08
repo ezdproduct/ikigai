@@ -2760,8 +2760,37 @@ footer {
         bottom: 0 !important;
     }
 
-    .quiz-input-area:focus-within .input-top-actions {
+    /* Trạng thái mặc định khi gõ: Ẩn các icon gốc, hiện nút > */
+    .quiz-input-area:focus-within:not(.show-actions-on-focus) .input-top-actions {
         display: none !important;
+    }
+
+    .input-toggle-actions {
+        display: none !important;
+        flex-shrink: 0;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        border: none;
+        color: var(--primary);
+        padding: 0 8px 0 2px !important;
+        height: 48px;
+        z-index: 15;
+    }
+
+    .quiz-input-area:focus-within .input-toggle-actions {
+        display: flex !important;
+    }
+
+    /* Khi bấm vào nút > (trạng thái show-actions-on-focus) */
+    .quiz-input-area.show-actions-on-focus:focus-within .input-toggle-actions {
+        display: none !important;
+    }
+
+    .quiz-input-area.show-actions-on-focus:focus-within .input-top-actions {
+        display: flex !important;
+        padding-bottom: 0 !important;
+        gap: 8px !important;
     }
 
     /* Vùng 7 phần bên phải */
@@ -2821,9 +2850,15 @@ footer {
         width: max-content !important;
     }
 
-    /* Khi đang gõ: Khung gõ chiếm trọn 100% */
-    .quiz-input-area:focus-within .quiz-input-main {
-        flex: 0 0 100% !important;
+    /* Khi đang gõ: Khung gõ chiếm trọn 100% (sau khi trừ đi nút >) */
+    .quiz-input-area:focus-within:not(.show-actions-on-focus) .quiz-input-main {
+        flex: 1 !important;
+        min-width: 0;
+    }
+
+    .quiz-input-area.show-actions-on-focus:focus-within .quiz-input-main {
+        flex: 1 !important;
+        min-width: 0;
     }
 
     /* Biến ô soạn thảo thành hình viên thuốc hệt như Messenger */
