@@ -3053,8 +3053,8 @@ footer {
 
     .glass-quiz-card {
         margin: 0 !important;
-        padding: 10px 0 0 0 !important;
-        /* Padding ngang được dời vào từng component con để input chạm lề */
+        padding: 4px 0 0 0 !important;
+        /* Giảm từ 10px xuống 4px để chừa chỗ cho chat */
         flex: 1 !important;
         width: 100% !important;
         height: 100% !important;
@@ -3074,6 +3074,27 @@ footer {
         margin-left: 0 !important;
         margin-right: 0 !important;
         box-sizing: border-box !important;
+    }
+
+    /* Thắt chặt phần header để nhường chỗ cho chat */
+    .quiz-header {
+        padding-bottom: 4px !important;
+        margin-bottom: 2px !important;
+        border-bottom-width: 1px !important;
+    }
+
+    .quiz-progress-container {
+        margin-top: 2px !important;
+        padding-bottom: 4px !important;
+    }
+
+    .progress-info {
+        margin-bottom: 3px !important;
+        font-size: 0.78rem !important;
+    }
+
+    .quiz-progress-bar {
+        height: 5px !important;
     }
 
     .quiz-body-wrapper {
