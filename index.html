@@ -429,11 +429,30 @@
         <div id="chapter-analysis-modal" class="modal hidden">
             <div class="modal-content glass-card chapter-analysis-modal-content">
                 <button id="close-chapter-modal" class="close-btn">&times;</button>
-                <h3 id="chapter-analysis-title">Phân tích Chương</h3>
-                <p id="chapter-analysis-desc">Dữ liệu phân tích cho chương này.</p>
-                <div class="modal-chart-container chapter-chart-wrap">
-                    <canvas id="chapterRadarChart"></canvas>
+
+                <div class="chapter-analysis-tabs" id="modal-chapter-tabs">
+                    <div class="modal-tab" data-chapter="1" onclick="showChapterAnalysis(1)">Chương 1</div>
+                    <div class="modal-tab" data-chapter="2" onclick="showChapterAnalysis(2)">Chương 2</div>
+                    <div class="modal-tab" data-chapter="3" onclick="showChapterAnalysis(3)">Chương 3</div>
+                    <div class="modal-tab" data-chapter="4" onclick="showChapterAnalysis(4)">Chương 4</div>
                 </div>
+
+                <div id="chapter-analysis-content-wrap">
+                    <h3 id="chapter-analysis-title">Phân tích Chương</h3>
+                    <p id="chapter-analysis-desc">Dữ liệu phân tích cho chương này.</p>
+                    <div class="modal-chart-container chapter-chart-wrap" id="chapter-chart-container">
+                        <canvas id="chapterRadarChart"></canvas>
+                    </div>
+                </div>
+
+                <div id="chapter-analysis-placeholder" class="hidden">
+                    <div class="placeholder-content">
+                        <i data-lucide="loader" class="animate-spin"></i>
+                        <p>Dữ liệu đang cập nhật...</p>
+                        <span>Hãy hoàn thành chương này để xem phân tích chi tiết nhé!</span>
+                    </div>
+                </div>
+
                 <div class="chapter-analysis-note">
                     <i data-lucide="info"></i>
                     <span>Đây chỉ là dữ liệu tạm thời cho từng chương, dữ liệu chính xác nhất sẽ được cập nhật ở trang

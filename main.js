@@ -792,6 +792,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     let chapterScores = { 1: [0, 0, 0, 0, 0, 0, 0], 2: [0, 0, 0, 0, 0, 0, 0], 3: [0, 0, 0, 0, 0, 0, 0], 4: [0, 0, 0, 0, 0, 0, 0] };
+    let completedChapters = new Set();
 
     function getChapterNumber(idx) {
         if (isTestMode) {
@@ -808,6 +809,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function showChapterCompletion(chapterNum) {
+        completedChapters.add(chapterNum);
         const nextChapter = chapterNum + 1;
         const msg = `Chúc mừng bạn đã hoàn thành xong chương ${chapterNum}. Bạn có thể xem kết quả phân tích về bản thân trong chương này và đến với hành trình tiếp theo!<br><div class="chapter-completion-btns">
             <button class="btn-chat-primary view-chapter-analysis-btn" onclick="showChapterAnalysis(${chapterNum})">Xem phân tích</button>
@@ -826,6 +828,32 @@ document.addEventListener('DOMContentLoaded', () => {
         const title = document.getElementById('chapter-analysis-title');
         const desc = document.getElementById('chapter-analysis-desc');
         const canvas = document.getElementById('chapterRadarChart');
+        const contentWrap = document.getElementById('chapter-analysis-content-wrap');
+        const placeholder = document.getElementById('chapter-analysis-placeholder');
+        const tabs = document.querySelectorAll('.modal-tab');
+
+        // Update active tab UI
+        tabs.forEach((tab, idx) => {
+            if (parseInt(tab.dataset.chapter) === chapterNum) tab.classList.add('active');
+            else tab.classList.remove('active');
+        });
+
+        modal.classList.remove('hidden');
+
+        // Check if chapter has data
+        const isCompleted = completedChapters.has(chapterNum);
+        const currentData = chapterScores[chapterNum];
+        const hasData = currentData.some(v => v > 0);
+
+        if (!hasData && !isCompleted) {
+            contentWrap.classList.add('hidden');
+            placeholder.classList.remove('hidden');
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+            return;
+        }
+
+        contentWrap.classList.remove('hidden');
+        placeholder.classList.add('hidden');
 
         const chapterTitles = {
             1: "Chương 1: Sở thích & Bản chất",
@@ -843,12 +871,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         title.textContent = chapterTitles[chapterNum];
         desc.textContent = chapterDescs[chapterNum];
-        modal.classList.remove('hidden');
-
-        const data = chapterScores[chapterNum];
 
         if (chapterRadarChart) {
-            chapterRadarChart.data.datasets[0].data = data;
+            chapterRadarChart.data.datasets[0].data = currentData;
             chapterRadarChart.update();
         } else {
             const ctx = canvas.getContext('2d');
@@ -858,7 +883,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     labels: categories,
                     datasets: [{
                         label: 'Kết quả chương',
-                        data: data,
+                        data: currentData,
                         backgroundColor: 'rgba(255, 217, 61, 0.2)',
                         borderColor: 'rgb(255, 217, 61)',
                         pointBackgroundColor: 'rgb(255, 217, 61)',

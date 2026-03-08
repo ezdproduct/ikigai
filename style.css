@@ -3038,3 +3038,79 @@ footer {
     font-size: 0.95rem;
     color: var(--text-muted);
 }
+
+/* Modal Tabs */
+.chapter-analysis-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 1rem 0 2rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.modal-tab {
+    padding: 8px 16px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: var(--transition);
+    background: #f8f8f8;
+}
+
+.modal-tab:hover {
+    background: #f0f0f0;
+    color: var(--primary);
+}
+
+.modal-tab.active {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 4px 12px rgba(255, 142, 113, 0.2);
+}
+
+/* Analysis Placeholder */
+#chapter-analysis-placeholder {
+    padding: 3rem 1rem;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.02);
+    border-radius: 20px;
+    border: 1px dashed #ddd;
+    margin: 1rem 0 2rem;
+}
+
+.placeholder-content i {
+    width: 40px;
+    height: 40px;
+    color: var(--primary);
+    margin-bottom: 1rem;
+    opacity: 0.6;
+}
+
+.placeholder-content p {
+    font-size: 1.1rem !important;
+    font-weight: 700 !important;
+    color: var(--text-dark) !important;
+    margin-bottom: 0.5rem !important;
+}
+
+.placeholder-content span {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.animate-spin {
+    animation: spin 2s linear infinite;
+}
