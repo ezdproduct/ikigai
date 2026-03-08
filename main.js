@@ -734,11 +734,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Apply weights and update chart
         if (lastAppliedWeight) {
             lastAppliedWeight.forEach((w, i) => scores[i] += w);
-
-            // Track chapter specific scores
-            const chNum = getChapterNumber(targetIdx);
-            lastAppliedWeight.forEach((w, i) => chapterScores[chNum][i] += w);
-
             updateChart();
         }
 
@@ -791,9 +786,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 800 * dFactor);
     }
 
-    let chapterScores = { 1: [0, 0, 0, 0, 0, 0, 0], 2: [0, 0, 0, 0, 0, 0, 0], 3: [0, 0, 0, 0, 0, 0, 0], 4: [0, 0, 0, 0, 0, 0, 0] };
-    let completedChapters = new Set();
-
     function getChapterNumber(idx) {
         if (isTestMode) {
             if (idx < 2) return 1;
@@ -809,7 +801,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function showChapterCompletion(chapterNum) {
-        completedChapters.add(chapterNum);
         const nextChapter = chapterNum + 1;
         const msg = `Chúc mừng bạn đã hoàn thành xong chương ${chapterNum}. Bạn có thể xem kết quả phân tích về bản thân trong chương này và đến với hành trình tiếp theo!<br><div class="chapter-completion-btns">
             <button class="btn-chat-primary view-chapter-analysis-btn" onclick="showChapterAnalysis(${chapterNum})">Xem phân tích</button>
@@ -833,19 +824,20 @@ document.addEventListener('DOMContentLoaded', () => {
         const tabs = document.querySelectorAll('.modal-tab');
 
         // Update active tab UI
-        tabs.forEach((tab, idx) => {
+        tabs.forEach((tab) => {
             if (parseInt(tab.dataset.chapter) === chapterNum) tab.classList.add('active');
             else tab.classList.remove('active');
         });
 
         modal.classList.remove('hidden');
 
-        // Check if chapter has data
-        const isCompleted = completedChapters.has(chapterNum);
-        const currentData = chapterScores[chapterNum];
-        const hasData = currentData.some(v => v > 0);
+        // Check if chapter has been reached
+        const currentChapterNum = getChapterNumber(currentIdx);
+        // Chapter is viewable if it's completed or the user is currently in it (with some data)
+        const isReached = isQuizCompleted || chapterNum <= currentChapterNum;
+        const hasSomeData = scores.some(v => v > 0);
 
-        if (!hasData && !isCompleted) {
+        if (!isReached || (chapterNum === 1 && !hasSomeData)) {
             contentWrap.classList.add('hidden');
             placeholder.classList.remove('hidden');
             if (typeof lucide !== 'undefined') lucide.createIcons();
@@ -856,24 +848,27 @@ document.addEventListener('DOMContentLoaded', () => {
         placeholder.classList.add('hidden');
 
         const chapterTitles = {
-            1: "Chương 1: Sở thích & Bản chất",
-            2: "Chương 2: Trăn trở & Góc nhìn",
-            3: "Chương 3: Khát vọng & Tưởng tượng",
-            4: "Chương 4: Lựa chọn & Ưu tiên"
+            1: "Chương 1: Loại hình Đam mê",
+            2: "Chương 2: Động lực & Nỗi đau",
+            3: "Chương 3: Tầm nhìn & Mục tiêu",
+            4: "Chương 4: Hệ thống Ưu tiên"
         };
 
         const chapterDescs = {
-            1: "Chương này giúp chúng tôi nhận diện những sở thích tự nhiên và bản năng của bạn. Qua đó, ta thấy được 'màu sắc' chủ đạo trong cách bạn tiếp cận thế giới xung quanh.",
-            2: "Những trăn trở và góc nhìn về cuộc sống trong chương này tiết lộ những giá trị cốt lõi mà bạn đang theo đuổi hoặc những rào cản tâm lý bạn đang muốn vượt qua.",
-            3: "Khát vọng và trí tưởng tượng là chìa khóa mở ra tiềm năng vô hạn. Chương này cho thấy những đỉnh cao mà linh hồn bạn đang thực sự khao khát chạm tới.",
-            4: "Sự ưu tiên trong lựa chọn cuối cùng xác định mô hình hành động thực tế của bạn. Đây là bước quan trọng để chuyển hóa tiềm năng thành sự nghiệp thực thụ."
+            1: "Thông qua các sở thích tự nhiên, chúng tôi xác định được loại hình đam mê tiềm ẩn của bạn (Kỹ thuật, Sáng tạo, Chiến lược, Thấu cảm, Khám phá hay Phát triển bản thân) và mức độ 'phù hợp' của bạn với các lĩnh vực nghề nghiệp tương ứng.",
+            2: "Chương này giúp hiểu rõ những 'nỗi đau' hoặc sự thiếu hụt đang thúc đẩy bạn muốn thay đổi. Từ đó, chúng ta tìm ra động lực nội tại (intrinsic motivation) cần thiết để bạn theo đuổi đam mê một cách bền vững nhất.",
+            3: "Chúng ta đang xây dựng một bức tranh tương lai rõ ràng. Những phân tích này giúp bạn gọi tên và vượt qua những nỗi sợ hiện tại, đồng thời định hướng những mục tiêu dài hạn mang tính bản sắc cá nhân.",
+            4: "Lựa chọn cuối cùng làm lộ diện hệ thống ưu tiên (priority stack) thực sự của bạn. Đây là lúc phân biệt giữa đam mê 'bề mặt' với đam mê 'thật sự', giúp dự đoán chính xác những lựa chọn nghề nghiệp và phong cách sống trong tương lai."
         };
 
         title.textContent = chapterTitles[chapterNum];
         desc.textContent = chapterDescs[chapterNum];
 
+        // Global scores used for the chart (continuous analysis)
         if (chapterRadarChart) {
-            chapterRadarChart.data.datasets[0].data = currentData;
+            const maxVal = Math.max(...scores, 100);
+            chapterRadarChart.options.scales.r.suggestedMax = maxVal;
+            chapterRadarChart.data.datasets[0].data = scores;
             chapterRadarChart.update();
         } else {
             const ctx = canvas.getContext('2d');
@@ -882,11 +877,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 data: {
                     labels: categories,
                     datasets: [{
-                        label: 'Kết quả chương',
-                        data: currentData,
-                        backgroundColor: 'rgba(255, 217, 61, 0.2)',
-                        borderColor: 'rgb(255, 217, 61)',
-                        pointBackgroundColor: 'rgb(255, 217, 61)',
+                        label: 'Bản đồ Tiềm năng',
+                        data: scores,
+                        backgroundColor: 'rgba(255, 142, 113, 0.2)',
+                        borderColor: 'rgb(255, 142, 113)',
+                        pointBackgroundColor: 'rgb(255, 142, 113)',
                         borderWidth: 2
                     }]
                 },
@@ -896,7 +891,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     scales: {
                         r: {
                             suggestedMin: 0,
-                            suggestedMax: 20, // Lower max for single chapter
+                            suggestedMax: 100,
                             ticks: { display: false },
                             pointLabels: { font: { size: 9, weight: '600' }, padding: 15 }
                         }
@@ -999,8 +994,7 @@ document.addEventListener('DOMContentLoaded', () => {
             sideAnalysisChart.update();
         }
         if (chapterRadarChart) { // Added for chapter-specific chart
-            const currentChapterNum = getChapterNumber(currentIdx);
-            chapterRadarChart.data.datasets[0].data = chapterScores[currentChapterNum];
+            chapterRadarChart.data.datasets[0].data = scores;
             chapterRadarChart.update();
         }
     }
